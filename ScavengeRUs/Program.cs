@@ -1,3 +1,4 @@
+//File name: Program.cs
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using ScavengeRUs.Data;
