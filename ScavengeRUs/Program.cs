@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.Web;
 using ScavengeRUs.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+//Caleb
 
 // Add services to the container.
 builder.Services.AddRazorPages();
