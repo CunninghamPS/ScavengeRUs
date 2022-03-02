@@ -11,4 +11,9 @@
     <Folder Include="Data\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Syncfusion.Blazor.Popups" Version="19.4.0.54" />
+    <PackageReference Include="Syncfusion.Licensing" Version="19.4.0.54" />
+  </ItemGroup>
+
 </Project>
