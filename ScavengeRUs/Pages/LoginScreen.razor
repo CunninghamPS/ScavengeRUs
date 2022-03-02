@@ -1,6 +1,61 @@
 ﻿@page "/loginScreen"
+@inject NavigationManager NavigationManager
 
-<h3>LoginScreen</h3>
+<EditForm Model="@user" OnValidSubmit="@ValidateUser">
+    <center> 
+        <div>
+            <br /> <br /> <br /> 
+        </div>
+        <div class="border col-5"> 
+            <div class="col-12">
+                <h3 style = "color:blue; font-weight: bold">ScavengeRUs Login</h3>
+            </div>
+            <div>
+                <br />
+                <h5 style = "color:red; font-weight: bold">@feedback</h5>
+                <br />
+            </div>
+            <div class="col-10">
+                <input class="form-control inputs" @bind="@user.Email" placeholder="Email Address" />
+            </div>
+            <div>
+                <br />
+            </div>
+            <div class="col-10">
+                <input type="password" class="form-control inputs" @bind="@user.Password" placeholder="Password" />
+            </div>
+            <br />
+            <div class="col-5">
+                <input type="submit" class="form-control btn btn-primary" value="Login" />
+            </div>
+        </div>
+    </center>
+            
+</EditForm>
+
+
 @code {
+    private Models.Account user;
+    private string feedback;
 
+    protected override Task OnInitializedAsync()
+    {
+        user = new Models.Account();
+        return base.OnInitializedAsync();
+    }
+    private async Task<bool> ValidateUser()
+    {
+        if(user.Email.Equals("William") && user.Password.Equals("Kinser"))
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            feedback = "Wrong Username or Password";
+        }
+
+        return await Task.FromResult(true);
+    }
+
+    
 }
