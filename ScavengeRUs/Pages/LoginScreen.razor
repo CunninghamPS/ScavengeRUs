@@ -7,12 +7,13 @@
             <br /> <br /> <br /> 
         </div>
         <div class="border col-5"> 
+            <br />
             <div class="col-12">
-                <h3 style = "color:blue; font-weight: bold">ScavengeRUs Login</h3>
+                <h3 style = "color:#3998E8; font-weight: bold">ScavengeRUs Login</h3>
             </div>
             <div>
                 <br />
-                <h5 style = "color:red; font-weight: bold">@feedback</h5>
+                <h5 class="red">@feedback</h5>
                 <br />
             </div>
             <div class="col-10">
@@ -27,6 +28,14 @@
             <br />
             <div class="col-5">
                 <input type="submit" class="form-control btn btn-primary" value="Login" />
+            </div>
+            <div>
+                <br />
+                <p>or</p>
+                <div class="col-5">
+                <button name="signupButton" class="form-control btn btn-primary" @onclick="SignUp">SignUp</button>
+                <br /> <br />
+            </div>
             </div>
         </div>
     </center>
@@ -57,5 +66,35 @@
         return await Task.FromResult(true);
     }
 
-    
+    private async Task<bool> SignUp()
+    {
+        NavigationManager.NavigateTo("/signUpScreen");
+        return await Task.FromResult(true);
+    }
+
 }
+
+<style>
+    .page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-family: roboto, sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.inputs {
+    margin-left: 20px;
+}
+.border{
+    border: 2px solid;
+    border-radius: 12px;
+    padding: 5px
+}
+.red{
+    color: red;
+    font-size: small;
+    font-style: italic;
+}
+</style>
