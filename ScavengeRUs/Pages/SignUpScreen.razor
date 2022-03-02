@@ -1,5 +1,47 @@
-﻿<h3>SignUpScreen</h3>
+﻿@page "/signUpScreen"
+@inject NavigationManager UriHelper
+<!--  simple label and text box's for sighup screen will go back and make it look pretty later-->
+<h3>SignUpScreen </h3>
+  <br />
+  <!--
+    First Name
+   <input type="text" @bind="@fName" />
+   <br />
+   <br />
+   last Name
+   <input type="text" @bind="@lname" />
+   <br />
+   -->
+  <label for="fname">First name: </label>
+  <input type="text" id="fname" name="fname"><br><br>
+  <label for="lname">Last name:</label>
+  <input type="text" id="lname" name="lname"><br><br>
+  <label for="phoneNum">Phone Number:</label>
+  <input type="text" id="phoneNum" name="phoneNum"><br><br>
+  <label for="DOB">Date of Birth:</label>
+  <input type="text" id="DOB" name="DOB"><br><br>
+  <label for="username">Username:</label>
+  <input type="text" id="username" name="username"><br><br>
+  <label for="password">Password:</label>
+  <input type="text" id="password" name="Password"><br><br>
+  <button class="btn btn-primary" @onclick=@Navigate>link to Terms & conditions</button>
+  <br />
+  <br />
+  <button class="btn btn-primary" @onclick="submit"> Submit</button>
+
 
 @code {
+    private string fName,lname;
+    private void submit()
+    {
+        
+    }
+    void Navigate()
+    {
+        UriHelper.NavigateTo("/loginScreen");
 
+    }
+   
+    
 }
+
