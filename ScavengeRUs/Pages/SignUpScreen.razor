@@ -1,40 +1,58 @@
 ﻿@page "/signUpScreen"
 @inject NavigationManager UriHelper
+@using ScavengeRUs.Models;
 <!--  simple label and text box's for sighup screen will go back and make it look pretty later-->
+<!-- Add validation to Nick's Work, the date validation is kind of trash though, because I don't know how to do regular expressions XD Josiah -->
 <h3>SignUpScreen </h3>
   <br />
-  <!--
-    First Name
-   <input type="text" @bind="@fName" />
-   <br />
-   <br />
-   last Name
-   <input type="text" @bind="@lname" />
-   <br />
-   -->
-  <label for="fname">First name: </label>
-  <input type="text" id="fname" name="fname"><br><br>
-  <label for="lname">Last name:</label>
-  <input type="text" id="lname" name="lname"><br><br>
-  <label for="phoneNum">Phone Number:</label>
-  <input type="text" id="phoneNum" name="phoneNum"><br><br>
-  <label for="DOB">Date of Birth:</label>
-  <input type="text" id="DOB" name="DOB"><br><br>
-  <label for="username">Username:</label>
-  <input type="text" id="username" name="username"><br><br>
-  <label for="password">Password:</label>
-  <input type="text" id="password" name="Password"><br><br>
-  <button class="btn btn-primary" @onclick=@Navigate>link to Terms & conditions</button>
-  <br />
-  <br />
-  <button class="btn btn-primary" @onclick="submit"> Submit</button>
+  <EditForm Model="@Account" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
+        <fieldset>
+            <legend>Create Account</legend>
+            
+            <div>
+                <label for="FirstName">First Name</label>
+                <input type="text" id="FirstName" @bind-value="Account.FirstName" />
+                <ValidationMessage For="@(() => Account.FirstName)"/>
+            </div>
+            <div>
+                <label for ="LastName">Last Name</label>
+                <input type="text" id="LastName" @bind-value="Account.LastName" />
+            </div>
+            <div>
+                <label for="EmailAddress">Email</label>
+                <input type="text" id="EmailAddress" @bind-value="Account.Email"  />
+            </div>
+            <div>
+                <label for="PhoneNumber">Phone Number</label>
+                <input type="text" id="PhoneNumber" @bind-value="Account.PhoneNumber"  />
+            </div>
+            <div>
+                <label for="DOB">Date of Birth</label>
+                <input type="text" id="DOB" @bind-value="Account.DOB"  />
+            </div>
+            <div>
+                <label for="Username">Username</label>
+                <input type="text" id="Username" @bind-value="Account.UserName" />
+            </div>
+            <div>
+                <label for="Password">Password</label>
+                <input type="text" id="Password" @bind-value="Account.Password" />
+            </div>
+            <div>
+                <label for="CheckAvailibility">Check Availibility and Submit</label>
+                <button type="Submit" id="ValidateAndSubmit">Submit</button>
+            </div>
+        </fieldset>
+    </EditForm>
 
 
 @code {
-    private string fName,lname;
-    private void submit()
+    private Account Account = new Account();
+    private void HandleValidSubmit()
     {
-        
+        Console.WriteLine("Valid Submit");
     }
     void Navigate()
     {
