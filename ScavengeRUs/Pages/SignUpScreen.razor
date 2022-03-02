@@ -15,34 +15,53 @@
                 <label for="FirstName">First Name</label>
                 <input type="text" id="FirstName" @bind-value="Account.FirstName" />
                 <ValidationMessage For="@(() => Account.FirstName)"/>
+                     <br />
             </div>
+            <br />
             <div>
                 <label for ="LastName">Last Name</label>
                 <input type="text" id="LastName" @bind-value="Account.LastName" />
+                 <br />
             </div>
+            <br />
             <div>
                 <label for="EmailAddress">Email</label>
                 <input type="text" id="EmailAddress" @bind-value="Account.Email"  />
+                 <br />
             </div>
+            <br />
             <div>
                 <label for="PhoneNumber">Phone Number</label>
                 <input type="text" id="PhoneNumber" @bind-value="Account.PhoneNumber"  />
+                 <br />
             </div>
+            <br />
             <div>
                 <label for="DOB">Date of Birth</label>
                 <input type="text" id="DOB" @bind-value="Account.DOB"  />
+                 <br />
             </div>
+            <br />
             <div>
                 <label for="Username">Username</label>
                 <input type="text" id="Username" @bind-value="Account.UserName" />
+                 <br />
             </div>
+            <br />
             <div>
                 <label for="Password">Password</label>
                 <input type="text" id="Password" @bind-value="Account.Password" />
+                 <br />
             </div>
+            <br />
             <div>
+              
+                  <br />
+                <button class="btn btn-primary" @onclick=@Navigate>link to Terms & conditions</button>
+                <br />
                 <label for="CheckAvailibility">Check Availibility and Submit</label>
-                <button type="Submit" id="ValidateAndSubmit">Submit</button>
+                <br />
+                <button class="btn btn-primary" @onclick="HandleValidSubmit"> Submit</button>
             </div>
         </fieldset>
     </EditForm>
