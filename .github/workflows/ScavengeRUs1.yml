@@ -1,4 +1,10 @@
 name: Build and deploy .NET Core application to Web App ScavengeRUs1
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 env:
   AZURE_WEBAPP_NAME: ScavengeRUs1
   AZURE_WEBAPP_PACKAGE_PATH: .\published
