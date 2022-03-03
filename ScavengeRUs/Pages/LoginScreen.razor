@@ -1,12 +1,15 @@
 ﻿@page "/loginScreen"
 @inject NavigationManager NavigationManager
 
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 <EditForm Model="@user" OnValidSubmit="@ValidateUser">
     <center> 
         <div>
             <br /> <br /> <br /> 
         </div>
-        <div class="border col-5"> 
+        <div class="border logInWrapper"> 
             <br />
             <div class="col-12">
                 <h3 style = "color:#3998E8; font-weight: bold">ScavengeRUs Login</h3>
@@ -16,27 +19,25 @@
                 <h5 class="red">@feedback</h5>
                 <br />
             </div>
-            <div class="col-10">
+            <div class="inputField">
                 <input class="form-control inputs" @bind="@user.Email" placeholder="Email Address" />
             </div>
-            <div>
-                <br />
-            </div>
-            <div class="col-10">
+            <br />
+            <div class="inputField">
                 <input type="password" class="form-control inputs" @bind="@user.Password" placeholder="Password" />
             </div>
-            <br />
-            <div class="col-5">
-                <input type="submit" class="form-control btn btn-primary" value="Login" />
-            </div>
-            <div>
                 <br />
-                <p>or</p>
-                <div class="col-5">
-                <button name="signupButton" class="form-control btn btn-primary" @onclick="SignUp">SignUp</button>
-                <br /> <br />
-            </div>
-            </div>
+                <div>
+                    <input type="submit" class="btn btn-primary" value="Login" />
+                </div>
+                <div>
+                    <br />
+                    <p>or</p>
+                    <div>
+                        <button name="signupButton" class="btn btn-primary" @onclick="SignUp">SignUp</button>
+                        <br /> <br />
+                    </div>
+                </div>
         </div>
     </center>
             
@@ -74,6 +75,8 @@
 
 }
 
+
+
 <style>
     .page {
     position: relative;
@@ -84,8 +87,17 @@
     font-style: normal;
 }
 
+.form-control {
+    width: 120%;
+}
+
+.logInWrapper{
+    max-width: 600px;
+}
+
+
 .inputs {
-    margin-left: 20px;
+    width: 50%;
 }
 .border{
     border: 2px solid;
@@ -96,5 +108,12 @@
     color: red;
     font-size: small;
     font-style: italic;
+}
+
+@@media (max-width:600px){
+    .border
+    {
+        border:0px solid !important
+    }
 }
 </style>
