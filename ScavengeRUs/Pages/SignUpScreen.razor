@@ -6,68 +6,99 @@
 
 <!--  simple label and text box's for sighup screen will go back and make it look pretty later-->
 <!-- Add validation to Nick's Work, the date validation is kind of trash though, because I don't know how to do regular expressions XD Josiah -->
-<h3>SignUpScreen </h3>
-  <br />
 <EditForm Model="@Account" OnValidSubmit="HandleValidSubmit">
-    <DataAnnotationsValidator/>
-    <ValidationSummary/>
-    <fieldset>
-        <legend>Create Account</legend>
-            
+    <center>
         <div>
-            <label for="FirstName">First Name</label>
-            <input type="text" id="FirstName" @bind-value="Account.FirstName" />
-            <ValidationMessage For="@(() => Account.FirstName)"/>
-                    <br />
+            <br /> <br /> <br /> 
         </div>
-        <br />
-        <div>
-            <label for ="LastName">Last Name</label>
-            <input type="text" id="LastName" @bind-value="Account.LastName" />
-                <br />
-        </div>
-        <br />
-        <div>
-            <label for="EmailAddress">Email</label>
-            <input type="text" id="EmailAddress" @bind-value="Account.Email"  />
-                <br />
-        </div>
-        <br />
-        <div>
-            <label for="PhoneNumber">Phone Number</label>
-            <input type="text" id="PhoneNumber" @bind-value="Account.PhoneNumber"  />
-                <br />
-        </div>
-        <br />
-        <div>
-            <label for="DOB">Date of Birth</label>
-            <input type="text" id="DOB" @bind-value="Account.DOB"  />
-                <br />
-        </div>
-        <br />
-        <div>
-            <label for="Username">Username</label>
-            <input type="text" id="Username" @bind-value="Account.UserName" />
-                <br />
-        </div>
-        <br />
-        <div>
-            <label for="Password">Password</label>
-            <input type="text" id="Password" @bind-value="Account.Password" />
-                <br />
-        </div>
-        <br />
-        <div>
-              
-                <br />
-            <button class="btn btn-primary" @onclick=@NavigateTermsNCond>Terms & Conditions</button>
+        <div class="border signUpWrapper"> 
             <br />
-            <label for="CheckAvailibility"></label>
-            <br />
-            <button class="btn btn-primary" @onclick="HandleValidSubmit" disabled="@SubmitBtnDisabled"> Submit</button>
+            <div class="col-12">
+                <h3 style = "color:#3998E8; font-weight: bold">ScavengeRUs SignUp</h3>
+            </div>
+            <fieldset>
+                <br />
+                <br />
+                <div>
+                    <DataAnnotationsValidator/>
+                    <ValidationSummary/>
+                    <div class="row">
+                        <div class="col-5">
+                            <label for="FirstName"><span style="color: red">*</span>First Name:</label>
+                        </div>
+                        <div class="col-5">
+                            <input type="text" class="form-control" id="FirstName" @bind-value="Account.FirstName" />
+                        </div>
+                        <br />
+                        <br />
+                        <div class="col-5">
+                            <label for ="LastName"><span style="color: red">*</span>Last Name:</label>
+                        </div>
+                        <div class="col-5">
+                            <input type="text" class="form-control" id="LastName" @bind-value="Account.LastName" />
+                        </div>
+                        <br />
+                        <br />
+                        <div class="col-5">
+                            <label for="EmailAddress"><span style="color: red">*</span>Email:</label>
+                        </div>
+                        <div class="col-5">
+                            <input type="text" class="form-control" id="EmailAddress" @bind-value="Account.Email"  />
+                        </div>
+                        <br />
+                        <br />
+                        <div class="col-5">
+                            <label for="PhoneNumber"><span style="color: red">*</span>Phone Number:</label>
+                        </div>
+                        <div class="col-5">
+                            <input type="text" class="form-control" id="PhoneNumber" @bind-value="Account.PhoneNumber"  />
+                        </div>
+                        <br />
+                        <br />
+                        <div class="col-5">
+                            <label for="DOB"><span style="color: red">*</span>Date of Birth:</label>
+                        </div>
+                        <div class="col-5">
+                            <input type="text" class="form-control" id="DOB" @bind-value="Account.DOB"  />
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <div class="col-5">
+                            <label for="Username"><span style="color: red">*</span>Username:</label>
+                        </div>
+                        <div class="col-5">
+                            <input type="text" class="form-control" id="Username" @bind-value="Account.UserName" />
+                        </div>
+                        <br />
+                        <br />
+                        <div class="col-5">
+                            <label for="Password"><span style="color: red">*</span>Password:</label>
+                        </div>
+                        <div class="col-5">
+                            <input type="text" class="form-control" id="Password" @bind-value="Account.Password" />
+                        </div>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+                <br />
+                <button class="btn btn-primary" @onclick=@NavigateTermsNCond>Terms & Conditions</button>
+                <br />
+                <label for="CheckAvailibility"></label>
+                <br />
+                <button class="btn btn-primary" @onclick="HandleValidSubmit" disabled="@SubmitBtnDisabled"> Submit</button>
+                <br />
+                <br />
+            </fieldset>
         </div>
-    </fieldset>
+    </center>
 </EditForm>
+<br />
+<br />
+<br />
+<br />
 
 <SfDialog Width="300px" Height="400px" IsModal="true" ResizeHandles="@dialogResizeDirections" AllowDragging="true" EnableResize="false" ShowCloseIcon="false" @bind-Visible="@IsVisible">
     <DialogTemplates>
@@ -113,12 +144,47 @@
         this.IsVisible = false;
         SubmitBtnDisabled = false;
     }
-
-    private void Validation(BeforeCloseEventArgs args)
-    {
-        
-    }
-   
-    
 }
+
+<style>
+    .page {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        font-family: roboto, sans-serif;
+        font-weight: 500;
+        font-style: normal;
+    }
+
+    .inputs {
+        margin-left: 20px;
+    }
+
+    .border {
+        border: 2px solid;
+        border-radius: 12px;
+        padding: 5px
+    }
+
+    .red {
+        color: red;
+        font-size: small;
+        font-style: italic;
+    }
+
+    .form-control {
+        width: 120%;
+    }
+
+    .signUpWrapper {
+        max-width: 600px;
+    }
+
+    @@media (max-width:600px) {
+        .border
+        {
+            border:0px solid !important
+        }
+    }
+</style>
 

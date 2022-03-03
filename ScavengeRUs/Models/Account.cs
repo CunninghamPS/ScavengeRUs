@@ -12,7 +12,7 @@
         public string LastName { get; set; } = string.Empty;
 
         [Required]
-        [RegularExpression(@"(0[1-9]|[12][0-9]|[3][01])\/(0[1-9]|1[0-2])\/\d{4}")]
+        [RegularExpression(@"^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$")]
         public string DOB { get; set; } = string.Empty;
 
         public string TeamName { get; set; } = string.Empty;
