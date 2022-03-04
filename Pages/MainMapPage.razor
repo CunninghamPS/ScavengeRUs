@@ -1,3 +1,20 @@
 ﻿@page "/"
+@using Syncfusion.Blazor.Maps
+
 
 <h1>This will become the main map page</h1>
+
+<SfMaps>
+    @* To zoom around the map *@
+    <MapsZoomSettings Enable="true">
+        <MapsZoomToolbarSettings>
+            <MapsZoomToolbarButton ToolbarItems="new List<ToolbarItem>() { ToolbarItem.Zoom, ToolbarItem.ZoomIn, ToolbarItem.ZoomOut,
+            ToolbarItem.Pan, ToolbarItem.Reset }"></MapsZoomToolbarButton>
+        </MapsZoomToolbarSettings>
+    </MapsZoomSettings>
+    <MapsLayers>
+        <MapsLayer UrlTemplate="http://mt1.google.com/vt/lyrs=m@129&hl=en&x=tileX&y=tileY&z=level" TValue="string">
+         @*<MapsLayer UrlTemplate="http://a.tile.openstreetmap.org/level/tileX/tileY.png" TValue="string"> @*@
+        </MapsLayer>
+    </MapsLayers>
+</SfMaps>
