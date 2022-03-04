@@ -8,12 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="MailKit" Version="3.1.1" />
     <PackageReference Include="Syncfusion.Blazor.Popups" Version="19.4.0.54" />
     <PackageReference Include="Syncfusion.Licensing" Version="19.4.0.54" />
+    <PackageReference Include="Twilio" Version="5.72.0" />
   </ItemGroup>
 
 </Project>

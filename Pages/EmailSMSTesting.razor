@@ -1,0 +1,104 @@
+﻿@page "/EmailSMSTesting"
+@inject NavigationManager NavigationManager
+@using ScavengeRUs.Data;
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+    <center> 
+        <div>
+            <br /> <br /> <br /> 
+        </div>
+        <div class="border logInWrapper"> 
+            <br />
+            <div class="col-12">
+                <h3 style = "color:#3998E8; font-weight: bold">Email/URL Testing</h3>
+            </div>
+            <div>
+                <br />
+                <h5 class="red">@feedback</h5>
+                <br />
+            </div>
+            <div class="inputField">
+                <input class="form-control inputs" @bind="@email" placeholder="Email Address" />
+            </div>
+            <br />
+            <div class="inputField">
+                <input class="form-control inputs" @bind="@phoneNum" placeholder="Phone Number" />
+            </div>
+                <br />
+                <div>
+                    <input type="submit" class="btn btn-primary" @onclick="sendURL" value="Submit" />
+                </div>
+        </div>
+    </center>
+
+
+@code {
+    private string phoneNum;
+    private string email;
+    private string feedback = "";
+
+    protected override Task OnInitializedAsync()
+    {
+        return base.OnInitializedAsync();
+    }
+
+    private void sendURL()
+    {
+        EmailSMSTest.sendURLEmail(email);
+        //EmailSMSTest.sendURLText(phoneNum);
+        sendAccessCode();
+    }
+
+    private void sendAccessCode()
+    {
+        EmailSMSTest.sendAccessCodeEmail(123456, email);
+        //EmailSMSTest.sendAccessCodeText(123456, phoneNum);
+        feedback = "Sent!";
+    }
+
+}
+
+
+
+<style>
+    .page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-family: roboto, sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.form-control {
+    width: 120%;
+}
+
+.logInWrapper{
+    max-width: 600px;
+}
+
+
+.inputs {
+    width: 50%;
+}
+.border{
+    border: 2px solid;
+    border-radius: 12px;
+    padding: 5px
+}
+.red{
+    color: red;
+    font-size: small;
+    font-style: italic;
+}
+
+@@media (max-width:600px){
+    .border
+    {
+        border:0px solid !important
+    }
+}
+</style>
