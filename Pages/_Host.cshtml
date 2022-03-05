@@ -22,6 +22,41 @@
         var map = new google.maps.Map(document.getElementById
             ("map"), options);
     }   
+
+</script>
+
+<script>
+     function getUserLocation(map) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var point = new google.maps.LatLng(position.coords.latitude,
+                        position.coords.longitude);
+
+                    if (typeof getUserLocation.user_marker == 'undefined') {
+                        getUserLocation.user_marker = new google.maps.Marker({
+                            position:point,
+                            map:gmap
+                            //icon:'person.png'
+                        });
+                        getUserLocation.user_marker_window = new google.maps.InfoWindow({
+                            content:'You'
+                        });
+
+                        google.maps.event.addListener(getUserLocation.user_marker, 'click', function () {
+                            getUserLocation.user_marker_window.open(getUserLocation.user_marker);
+                        });
+                    }
+                    getUserLocation.user_marker.setPosition(point);
+                });
+            }
+        }
+
+        if (navigator.geolocation) {
+            getUserLocation(gmap);
+            setInterval(function () {
+                getUserLocation(gmap);
+            }, 5000);
+        }
 </script>
   
 
