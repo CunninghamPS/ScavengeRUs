@@ -47,14 +47,14 @@
     private void sendURL()
     {
         EmailSMSTest.sendURLEmail(email);
-        //EmailSMSTest.sendURLText(phoneNum);
+        EmailSMSTest.sendURLText(phoneNum);
         sendAccessCode();
     }
 
     private void sendAccessCode()
     {
         EmailSMSTest.sendAccessCodeEmail(123456, email);
-        //EmailSMSTest.sendAccessCodeText(123456, phoneNum);
+        EmailSMSTest.sendAccessCodeText(123456, phoneNum);
         feedback = "Sent!";
     }
 

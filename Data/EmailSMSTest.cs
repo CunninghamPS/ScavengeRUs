@@ -1,14 +1,20 @@
 ﻿using MailKit.Net.Smtp;
 using MailKit;
 using MimeKit;
-using Twilio;
-using Twilio.Rest.Api.V2010.Account;
-using Twilio.Types;
+using System;
+using System.Collections.Generic;
+using Azure;
+using Azure.Communication;
+using Azure.Communication.Sms;
 
 namespace ScavengeRUs.Data
 {
     public static class EmailSMSTest
     {
+
+        private static string connectionString = "endpoint=https://scavengerussms1.communication.azure.com/;accesskey=GPpHXMPXR92zsuWf7PiL3bXPDi3sawyALab5ubLSjSjw58Uhtzuqt8xk74UYvrMGvHmHumw4AsryBAmMCwWXPQ==";
+        private static string PNUM = "+18443145032";
+
         public static void sendAccessCodeEmail(int accessCode, string email)
         {
 
@@ -104,25 +110,26 @@ namespace ScavengeRUs.Data
 
         public static void sendAccessCodeText(int accessCode, string phoneNum)
         {
+            SmsClient smsClient = new SmsClient(connectionString);
 
-            TwilioClient.Init("AC993c29d22fb0ea6b44222ff0bbf3bf0a", "f0ea83384d05ac3c9192d91c2955dcb5");
-
-            MessageResource.Create(
-                to: new PhoneNumber("+1" + phoneNum),
-                from: new PhoneNumber("+19107089762"),
-                body: accessCode.ToString());
+            SmsSendResult sendResult = smsClient.Send(
+                from: PNUM,
+                to: "+1" + phoneNum,
+                message: accessCode.ToString()
+            );
         }
 
         public static void sendURLText(string phoneNum)
         {
             string URL = "https://scavengerus1.azurewebsites.net/loginScreen";
 
-            TwilioClient.Init("AC993c29d22fb0ea6b44222ff0bbf3bf0a", "f0ea83384d05ac3c9192d91c2955dcb5");
+            SmsClient smsClient = new SmsClient(connectionString);
 
-            MessageResource.Create(
-                to: new PhoneNumber("+1" + phoneNum),
-                from: new PhoneNumber("+19107089762"),
-                body: URL);
+            SmsSendResult sendResult = smsClient.Send(
+                from: PNUM,
+                to: "+1" + phoneNum,
+                message: URL
+            );
         }
 
 
