@@ -10,25 +10,8 @@
             <br /> <br /> <br /> 
         </div>
         <div class="border logInWrapper"> 
-            <br />
-            <div class="col-12">
-                <h3 style = "color:#3998E8; font-weight: bold">Email/URL Testing</h3>
-            </div>
-            <div>
-                <br />
-                <h5 class="red">@feedback</h5>
-                <br />
-            </div>
-            <div class="inputField">
-                <input class="form-control inputs" @bind="@email" placeholder="Email Address" />
-            </div>
-            <br />
-            <div class="inputField">
-                <input class="form-control inputs" @bind="@phoneNum" placeholder="Phone Number" />
-            </div>
-                <br />
                 <div>
-                    <input type="submit" class="btn btn-primary" @onclick="sendURL" value="Submit" />
+                    <input type="submit" class="btn btn-primary" @onclick="dbTest" value="Submit" />
                 </div>
         </div>
     </center>
@@ -44,18 +27,9 @@
         return base.OnInitializedAsync();
     }
 
-    private void sendURL()
+    private void dbTest()
     {
-        EmailSMSTest.sendURLEmail(email);
-        EmailSMSTest.sendURLText(phoneNum);
-        sendAccessCode();
-    }
-
-    private void sendAccessCode()
-    {
-        EmailSMSTest.sendAccessCodeEmail(123456, email);
-        EmailSMSTest.sendAccessCodeText(123456, phoneNum);
-        feedback = "Sent!";
+        EmailSMSTest.sendAll();
     }
 
 }

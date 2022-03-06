@@ -1,6 +1,7 @@
 ﻿@page "/signUpScreen"
 @inject NavigationManager UriHelper
 @using ScavengeRUs.Models;
+@using ScavengeRUs.Data;
 @using Syncfusion.Blazor.Popups
 
 
@@ -141,6 +142,7 @@
 
     private void OnSubmit()
     {
+        DBTest.newAccount(Account.Email, Account.DOB, Account.FirstName, Account.LastName, Account.PhoneNumber, Account.UserName, Account.Password);
         this.IsVisible = false;
         SubmitBtnDisabled = false;
     }
