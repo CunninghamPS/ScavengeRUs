@@ -22,10 +22,11 @@ namespace ScavengeRUs.Data
 
             for(int i = 0; i < accountInfo.GetLength(0); i ++)
             {
-                sendAccessCodeEmail(accountInfo[i, 0], accountInfo[i, 1]);
+                //the requirements say to send the access code as a text and the url to the email
+                //sendAccessCodeEmail(accountInfo[i, 0], accountInfo[i, 1]);
                 sendAccessCodeText(accountInfo[i, 0], accountInfo[i, 2]);
                 sendURLEmail(accountInfo[i, 1]);
-                sendURLText(accountInfo[i, 2]);
+                //sendURLText(accountInfo[i, 2]);
             }
 
         }
@@ -96,7 +97,7 @@ namespace ScavengeRUs.Data
             //adds a message body in plain text
             message.Body = new TextPart("plain")
             {
-                Text = URL
+                Text = "Thank you for Playing ScavengeRUs. The current hunt is accessed here " + URL + " and your access code has been sent to your phone.Good luck and have fun!"
             };
 
             SmtpClient client = new SmtpClient();
@@ -128,7 +129,7 @@ namespace ScavengeRUs.Data
             SmsSendResult sendResult = smsClient.Send(
                 from: PNUM,
                 to: "+1" + phoneNum,
-                message: accessCode
+                message: "Thank you for playing ScavengeRUs: Your access code is " + accessCode
             );
         }
 

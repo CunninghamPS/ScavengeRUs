@@ -28,7 +28,7 @@
                             <label for="FirstName"><span style="color: red">*</span>First Name:</label>
                         </div>
                         <div class="col-5">
-                            <input type="text" class="form-control" id="FirstName" @bind-value="Account.FirstName" />
+                            <input type="text" class="form-control" id="FirstName" @bind-value="Account.FirstName.ToLower()" />
                         </div>
                         <br />
                         <br />
@@ -36,7 +36,7 @@
                             <label for ="LastName"><span style="color: red">*</span>Last Name:</label>
                         </div>
                         <div class="col-5">
-                            <input type="text" class="form-control" id="LastName" @bind-value="Account.LastName" />
+                            <input type="text" class="form-control" id="LastName" @bind-value="Account.LastName.ToLower()" />
                         </div>
                         <br />
                         <br />
@@ -44,7 +44,7 @@
                             <label for="EmailAddress"><span style="color: red">*</span>Email:</label>
                         </div>
                         <div class="col-5">
-                            <input type="text" class="form-control" id="EmailAddress" @bind-value="Account.Email"  />
+                            <input type="text" class="form-control" id="EmailAddress" @bind-value="Account.Email.ToLower()"  />
                         </div>
                         <br />
                         <br />
@@ -52,7 +52,7 @@
                             <label for="PhoneNumber"><span style="color: red">*</span>Phone Number:</label>
                         </div>
                         <div class="col-5">
-                            <input type="text" class="form-control" id="PhoneNumber" @bind-value="Account.PhoneNumber"  />
+                            <input type="text" class="form-control" id="PhoneNumber" @bind-value="Account.PhoneNumber.ToLower()"  />
                         </div>
                         <br />
                         <br />
@@ -118,6 +118,7 @@
     private Account Account = new Account();
     private void HandleValidSubmit()
     {
+        DBTest.newAccount(Account.Email, Account.DOB, Account.FirstName, Account.LastName, Account.PhoneNumber, Account.UserName, Account.Password);
         Console.WriteLine("Valid Submit");
     }
     void Navigate()
@@ -142,7 +143,6 @@
 
     private void OnSubmit()
     {
-        DBTest.newAccount(Account.Email, Account.DOB, Account.FirstName, Account.LastName, Account.PhoneNumber, Account.UserName, Account.Password);
         this.IsVisible = false;
         SubmitBtnDisabled = false;
     }

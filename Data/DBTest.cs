@@ -105,40 +105,75 @@ namespace ScavengeRUs.Data
             }
         }
 
-        public static void newAccount(string email, string dob, string first, string last, string phone, string username, string password)
+        public static List<string> getAccessCodes()
         {
-            int count;
+            List<string> result = new List<string>();
 
             using (var conn = new SqlConnection(connectionString))
             {
                 using (var command = conn.CreateCommand())
                 {
 
-                    command.CommandText = @"SELECT TOP 1 * FROM account ORDER BY id DESC;";
+                    command.CommandText = @"SELECT accessCode FROM account;";
 
                     conn.Open();
 
                     using (var reader = command.ExecuteReader())
                     {
-                        reader.Read();
-
-                        if (reader.HasRows == true)
-                            count = reader.GetInt32(0) + 1;
-                        else
-                            count = 1;
+                        while (reader.Read())
+                        {
+                            result.Add(reader.GetString(0));
+                        }
                     }
                 }
             }
+
+            return result;
+        }
+
+        public static List<string> fillList()
+        {
+            List<string> result = new List<string>();
+
+            for (int i = 0; i < 1000000; i++)
+            {
+                result.Add(i.ToString("000000"));
+            }
+
+            return result;
+        }
+
+        public static List<string> getAvailableAccessCodes()
+        {
+            List<string> full = fillList();
+            List<string> used = getAccessCodes();
+
+            foreach (string code in used)
+            {
+                full.Remove(code);
+            }
+            return full;
+        }
+
+        public static void newAccount(string email, string dob, string first, string last, string phone, string username, string password)
+        {
+            string accessCode;
+            Random random = new Random();
+
+            List<string> existingCodes = getAvailableAccessCodes();
+            int tempCode = random.Next(0, existingCodes.Count);
+
+            accessCode = existingCodes[tempCode];
 
             using (var conn = new SqlConnection(connectionString))
             {
                 using (var command = conn.CreateCommand())
                 {
-                    command.CommandText = @"INSERT INTO account (id, email, dob, firstName, lastName, phoneNum, username, pass)
+                    command.CommandText = @"INSERT INTO account (accessCode, email, dob, firstName, lastName, phoneNum, username, pass)
                         VALUES
-                        (@ID, @email, @DOB, @first, @last, @phone, @username, @password);";
+                        (@access, @email, @DOB, @first, @last, @phone, @username, @password, @access);";
 
-                    command.Parameters.AddWithValue("@ID", count);
+                    command.Parameters.AddWithValue("@access", accessCode);
                     command.Parameters.AddWithValue("@email", email);
                     command.Parameters.AddWithValue("@DOB", dob);
                     command.Parameters.AddWithValue("@first", first);
