@@ -16,7 +16,8 @@
     {
         if (firstRender)
         {
-            await JSRuntime.InvokeVoidAsync("initialize", null);
+            await JSRuntime.InvokeVoidAsync("initMap", null);
+            //await JSRuntime.InvokeVoidAsync("getUserLocation",map);
             StateHasChanged();
         }
 
