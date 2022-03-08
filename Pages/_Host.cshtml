@@ -62,18 +62,18 @@
  <script>
      function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: 36.3024, lng: -82.3699},  
+    center: { lat: 36.3024, lng: -82.3699},                                         //starting Lat and Lng
     zoom: 14,
   });
   infoWindow = new google.maps.InfoWindow();
 
   const locationButton = document.createElement("button");
 
-  locationButton.textContent = "Pan to Current Location";
+  locationButton.textContent = "Update Location";
   locationButton.classList.add("custom-map-control-button");
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
   locationButton.addEventListener("click", () => {
-    // Try HTML5 geolocation.
+    // Try to see if browser supports this.
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -92,7 +92,7 @@
         }
       );
     } else {
-      // Browser doesn't support Geolocation
+      //  if Browser doesn't support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
     }
   });
