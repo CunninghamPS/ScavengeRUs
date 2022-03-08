@@ -10,5 +10,105 @@
         <link href="_content/Syncfusion.Blazor.Themes/bootstrap4.css" rel="stylesheet"/>
     </environment>
 </head>
+<!--<script src="_framework/blazor.server.js"></script> !-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQcsSU9qSgM-GUUMQDtFQnVAWM4o9APgc&v=3"></script>
+
+<script>
+    function initialize() {
+        var latlng = new google.maps.LatLng(36.3024, -82.3699);
+        var options = {
+            zoom: 14, center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById
+            ("map"), options);
+    }   
+
+</script>
+
+<script>
+     function getUserLocation(map) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var point = new google.maps.LatLng(position.coords.latitude,
+                        position.coords.longitude);
+
+                    if (typeof getUserLocation.user_marker == 'undefined') {
+                        getUserLocation.user_marker = new google.maps.Marker({
+                            position:point,
+                            map:gmap
+                            icon:"person.png"
+                        });
+                        getUserLocation.user_marker_window = new google.maps.InfoWindow({
+                            content:'You'
+                        });
+
+                        google.maps.event.addListener(getUserLocation.user_marker, 'click', function () {
+                            getUserLocation.user_marker_window.open(getUserLocation.user_marker);
+                        });
+                    }
+                    getUserLocation.user_marker.setPosition(point);
+                });
+            }
+        }
+
+        if (navigator.geolocation) {
+            getUserLocation(gmap);
+            setInterval(function () {
+                getUserLocation(gmap);
+            }, 5000);
+        }
+</script>
+ <script>
+     function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: 36.3024, lng: -82.3699},                                         //starting Lat and Lng
+    zoom: 14,
+  });
+  infoWindow = new google.maps.InfoWindow();
+
+  const locationButton = document.createElement("button");
+
+  locationButton.textContent = "Update Location";
+  locationButton.classList.add("custom-map-control-button");
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+  locationButton.addEventListener("click", () => {
+    // Try to see if browser supports this.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+
+          infoWindow.setPosition(pos);
+          infoWindow.setContent("Location found.");
+          infoWindow.open(map);
+          map.setCenter(pos);
+        },
+        () => {
+          handleLocationError(true, infoWindow, map.getCenter());
+        }
+      );
+    } else {
+      //  if Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+  });
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(
+    browserHasGeolocation
+      ? "Error: The Geolocation service failed."
+      : "Error: Your browser doesn't support geolocation."
+  );
+  infoWindow.open(map);
+}
+
+ </script>
 
 <component type="typeof(App)" render-mode="ServerPrerendered" />
+
