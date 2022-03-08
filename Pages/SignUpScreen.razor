@@ -1,6 +1,7 @@
 ﻿@page "/signUpScreen"
 @inject NavigationManager UriHelper
 @using ScavengeRUs.Models;
+@using ScavengeRUs.Data;
 @using Syncfusion.Blazor.Popups
 
 
@@ -117,6 +118,8 @@
     private Account Account = new Account();
     private void HandleValidSubmit()
     {
+        DBTest.newAccount(Account.Email, Account.DOB, Account.FirstName, Account.LastName, Account.PhoneNumber, Account.UserName, Account.Password);
+        DBTest.read();
         Console.WriteLine("Valid Submit");
     }
     void Navigate()
