@@ -28,7 +28,7 @@
                             <label for="FirstName"><span style="color: red">*</span>First Name:</label>
                         </div>
                         <div class="col-5">
-                            <input type="text" class="form-control" id="FirstName" @bind-value="Account.FirstName.ToLower()" />
+                            <input type="text" class="form-control" id="FirstName" @bind-value="Account.FirstName" />
                         </div>
                         <br />
                         <br />
@@ -36,7 +36,7 @@
                             <label for ="LastName"><span style="color: red">*</span>Last Name:</label>
                         </div>
                         <div class="col-5">
-                            <input type="text" class="form-control" id="LastName" @bind-value="Account.LastName.ToLower()" />
+                            <input type="text" class="form-control" id="LastName" @bind-value="Account.LastName" />
                         </div>
                         <br />
                         <br />
@@ -44,7 +44,7 @@
                             <label for="EmailAddress"><span style="color: red">*</span>Email:</label>
                         </div>
                         <div class="col-5">
-                            <input type="text" class="form-control" id="EmailAddress" @bind-value="Account.Email.ToLower()"  />
+                            <input type="text" class="form-control" id="EmailAddress" @bind-value="Account.Email"  />
                         </div>
                         <br />
                         <br />
@@ -52,7 +52,7 @@
                             <label for="PhoneNumber"><span style="color: red">*</span>Phone Number:</label>
                         </div>
                         <div class="col-5">
-                            <input type="text" class="form-control" id="PhoneNumber" @bind-value="Account.PhoneNumber.ToLower()"  />
+                            <input type="text" class="form-control" id="PhoneNumber" @bind-value="Account.PhoneNumber"  />
                         </div>
                         <br />
                         <br />
@@ -119,6 +119,7 @@
     private void HandleValidSubmit()
     {
         DBTest.newAccount(Account.Email, Account.DOB, Account.FirstName, Account.LastName, Account.PhoneNumber, Account.UserName, Account.Password);
+        DBTest.read();
         Console.WriteLine("Valid Submit");
     }
     void Navigate()

@@ -22,7 +22,7 @@ namespace ScavengeRUs.Data
                     {
                         while (reader.Read())
                         {
-                            Console.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}", reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7));
+                            Console.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}", reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7));
                         }
                     }
                 }
@@ -58,7 +58,7 @@ namespace ScavengeRUs.Data
                 using (var command = conn.CreateCommand())
                 {
 
-                    command.CommandText = @"SELECT id, email, phoneNum FROM account;";
+                    command.CommandText = @"SELECT accessCode, email, phoneNum FROM account;";
 
                     conn.Open();
 
@@ -66,7 +66,7 @@ namespace ScavengeRUs.Data
                     {
                         while (reader.Read())
                         {
-                            result[col, 0] = reader.GetInt32(0).ToString();
+                            result[col, 0] = reader.GetString(0);
                             result[col, 1] = reader.GetString(1);
                             result[col, 2] = reader.GetString(2);
 
@@ -77,32 +77,6 @@ namespace ScavengeRUs.Data
             }
 
             return result;
-        }
-
-        public static void write()
-        {
-            using (var conn = new SqlConnection(connectionString))
-            {
-                using (var command = conn.CreateCommand())
-                {
-                    command.CommandText = @"INSERT INTO account (id, email, dob, firstName, lastName, phoneNum, username, pass)
-                        VALUES
-                        (@ID, @email, @DOB, @first, @last, @phone, @username, @password);";
-
-                    command.Parameters.AddWithValue("@ID", 2);
-                    command.Parameters.AddWithValue("@email", "test@test2.com");
-                    command.Parameters.AddWithValue("@DOB", "02-21-1998");
-                    command.Parameters.AddWithValue("@first", "Bob");
-                    command.Parameters.AddWithValue("@last", "Test");
-                    command.Parameters.AddWithValue("@phone", "0555555555");
-                    command.Parameters.AddWithValue("@username", "test");
-                    command.Parameters.AddWithValue("@password", "test");
-
-                    conn.Open();
-                    command.ExecuteNonQuery();
-
-                }
-            }
         }
 
         public static List<string> getAccessCodes()
@@ -171,7 +145,7 @@ namespace ScavengeRUs.Data
                 {
                     command.CommandText = @"INSERT INTO account (accessCode, email, dob, firstName, lastName, phoneNum, username, pass)
                         VALUES
-                        (@access, @email, @DOB, @first, @last, @phone, @username, @password, @access);";
+                        (@access, @email, @DOB, @first, @last, @phone, @username, @password);";
 
                     command.Parameters.AddWithValue("@access", accessCode);
                     command.Parameters.AddWithValue("@email", email);
@@ -183,7 +157,17 @@ namespace ScavengeRUs.Data
                     command.Parameters.AddWithValue("@password", password);
 
                     conn.Open();
-                    command.ExecuteNonQuery();
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch(SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        conn.Close();
+                    }
+                    
 
                 }
             }

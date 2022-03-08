@@ -31,52 +31,6 @@ namespace ScavengeRUs.Data
 
         }
 
-        public static void sendAccessCodeEmail(string accessCode, string email)
-        {
-
-            MailboxAddress sender = new MailboxAddress("ScavengeRUs Team", "jj.cat98@gmail.com");
-
-            string emailAddress = "game.scavengerus@gmail.com";
-            string password = "ScavengeRUs2022Tier1";
-
-            //creates a new message object
-            MimeMessage message = new MimeMessage();
-            //adds an account to send the message from
-            message.From.Add(sender);
-            //adds a recipient to the message
-            message.To.Add(MailboxAddress.Parse(email));
-            //adds a subject to the message
-            message.Subject = "ScavengeRUs Access Code";
-            //adds a message body in plain text
-            message.Body = new TextPart("plain")
-            {
-                Text = accessCode
-            };
-
-            SmtpClient client = new SmtpClient();
-
-            //tries to connect to the email account and send the message
-            try
-            {
-                client.Connect("smtp.gmail.com", 465, true);
-                client.Authenticate(emailAddress, password);
-                client.Send(message);
-
-                Console.WriteLine("Email Sent!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                client.Disconnect(true);
-
-                client.Dispose();
-            }
-
-        }
-
         public static void sendURLEmail(string email)
         {
             string URL = "https://scavengerus1.azurewebsites.net/loginScreen";
@@ -130,19 +84,6 @@ namespace ScavengeRUs.Data
                 from: PNUM,
                 to: "+1" + phoneNum,
                 message: "Thank you for playing ScavengeRUs: Your access code is " + accessCode
-            );
-        }
-
-        public static void sendURLText(string phoneNum)
-        {
-            string URL = "https://scavengerus1.azurewebsites.net/loginScreen";
-
-            SmsClient smsClient = new SmsClient(connectionString);
-
-            SmsSendResult sendResult = smsClient.Send(
-                from: PNUM,
-                to: "+1" + phoneNum,
-                message: URL
             );
         }
 
