@@ -27,7 +27,7 @@
 </script>
 
 <script>
-     function getUserLocation(map) {
+       function getUserLocation(map) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     var point = new google.maps.LatLng(position.coords.latitude,
@@ -36,15 +36,15 @@
                     if (typeof getUserLocation.user_marker == 'undefined') {
                         getUserLocation.user_marker = new google.maps.Marker({
                             position:point,
-                            map:gmap
-                            icon:"person.png"
+                            map:gmap,
+                            icon:'person.png'
                         });
                         getUserLocation.user_marker_window = new google.maps.InfoWindow({
                             content:'You'
                         });
 
                         google.maps.event.addListener(getUserLocation.user_marker, 'click', function () {
-                            getUserLocation.user_marker_window.open(getUserLocation.user_marker);
+                            getUserLocation.user_marker_window.open(map, getUserLocation.user_marker);
                         });
                     }
                     getUserLocation.user_marker.setPosition(point);
@@ -54,16 +54,19 @@
 
         if (navigator.geolocation) {
             getUserLocation(gmap);
-            setInterval(function () {
+            setInterval(function(){
                 getUserLocation(gmap);
             }, 5000);
         }
 </script>
+
+
  <script>
      function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 36.3024, lng: -82.3699},                                         //starting Lat and Lng
     zoom: 14,
+    mapId: 'b46534731f6a54a3'
   });
   infoWindow = new google.maps.InfoWindow();
 
@@ -107,6 +110,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   );
   infoWindow.open(map);
 }
+
 
  </script>
 
