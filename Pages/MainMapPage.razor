@@ -10,6 +10,204 @@
 <div>
    <!-- <button name="signupButton" class="btn btn-primary" @onclick="updateLocation">SignUp</button>-->
 </div>
+
+<br />
+<label style="font-size: 30px">Game Tasks:</label>
+<div class="card-container">
+    <div class="card">
+        <header class="task-header">
+            <div>
+                <div class="category-title">
+                    Task 1
+                    <!-- This can be set to something like: if (user.game == card.game && user.task == card.task) { set span completed }-->
+                    <span class="completed">&#10003; Completed</span>
+                </div>
+            </div>
+            <h2 class="task-title">
+                This task is to go to the CULP Center and scan the QR code located near the Chick-fil-a.
+            </h2>
+        </header>
+        <div class="gameInfo">
+            <div class="info">
+                <div class="caption">Game</div>
+                <div class="name">ETSU Game 1</div>
+            </div>
+        </div>
+        <div class="tags">
+            <div>Link to game</div>
+            <div>Link to task info</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <header class="task-header">
+            <div>
+                <div class="category-title">
+                    Task 2
+                    <span class="completed"></span>
+                </div>
+            </div>
+            <h2 class="task-title">
+                Filler material
+            </h2>
+        </header>
+        <div class="gameInfo">
+            <div class="info">
+                <div class="caption">Game</div>
+                <div class="name">ETSU Game 1</div>
+            </div>
+        </div>
+        <div class="tags">
+            <div>Link to game</div>
+            <div>Link to task info</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <header class="task-header">
+            <div>
+                <div class="category-title">
+                    Task 3
+                    <span class="completed"></span>
+                </div>
+            </div>
+            <h2 class="task-title">
+                Filler material
+            </h2>
+        </header>
+        <div class="gameInfo">
+            <div class="info">
+                <div class="caption">Game</div>
+                <div class="name">ETSU Game 1</div>
+            </div>
+        </div>
+        <div class="tags">
+            <div>Link to game</div>
+            <div>Link to task info</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <header class="task-header">
+            <div>
+                <div class="category-title">
+                    Task 4
+                    <span class="completed"></span>
+                </div>
+            </div>
+            <h2 class="task-title">
+                Filler material
+            </h2>
+        </header>
+        <div class="gameInfo">
+            <div class="info">
+                <div class="caption">Game</div>
+                <div class="name">ETSU Game 1</div>
+            </div>
+        </div>
+        <div class="tags">
+            <div>Link to game</div>
+            <div>Link to task info</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <header class="task-header">
+            <div>
+                <div class="category-title">
+                    Task 1
+                    <span class="completed"></span>
+                </div>
+            </div>
+            <h2 class="task-title">
+                Filler material
+            </h2>
+        </header>
+        <div class="gameInfo">
+            <div class="info">
+                <div class="caption">Game</div>
+                <div class="name">ETSU Game 2</div>
+            </div>
+        </div>
+        <div class="tags">
+            <div>Link to game</div>
+            <div>Link to task info</div>
+        </div>
+    </div>
+
+     <div class="card">
+        <header class="task-header">
+            <div>
+                <div class="category-title">
+                    Task 2
+                    <span class="completed"></span>
+                </div>
+            </div>
+            <h2 class="task-title">
+                Filler material
+            </h2>
+        </header>
+        <div class="gameInfo">
+            <div class="info">
+                <div class="caption">Game</div>
+                <div class="name">ETSU Game 2</div>
+            </div>
+        </div>
+        <div class="tags">
+            <div>Link to game</div>
+            <div>Link to task info</div>
+        </div>
+    </div>
+
+     <div class="card">
+        <header class="task-header">
+            <div>
+                <div class="category-title">
+                    Task 3
+                    <span class="completed"></span>
+                </div>
+            </div>
+            <h2 class="task-title">
+                Filler material
+            </h2>
+        </header>
+        <div class="gameInfo">
+            <div class="info">
+                <div class="caption">Game</div>
+                <div class="name">ETSU Game 2</div>
+            </div>
+        </div>
+        <div class="tags">
+            <div>Link to game</div>
+            <div>Link to task info</div>
+        </div>
+    </div>
+
+     <div class="card">
+        <header class="task-header">
+            <div>
+                <div class="category-title">
+                    Task 4
+                    <span class="completed"></span>
+                </div>
+            </div>
+            <h2 class="task-title">
+                Filler material
+            </h2>
+        </header>
+        <div class="gameInfo">
+            <div class="info">
+                <div class="caption">Game</div>
+                <div class="name">ETSU Game 2</div>
+            </div>
+        </div>
+        <div class="tags">
+            <div>Link to game</div>
+            <div>Link to task info</div>
+        </div>
+    </div>
+</div>
+
 @code{
     string map;
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -28,3 +226,88 @@
         await JSRuntime.InvokeVoidAsync("getUserLocation",map);
     }
 }
+
+<style>
+.card-container {
+    max-width: 1500px;
+    overflow-x: scroll;
+    display: flex;
+    background-color: white;
+    padding: 2rem;
+}
+
+.card {
+    min-width: 300px;
+    max-width: 300px;
+    height: 350px;
+    border-radius: 16px;
+    background-color: rgb(27, 45, 59);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    transition: 0.2s;
+    border-color: gray;
+}
+
+.completed {
+    color: green;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem 0 1rem;
+}
+
+.tags div {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border: 3px solid rgb(18, 29, 38);
+    border-radius: 2rem;
+    color: lightblue;
+    cursor: pointer;
+}
+
+.card .category-title {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.card .task-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+}
+
+.card .task-header {
+    margin-bottom: auto;
+}
+
+.card .gameInfo {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+}
+
+.card .caption {
+    color: white !important;
+}
+
+.card .name {
+    color: darkgray !important;
+}
+
+.card:not(:first-child) {
+    margin-left: -100px;
+}
+
+.card:hover {
+    transform: translateY(-1rem);
+}
+
+.card:hover~.card {
+    transform: translateX(130px);
+}
+</style>
