@@ -1,0 +1,86 @@
+﻿@page "/QRCodeScanner"
+@using ZXingBlazor.Components
+
+<h3>QRCodeScan</h3>
+
+<button class="btn btn-primary"
+        type="button"
+        @onclick="(() => ShowScanBarcode = !ShowScanBarcode)">Scan QR Code
+</button>
+<input type="text" class="form-control" style="min-width: 100px;"
+       @bind-value="BarCode"
+       placeholder="Code" />
+@if (ShowScanBarcode)
+{
+
+    <BarcodeReader ScanResult="((e) => { BarCode=e; ShowScanBarcode = !ShowScanBarcode; })"
+                   ShowScanBarcode="ShowScanBarcode"
+                   Close="(()=>ShowScanBarcode=!ShowScanBarcode)" 
+                   ScanBtnTitle="Scan"
+                   ResetBtnTitle="Reset"
+                   CloseBtnTitle="Close"
+                   SelectDeviceBtnTitle="Select Device"
+                   />
+
+}
+<br />
+
+<button class="btn btn-primary"
+        type="button"
+        @onclick="(() => ShowScanBarcodeCustom = !ShowScanBarcodeCustom)">
+   Custom Scan
+</button>
+<input type="text" class="form-control" style="min-width: 100px;"
+       @bind-value="BarCodeCustom"
+       placeholder="Code" />
+@if (ShowScanBarcodeCustom)
+{
+    <BarcodeReader ScanResult="((e) => { BarCodeCustom=e; ShowScanBarcodeCustom = !ShowScanBarcodeCustom; })"
+                   Close="(()=>ShowScanBarcodeCustom=!ShowScanBarcodeCustom)"
+                   OnError="OnError"
+                   UseBuiltinDiv="false"
+                   @ref="barcodeReaderCustom" />
+
+    <div @ref="barcodeReaderCustom.barcodeScannerElement">
+        <div style="width: 480px; max-width: 100%">
+            <button class="btn btn-outline-success p-2 m-1 w-25" data-action="startButton">Start</button>
+            <button class="btn btn-outline-success p-2 m-1 w-25" data-action="resetButton">Reset</button>
+            <button type="button" class="btn btn-outline-success p-2 m-1 w-25" data-action="closeButton">Close</button>
+
+            <div data-action="sourceSelectPanel" style="display:none">
+                <label for="sourceSelect">Source Select:</label>
+                <select data-action="sourceSelect" style="max-width:100%" class="form-control">
+                </select>
+            </div>
+            <div>
+                <video id="video" style="height:480px;width: 640px;border: 1px solid red"></video>
+            </div>
+        </div>
+    </div>
+
+
+}
+<p>@message</p>
+
+@code {
+    bool ShowScanBarcode { get; set; } = false;
+
+    public string? BarCode { get; set; }
+
+    private string message;
+
+    private Task OnError(string message)
+    {
+        this.message = message;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    bool ShowCodes;
+
+    bool ShowScanBarcodeCustom { get; set; } = false;
+
+    public string? BarCodeCustom { get; set; }
+
+    BarcodeReader barcodeReaderCustom;
+}
