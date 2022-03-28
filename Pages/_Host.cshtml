@@ -100,17 +100,12 @@
             lng: position.coords.longitude,
           };
 
-        //creates marker
-        new google.maps.Marker({
-            position: pos,
-            icon: blueCheck,
-            map,
-            title: "user",
-         });
+       
 
-          map.setCenter(pos);
+          
           autoUpdate();
-         
+         map.setCenter(pos);
+         marker.setMap(null);
         },
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
