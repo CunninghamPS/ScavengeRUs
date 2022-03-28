@@ -2,13 +2,11 @@
 @using Syncfusion.Blazor.Maps
 @inject IJSRuntime JSRuntime
 
-<div id="map" style="height:500px;width:100%;"@bind=map>
+<div id="map" name="map" style="height:600px;width:100%;"@bind=map>
 
-
-    
 </div>
 <div>
-   <!-- <button name="signupButton" class="btn btn-primary" @onclick="updateLocation">SignUp</button>-->
+  <!--  <button name="signupButton" class="btn btn-primary" @onclick="updateLocation">SignUp</button> -->
 </div>
 
 <br />
@@ -215,15 +213,10 @@
         if (firstRender)
         {
             await JSRuntime.InvokeVoidAsync("initMap", null);
-            //await JSRuntime.InvokeVoidAsync("getUserLocation",map);
+           
             StateHasChanged();
         }
 
-
-    }
-    private  async Task updateLocation()
-    {
-        await JSRuntime.InvokeVoidAsync("getUserLocation",map);
     }
 }
 
