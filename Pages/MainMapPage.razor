@@ -4,13 +4,17 @@
 
 <div id="map" name="map" style="height:600px;width:100%;"@bind=map>
 
+
 </div>
 <div>
   <!--  <button name="signupButton" class="btn btn-primary" @onclick="updateLocation">SignUp</button> -->
 </div>
 
 <br />
-<label style="font-size: 30px">Game Tasks:</label>
+<div style="width:100%; margin: auto; padding: 5px; display: flex; align-items: center;">
+<label style="font-size: 30px; color:white; margin: auto; text-align:center;">Game Tasks:</label>
+
+</div>
 <div class="card-container">
     <div class="card">
         <header class="task-header">
@@ -222,10 +226,8 @@
 
 <style>
 .card-container {
-    max-width: 1500px;
     overflow-x: scroll;
     display: flex;
-    background-color: white;
     padding: 2rem;
 }
 
