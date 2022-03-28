@@ -1,8 +1,4 @@
-.page {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
+
 
 main {
     flex: 1;
@@ -31,30 +27,17 @@ main {
         text-overflow: ellipsis;
     }
 
-@media (max-width: 640.98px) {
-    .top-row:not(.auth) {
-        display: none;
-    }
-
-    .top-row.auth {
-        justify-content: space-between;
-    }
-
-    .top-row a, .top-row .btn-link {
-        margin-left: 0;
-    }
-}
 
 @media (min-width: 641px) {
     .page {
         flex-direction: row;
     }
 
-    .sidebar {
-        width: 250px;
-        height: 100vh;
-        position: sticky;
-        top: 0;
+    .bottombar {
+        width: 100%;
+        overflow: hidden;
+        position: fixed;
+        bottom: 0;
     }
 
     .top-row {

@@ -1,44 +1,65 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">ScavengeRUs</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
+﻿@inject NavigationManager navManager
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="signUpScreen">
-                <span class="oi oi-plus" aria-hidden="true"></span> signupscreen
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="loginScreen">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> loginScreen
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="EmailSMSTesting">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> EmailSMSTesting
-            </NavLink>
-        </div>
-       
-    </nav>
-</div>
-@code {
-    private bool collapseNavMenu = true;
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="NavBar/css/framework7.bundle.min.css">
+    <link rel="stylesheet" href="NavBar/css/style.css">
+	
+</head>
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+<a href="/" >
+	@if((navManager.ToBaseRelativePath(navManager.Uri)).Equals(""))
+	{
+		<i class="fa-solid fa-map-location fa-xl tabbar-active"></i>
+	}
+	else
+	{
+		<i class="fa-solid fa-map-location fa-xl"></i>
+	}
+	
+</a>
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+<a href="/games">
+	@if((navManager.ToBaseRelativePath(navManager.Uri)).Equals("games"))
+	{
+		<i class="fa-solid fa-gamepad fa-xl tabbar-active"></i>
+	}
+	else
+	{
+		<i class="fa-solid fa-gamepad fa-xl"></i>
+	}
+</a>
+
+<a href="/QR">
+	<div class="addQR">
+	    <i class="fa-solid fa-camera fa-xl"></i>
+	</div>
+</a>
+<a href="/tasks" >
+	@if((navManager.ToBaseRelativePath(navManager.Uri)).Equals("tasks"))
+	{
+		<i class="fa-solid fa-list-check fa-xl tabbar-active"></i>
+	}
+	else
+	{
+		<i class="fa-solid fa-list-check fa-xl"></i>
+	}
+</a>
+<a href="/loginScreen" >
+	@if((navManager.ToBaseRelativePath(navManager.Uri)).Equals("loginScreen"))
+	{
+		<i class="fa-solid fa-user fa-xl tabbar-active"></i>
+	}
+	else
+	{
+		<i class="fa-solid fa-user fa-xl"></i>
+	}
+</a>
+
+
+
