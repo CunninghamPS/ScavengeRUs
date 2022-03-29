@@ -1,5 +1,5 @@
 ﻿@page "/"
-@page "/{secretKey}"
+@page "/map/{secretKey}"
 @inherits MapPageBase
 @using ScavengeRUs.Data
 @using Syncfusion.Blazor.Maps
@@ -217,13 +217,50 @@
     }
     else
     {
-        
+        List<bool> taskCompletion = DBTest.getUserTasks(secretKey);
+        int i = 0;
+
+        foreach(string task in DBTest.getTasks())
+        {
+            
+
+            <div class="card">
+                <header class="task-header">
+                <div>
+                    <div class="category-title">
+                        @task
+                        <!-- This can be set to something like: if (user.game == card.game && user.task == card.task) { set span completed }-->
+                    @if(taskCompletion[i])
+                    {
+                        <span class="completed">&#10003; Completed</span>
+                    }
+                    </div>
+                </div>
+                <h2 class="task-title">
+                    This task is to go to the CULP Center and scan the QR code located near the Chick-fil-a.
+                </h2>
+            </header>
+            <div class="gameInfo">
+                <div class="info">
+                    <div class="caption">Game</div>
+                    <div class="name">ETSU Game 1</div>
+                </div>
+            </div>
+            <div class="tags">
+                <div>Link to game</div>
+                <div>Link to task info</div>
+            </div>
+        </div>
+
+        i++;
+        }
     }
 
 </div>
 
 @code{
     string map;
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)

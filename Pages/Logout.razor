@@ -1,0 +1,80 @@
+﻿@page "/logout/{secretKey}"
+@page "/logout"
+@inherits LogoutBase
+@inject NavigationManager NavigationManager
+@using ScavengeRUs.Data;
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+    <center> 
+        <div>
+            <div class="col-12">
+                <h3 style = "color:#3998E8; font-weight: bold">Logout</h3>
+            </div>
+            <br /> <br /> <br /> 
+        </div>
+        <div class="border logInWrapper"> 
+                <div>
+                    <input type="submit" class="btn btn-primary" @onclick="logout" value="LOGOUT" />
+                </div>
+        </div>
+    </center>
+
+
+@code {
+    protected override Task OnInitializedAsync()
+    {
+        return base.OnInitializedAsync();
+    }
+
+    private void logout()
+    {
+        if (secretKey != null)
+        {
+            DBTest.logout(secretKey);
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            DBTest.addUsersToGame();
+        }
+    }
+}
+
+
+
+<style>
+    .page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-family: roboto, sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.form-control {
+    width: 120%;
+}
+
+.logInWrapper{
+    max-width: 600px;
+}
+
+
+.inputs {
+    width: 50%;
+}
+.border{
+    border: 2px solid;
+    border-radius: 12px;
+    padding: 5px
+}
+.red{
+    color: red;
+    font-size: small;
+    font-style: italic;
+}
+
+</style>

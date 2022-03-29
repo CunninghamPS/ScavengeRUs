@@ -270,6 +270,32 @@ namespace ScavengeRUs.Data
             }
         }
 
+        public static void removeFromAccessDB(string accessCode)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+                    command.CommandText = @"DELETE FROM access WHERE accessCode=@accessCode;";
+
+                    command.Parameters.AddWithValue("@accessCode", accessCode);
+
+                    conn.Open();
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        conn.Close();
+                    }
+                }
+
+            }
+        }
+
         public static bool validateUser(string email, string password)
         {
 
@@ -400,8 +426,8 @@ namespace ScavengeRUs.Data
         {
             string guid = PasswordGenerator.Generate(length: 10, allowed: Sets.Alphanumerics);
 
-            updateGuid(accessCode, guid);
-
+            updateGuid(guid, accessCode);
+            removeFromAccessDB(accessCode);
             return guid;
         }
 
@@ -464,6 +490,165 @@ namespace ScavengeRUs.Data
                     {
                         Console.WriteLine(ex.Message);
                         conn.Close();
+                    }
+                }
+            }
+        }
+        public static List<string> getTasks()
+        {
+            List<string> tasks = new List<string>();
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+
+                    command.CommandText = @"SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('game');";
+
+                    conn.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        reader.Read();
+                        while (reader.Read())
+                        {
+                            tasks.Add(reader.GetString(0));
+                        }
+                    }
+                }
+            }
+
+            return tasks;
+        }
+
+        public static List<bool> getUserTasks(string guid)
+        {
+            List<bool> completed = new List<bool>();
+            string accessCode;
+
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+
+                    command.CommandText = @"SELECT accessCode FROM account WHERE guid=@guid;";
+
+                    command.Parameters.AddWithValue("@guid", guid);
+
+                    conn.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        reader.Read();
+                        
+                        accessCode = reader.GetString(0);
+                    }
+                }
+
+                using (var command = conn.CreateCommand())
+                {
+
+                    command.CommandText = @"SELECT * FROM game WHERE accessCode=@accessCode;";
+
+                    command.Parameters.AddWithValue("@accessCode", accessCode);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        reader.Read();
+
+                        for(int i = 1; i < reader.FieldCount; i++)
+                        {
+                            completed.Add(reader.GetBoolean(i));
+                        }
+                    }
+                }
+            }
+
+            return completed;
+        }
+
+        public static List<string> getUsers()
+        {
+            List<string> users = new List<string>();
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+
+                    command.CommandText = @"SELECT accessCode FROM account;";
+
+                    conn.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            users.Add(reader.GetString(0));
+                        }
+                    }
+                }
+            }
+
+            return users;
+        }
+
+        public static string getLocations()
+        {
+            int length;
+            string result = "";
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+
+                    command.CommandText = @"SELECT count(*) FROM information_schema.columns WHERE table_name = 'game';";
+
+                    conn.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        reader.Read();
+                        length = reader.GetInt32(0);
+                    }
+                }
+            }
+
+            for(int i = 0; i < length - 1; i++)
+            {
+                result += ", @false";
+            }
+
+            return result;
+        }
+
+        public static void addUsersToGame()
+        {
+            List<string> users = getUsers();
+            string locations = getLocations();
+
+            foreach (string user in users) 
+            {
+                using (var conn = new SqlConnection(connectionString))
+                {
+                    using (var command = conn.CreateCommand())
+                    {
+
+                        command.CommandText = @"INSERT INTO game VALUES(@accessCode" + locations + ");";
+
+                        command.Parameters.AddWithValue("@accessCode", user);
+                        command.Parameters.AddWithValue("@false", 0);
+                        
+
+                        conn.Open();
+
+                        try
+                        {
+                            command.ExecuteNonQuery();
+                        }
+                        catch (SqlException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            conn.Close();
+                        }
                     }
                 }
             }

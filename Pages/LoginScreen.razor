@@ -75,7 +75,7 @@
 
     private async Task<bool> navigateToMain(string addOn)
     {
-        NavigationManager.NavigateTo("/" + addOn);
+        NavigationManager.NavigateTo("/map/" + addOn);
         return await Task.FromResult(true);
     }
 
