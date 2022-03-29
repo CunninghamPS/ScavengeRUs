@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MlkPwgen;
+using System;
 using System.Data.SqlClient;
 
 namespace ScavengeRUs.Data
@@ -7,23 +8,33 @@ namespace ScavengeRUs.Data
     {
         private static string connectionString = "Server=tcp:scavengerus.database.windows.net,1433;Initial Catalog=ScavengeRUsDB;Persist Security Info=False;User ID=ScavengeRUs;Password=CodingWizards2022;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
-        public static void read() {
+        public static void setUserLogin(string email, string pass) {
 
             using (var conn = new SqlConnection(connectionString))
             {
                 using (var command = conn.CreateCommand())
                 {
 
-                    command.CommandText = @"SELECT * FROM account;";
+                    command.CommandText = @"SELECT * FROM account WHERE email=@email AND pass=@pass;";
+
+                    command.Parameters.AddWithValue("@email", email);
+                    command.Parameters.AddWithValue("@pass", pass);
 
                     conn.Open();
 
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
-                        {
-                            Console.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}", reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7));
-                        }
+                        reader.Read();
+                        
+                        UserLoginInfo.accessCode = Int32.Parse(reader.GetString(0));
+                        UserLoginInfo.email = reader.GetString(1);
+                        UserLoginInfo.dob = reader.GetString(2);
+                        UserLoginInfo.firstName = reader.GetString(3);
+                        UserLoginInfo.lastName = reader.GetString(4);
+                        UserLoginInfo.phoneNum = reader.GetString(5);
+                        UserLoginInfo.username = reader.GetString(6);
+
+                        Console.WriteLine(UserLoginInfo.accessCode);
                     }
                 }
             }
@@ -79,6 +90,29 @@ namespace ScavengeRUs.Data
             return result;
         }
 
+        public static string getURL(string accessCode)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+
+                    command.CommandText = @"SELECT urlID FROM access WHERE accessCode=@accessCode;";
+
+                    command.Parameters.AddWithValue("@accessCode", accessCode);
+
+                    conn.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        reader.Read();
+                        return reader.GetString(0);
+                    }
+                }
+            }
+
+        }
+
         public static List<string> getAccessCodes()
         {
             List<string> result = new List<string>();
@@ -132,7 +166,7 @@ namespace ScavengeRUs.Data
         public static void newAccount(string email, string dob, string first, string last, string phone, string username, string password)
         {
             string accessCode;
-            Random random = new Random();
+           System.Random random = new System.Random();
 
             List<string> existingCodes = getAvailableAccessCodes();
             int tempCode = random.Next(0, existingCodes.Count);
@@ -173,5 +207,266 @@ namespace ScavengeRUs.Data
             }
         }
 
+        public static void createGameURLs()
+        {
+            List<string> accessCodes = new List<string>();
+            System.Random rand = new System.Random();
+
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+
+                    command.CommandText = @"SELECT accessCode FROM account;";
+
+                    conn.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while(reader.Read())
+                        {
+                            accessCodes.Add(reader.GetString(0));
+                        }
+
+                    }
+                }
+
+                conn.Close();
+
+                long urlID;
+
+                foreach(string accessCode in accessCodes)
+                {
+                    urlID = rand.Next(501) * rand.Next(501);
+                    addToAccessDB(accessCode, urlID.ToString());
+                }
+            }
+        }
+
+        public static void addToAccessDB(string accessCode, string urlID)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+
+                    command.CommandText = @"INSERT INTO access(accessCode, urlID) VALUES (@accessCode, @urlID);";
+
+                    command.Parameters.AddWithValue("@accessCode", accessCode);
+                    command.Parameters.AddWithValue("@urlID", urlID);
+
+                    conn.Open();
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        conn.Close();
+                    }
+                }
+            }
+        }
+
+        public static bool validateUser(string email, string password)
+        {
+
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+                    command.CommandText = @"SELECT * FROM account WHERE email=@email AND pass=@pass;";
+
+                    command.Parameters.AddWithValue("@email", email);
+                    command.Parameters.AddWithValue("@pass", password);
+
+                    conn.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            Console.WriteLine("User logged in successfully");
+                            return true;
+                        }
+                        else
+                            return false;
+                    }
+                }
+
+            }
+
+        }
+
+        public static string getGuid(string accessCode)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+                    command.CommandText = @"SELECT guid FROM account WHERE accessCode=@accessCode;";
+
+                    command.Parameters.AddWithValue("@accessCode", accessCode);
+
+                    conn.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        return reader.GetString(0);
+                    }
+                }
+            }
+        }
+
+        public static string getGuid(string email, string pass)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+                    command.CommandText = @"SELECT guid FROM account WHERE email=@email AND pass=@pass;";
+
+                    command.Parameters.AddWithValue("@email", email);
+                    command.Parameters.AddWithValue("@pass", pass);
+
+                    conn.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        return reader.GetString(0);
+                    }
+                }
+            }
+        }
+
+        public static bool hasAccess(string accessCode, string urlID)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+
+                    command.CommandText = @"SELECT * FROM access WHERE accessCode=@accessCode AND urlID=@urlID;";
+
+                    command.Parameters.AddWithValue("@accessCode", accessCode);
+                    command.Parameters.AddWithValue("@urlID", urlID);
+
+                    conn.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        reader.Read();
+
+                        if(reader.HasRows)
+                        {
+                            return true;
+                        }
+                        else
+                            return false;
+
+                    }
+                }
+            }
+        }
+
+        public static string getAccessCode(string email, string pass)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+
+                    command.CommandText = @"SELECT accessCode FROM account WHERE email=@email AND pass=@pass;";
+
+                    command.Parameters.AddWithValue("@email", email);
+                    command.Parameters.AddWithValue("@pass", pass);
+
+                    conn.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        reader.Read();
+
+                       return reader.GetString(0);
+
+                    }
+                }
+            }
+        }
+
+        public static string login(string accessCode)
+        {
+            string guid = PasswordGenerator.Generate(length: 10, allowed: Sets.Alphanumerics);
+
+            updateGuid(accessCode, guid);
+
+            return guid;
+        }
+
+        public static string login(string email, string pass)
+        {
+            string guid = PasswordGenerator.Generate(length: 10, allowed: Sets.Alphanumerics);
+            string accessCode = getAccessCode(email, pass);
+
+            updateGuid(guid, accessCode);
+
+            return guid;
+        }
+
+        public static void logout(string guid)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+
+                    command.CommandText = @"UPDATE account SET guid=@guid WHERE guid=@oldGuid;";
+
+                    command.Parameters.AddWithValue("@guid", null);
+                    command.Parameters.AddWithValue("@oldGuid", guid);
+
+                    conn.Open();
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        conn.Close();
+                    }
+                }
+            }
+        }
+
+        public static void updateGuid(string guid, string accessCode)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+
+                    command.CommandText = @"UPDATE account SET guid=@guid WHERE accessCode=@accessCode;";
+
+                    command.Parameters.AddWithValue("@accessCode", accessCode);
+                    command.Parameters.AddWithValue("@guid", guid);
+
+                    conn.Open();
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        conn.Close();
+                    }
+                }
+            }
+        }
     }
 }

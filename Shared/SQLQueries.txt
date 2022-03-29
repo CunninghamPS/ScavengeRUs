@@ -1,0 +1,23 @@
+﻿CREATE TABLE access(
+	accessCode VARCHAR(6) PRIMARY KEY,
+	urlID VARCHAR(20)
+);
+
+CREATE TABLE game(
+	
+);
+
+
+INSERT INTO access(accessCode, urlID) 
+VALUES(123456, 69);
+INSERT INTO account(accessCode, email, dob, firstName, lastName, phoneNum, username, pass)
+VALUES('155155', 'test@test.mail', '02/21/1998', 'test', 'test', '1452648845', 'test', 'test');
+
+
+SELECT * FROM account;
+SELECT * FROM access;
+SELECT accessCode FROM account;
+
+DROP TABLE access;
+DELETE FROM account;
+DELETE FROM access;

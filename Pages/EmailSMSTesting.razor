@@ -14,7 +14,10 @@
         </div>
         <div class="border logInWrapper"> 
                 <div>
-                    <input type="submit" class="btn btn-primary" @onclick="dbTest" value="Submit" />
+                    <input type="submit" class="btn btn-primary" @onclick="loginTest" value="CREATE TABLE" />
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-primary" @onclick="dbTest" value="SEND" />
                 </div>
         </div>
     </center>
@@ -32,6 +35,10 @@
         EmailSMSTest.sendAll();
     }
 
+    private void loginTest()
+    {
+        DBTest.createGameURLs();
+    }
 }
 
 

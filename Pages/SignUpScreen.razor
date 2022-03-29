@@ -7,7 +7,7 @@
 
 <!--  simple label and text box's for sighup screen will go back and make it look pretty later-->
 <!-- Add validation to Nick's Work, the date validation is kind of trash though, because I don't know how to do regular expressions XD Josiah -->
-<EditForm Model="@Account" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@Account">
     <center>
         <div>
             <br /> <br /> <br /> 
@@ -85,7 +85,7 @@
                     </div>
                 </div>
                 <br />
-                <button class="btn btn-primary" @onclick=@NavigateTermsNCond>Terms & Conditions</button>
+                <button class="btn btn-primary" @onclick="NavigateTermsNCond">Terms & Conditions</button>
                 <br />
                 <label for="CheckAvailibility"></label>
                 <br />
@@ -165,10 +165,10 @@
 
 @code {
     private Account Account = new Account();
+
     private void HandleValidSubmit()
     {
         DBTest.newAccount(Account.Email, Account.DOB, Account.FirstName, Account.LastName, Account.PhoneNumber, Account.UserName, Account.Password);
-        DBTest.read();
         Console.WriteLine("Valid Submit");
     }
     void Navigate()
@@ -234,7 +234,7 @@
 
     .sidebar{
     display:none;
-    visibility = hidden;
+    visibility : hidden;
 }
 
      @@media (max-width:600px) {

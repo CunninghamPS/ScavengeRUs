@@ -1,4 +1,7 @@
 ﻿@page "/"
+@page "/{secretKey}"
+@inherits MapPageBase
+@using ScavengeRUs.Data
 @using Syncfusion.Blazor.Maps
 @inject IJSRuntime JSRuntime
 
@@ -16,81 +19,180 @@
 
 </div>
 <div class="card-container">
-    <div class="card">
-        <header class="task-header">
-            <div>
-                <div class="category-title">
-                    Task 1
-                    <!-- This can be set to something like: if (user.game == card.game && user.task == card.task) { set span completed }-->
+
+    @if (secretKey == null)
+    {
+        <div class="card">
+            <header class="task-header">
+                <div>
+                    <div class="category-title">
+                        Task 1
+                        <!-- This can be set to something like: if (user.game == card.game && user.task == card.task) { set span completed }-->
                     <span class="completed">&#10003; Completed</span>
+                    </div>
+                </div>
+                <h2 class="task-title">
+                    This task is to go to the CULP Center and scan the QR code located near the Chick-fil-a.
+                </h2>
+            </header>
+            <div class="gameInfo">
+                <div class="info">
+                    <div class="caption">Game</div>
+                    <div class="name">ETSU Game 1</div>
                 </div>
             </div>
-            <h2 class="task-title">
-                This task is to go to the CULP Center and scan the QR code located near the Chick-fil-a.
-            </h2>
-        </header>
-        <div class="gameInfo">
-            <div class="info">
-                <div class="caption">Game</div>
-                <div class="name">ETSU Game 1</div>
+            <div class="tags">
+                <div>Link to game</div>
+                <div>Link to task info</div>
             </div>
         </div>
-        <div class="tags">
-            <div>Link to game</div>
-            <div>Link to task info</div>
-        </div>
-    </div>
 
-    <div class="card">
-        <header class="task-header">
-            <div>
-                <div class="category-title">
-                    Task 2
-                    <span class="completed"></span>
+        <div class="card">
+            <header class="task-header">
+                <div>
+                    <div class="category-title">
+                        Task 2
+                        <span class="completed"></span>
+                    </div>
+                </div>
+                <h2 class="task-title">
+                    Filler material
+                </h2>
+            </header>
+            <div class="gameInfo">
+                <div class="info">
+                    <div class="caption">Game</div>
+                    <div class="name">ETSU Game 1</div>
                 </div>
             </div>
-            <h2 class="task-title">
-                Filler material
-            </h2>
-        </header>
-        <div class="gameInfo">
-            <div class="info">
-                <div class="caption">Game</div>
-                <div class="name">ETSU Game 1</div>
+            <div class="tags">
+                <div>Link to game</div>
+                <div>Link to task info</div>
             </div>
         </div>
-        <div class="tags">
-            <div>Link to game</div>
-            <div>Link to task info</div>
-        </div>
-    </div>
 
-    <div class="card">
-        <header class="task-header">
-            <div>
-                <div class="category-title">
-                    Task 3
-                    <span class="completed"></span>
+        <div class="card">
+            <header class="task-header">
+                <div>
+                    <div class="category-title">
+                        Task 3
+                        <span class="completed"></span>
+                    </div>
+                </div>
+                <h2 class="task-title">
+                    Filler material
+                </h2>
+            </header>
+            <div class="gameInfo">
+                <div class="info">
+                    <div class="caption">Game</div>
+                    <div class="name">ETSU Game 1</div>
                 </div>
             </div>
-            <h2 class="task-title">
-                Filler material
-            </h2>
-        </header>
-        <div class="gameInfo">
-            <div class="info">
-                <div class="caption">Game</div>
-                <div class="name">ETSU Game 1</div>
+            <div class="tags">
+                <div>Link to game</div>
+                <div>Link to task info</div>
             </div>
         </div>
-        <div class="tags">
-            <div>Link to game</div>
-            <div>Link to task info</div>
-        </div>
-    </div>
 
-    <div class="card">
-        <header class="task-header">
+        <div class="card">
+            <header class="task-header">
+                <div>
+                    <div class="category-title">
+                        Task 4
+                        <span class="completed"></span>
+                    </div>
+                </div>
+                <h2 class="task-title">
+                    Filler material
+                </h2>
+            </header>
+            <div class="gameInfo">
+                <div class="info">
+                    <div class="caption">Game</div>
+                    <div class="name">ETSU Game 1</div>
+                </div>
+            </div>
+            <div class="tags">
+                <div>Link to game</div>
+                <div>Link to task info</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <header class="task-header">
+                <div>
+                    <div class="category-title">
+                        Task 1
+                        <span class="completed"></span>
+                    </div>
+                </div>
+                <h2 class="task-title">
+                    Filler material
+                </h2>
+            </header>
+            <div class="gameInfo">
+                <div class="info">
+                    <div class="caption">Game</div>
+                    <div class="name">ETSU Game 2</div>
+                </div>
+            </div>
+            <div class="tags">
+                <div>Link to game</div>
+                <div>Link to task info</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <header class="task-header">
+                <div>
+                    <div class="category-title">
+                        Task 2
+                        <span class="completed"></span>
+                    </div>
+                </div>
+                <h2 class="task-title">
+                    Filler material
+                </h2>
+            </header>
+            <div class="gameInfo">
+                <div class="info">
+                    <div class="caption">Game</div>
+                    <div class="name">ETSU Game 2</div>
+                </div>
+            </div>
+            <div class="tags">
+                <div>Link to game</div>
+                <div>Link to task info</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <header class="task-header">
+                <div>
+                    <div class="category-title">
+                        Task 3
+                        <span class="completed"></span>
+                    </div>
+                </div>
+                <h2 class="task-title">
+                    Filler material
+                </h2>
+            </header>
+            <div class="gameInfo">
+                <div class="info">
+                    <div class="caption">Game</div>
+                    <div class="name">ETSU Game 2</div>
+                </div>
+            </div>
+            <div class="tags">
+                <div>Link to game</div>
+                <div>Link to task info</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <header class="task-header">
             <div>
                 <div class="category-title">
                     Task 4
@@ -104,30 +206,6 @@
         <div class="gameInfo">
             <div class="info">
                 <div class="caption">Game</div>
-                <div class="name">ETSU Game 1</div>
-            </div>
-        </div>
-        <div class="tags">
-            <div>Link to game</div>
-            <div>Link to task info</div>
-        </div>
-    </div>
-
-    <div class="card">
-        <header class="task-header">
-            <div>
-                <div class="category-title">
-                    Task 1
-                    <span class="completed"></span>
-                </div>
-            </div>
-            <h2 class="task-title">
-                Filler material
-            </h2>
-        </header>
-        <div class="gameInfo">
-            <div class="info">
-                <div class="caption">Game</div>
                 <div class="name">ETSU Game 2</div>
             </div>
         </div>
@@ -135,79 +213,13 @@
             <div>Link to game</div>
             <div>Link to task info</div>
         </div>
-    </div>
+        </div>
+    }
+    else
+    {
+        
+    }
 
-     <div class="card">
-        <header class="task-header">
-            <div>
-                <div class="category-title">
-                    Task 2
-                    <span class="completed"></span>
-                </div>
-            </div>
-            <h2 class="task-title">
-                Filler material
-            </h2>
-        </header>
-        <div class="gameInfo">
-            <div class="info">
-                <div class="caption">Game</div>
-                <div class="name">ETSU Game 2</div>
-            </div>
-        </div>
-        <div class="tags">
-            <div>Link to game</div>
-            <div>Link to task info</div>
-        </div>
-    </div>
-
-     <div class="card">
-        <header class="task-header">
-            <div>
-                <div class="category-title">
-                    Task 3
-                    <span class="completed"></span>
-                </div>
-            </div>
-            <h2 class="task-title">
-                Filler material
-            </h2>
-        </header>
-        <div class="gameInfo">
-            <div class="info">
-                <div class="caption">Game</div>
-                <div class="name">ETSU Game 2</div>
-            </div>
-        </div>
-        <div class="tags">
-            <div>Link to game</div>
-            <div>Link to task info</div>
-        </div>
-    </div>
-
-     <div class="card">
-        <header class="task-header">
-            <div>
-                <div class="category-title">
-                    Task 4
-                    <span class="completed"></span>
-                </div>
-            </div>
-            <h2 class="task-title">
-                Filler material
-            </h2>
-        </header>
-        <div class="gameInfo">
-            <div class="info">
-                <div class="caption">Game</div>
-                <div class="name">ETSU Game 2</div>
-            </div>
-        </div>
-        <div class="tags">
-            <div>Link to game</div>
-            <div>Link to task info</div>
-        </div>
-    </div>
 </div>
 
 @code{
