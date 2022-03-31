@@ -23,17 +23,18 @@ namespace ScavengeRUs.Data
             for(int i = 0; i < accountInfo.GetLength(0); i ++)
             {
                 //the requirements say to send the access code as a text and the url to the email
-                //sendAccessCodeEmail(accountInfo[i, 0], accountInfo[i, 1]);
+                string urlID = DBTest.getURL(accountInfo[i, 0]);
+
                 sendAccessCodeText(accountInfo[i, 0], accountInfo[i, 2]);
-                sendURLEmail(accountInfo[i, 1]);
-                //sendURLText(accountInfo[i, 2]);
+                sendURLEmail(urlID, accountInfo[i, 1]);
+                
             }
 
         }
 
-        public static void sendURLEmail(string email)
+        public static void sendURLEmail(string urldID, string email)
         {
-            string URL = "https://scavengerus1.azurewebsites.net/loginScreen";
+            string URL = "https://scavengerus.com/AccessCode/" + urldID;
 
             MailboxAddress sender = new MailboxAddress("ScavengeRUs Team", "game.scavengerus@gmail.com");
 

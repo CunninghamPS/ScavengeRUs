@@ -1,4 +1,5 @@
 ﻿@page "/loginScreen"
+@using ScavengeRUs.Data
 @inject NavigationManager NavigationManager
 
 <head>
@@ -47,6 +48,7 @@
 @code {
     private Models.Account user;
     private string feedback;
+    private string secretKey;
 
     protected override Task OnInitializedAsync()
     {
@@ -55,15 +57,25 @@
     }
     private async Task<bool> ValidateUser()
     {
-        if(user.Email.Equals("William") && user.Password.Equals("Kinser"))
+        user.Email = user.Email.ToLower();
+
+        Console.WriteLine(user.Email);
+        if(DBTest.validateUser(user.Email, user.Password))
         {
-            NavigationManager.NavigateTo("/");
+            secretKey = DBTest.login(user.Email, user.Password);
+            navigateToMain(secretKey);
         }
         else
         {
             feedback = "Wrong Username or Password";
         }
 
+        return await Task.FromResult(true);
+    }
+
+    private async Task<bool> navigateToMain(string addOn)
+    {
+        NavigationManager.NavigateTo("/map/" + addOn);
         return await Task.FromResult(true);
     }
 

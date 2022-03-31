@@ -1,19 +1,28 @@
 ﻿@inherits LayoutComponentBase
 
 <PageTitle>ScavengeRUs</PageTitle>
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="NavBar/css/framework7.bundle.min.css">
+    <link rel="stylesheet" href="NavBar/css/style.css">
+</head>
+
+<div class="toolbar tabbar tabbar-labels toolbar-bottom elevation-6 bg-white">
+	<div class="toolbar-inner">
+		<NavMenu />
+	</div>    
+</div>
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+		<div class="body">
+			@Body
+		</div>
 </div>
+    
+
+
