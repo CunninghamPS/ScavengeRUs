@@ -10,22 +10,24 @@
         <div>
             <br /> <br /> <br /> 
         </div>
-        <div class="border logInWrapper"> 
+        <div class="border logInForm"> 
             <br />
             <div class="col-12">
-                <h3 style = "color:#3998E8; font-weight: bold">ScavengeRUs Login</h3>
+                <h3 style = "color:rgba(79,172,254,1); font-weight: bold">ScavengeRUs Login</h3>
             </div>
             <div>
                 <br />
                 <h5 class="red">@feedback</h5>
                 <br />
             </div>
-            <div class="inputField">
-                <input class="form-control inputs" @bind="@user.Email" placeholder="Email Address" />
+            <div class="inputContainer">
+                <input type="text" class="input" id="Email" placeholder="Email Address" style=@inputStyle @bind="@user.Email" @onclick="ClearFormat"/>
+                <label for="Email" class="label">Email:</label>
             </div>
             <br />
-            <div class="inputField">
-                <input type="password" class="form-control inputs" @bind="@user.Password" placeholder="Password" />
+            <div class="inputContainer">
+                <input type="password" class="input" id="Password" placeholder="Password" style=@inputStyle @bind="@user.Password" @onclick="ClearFormat"/>
+                <label for="Password" class="label">Password:</label>
             </div>
                 <br />
                 <div>
@@ -34,6 +36,7 @@
                 <div>
                     <br />
                     <p>OR</p>
+                    <br />
                     <div>
                         <button name="signupButton" class="btn btn-primary" @onclick="SignUp">SignUp</button>
                         <br /> <br />
@@ -47,7 +50,8 @@
 
 @code {
     private Models.Account user;
-    private string feedback;
+    private string feedback = "";
+    private string inputStyle = "";
     private string secretKey;
 
     protected override Task OnInitializedAsync()
@@ -63,11 +67,12 @@
         if(DBTest.validateUser(user.Email, user.Password))
         {
             secretKey = DBTest.login(user.Email, user.Password);
-            navigateToMain(secretKey);
+            await navigateToMain(secretKey);
         }
         else
         {
             feedback = "Wrong Username or Password";
+            inputStyle = "border: .5px solid red";
         }
 
         return await Task.FromResult(true);
@@ -85,50 +90,55 @@
         return await Task.FromResult(true);
     }
 
+    private void ClearFormat()
+    {
+        inputStyle = "";
+    }
+
 }
 
 
 
 <style>
-    .page {
-    position: relative;
+
+.logInForm{
     display: flex;
     flex-direction: column;
-    font-family: roboto, sans-serif;
-    font-weight: 500;
-    font-style: normal;
-}
-
-.form-control {
-    width: 120%;
-}
-
-.logInWrapper{
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
     max-width: 600px;
 }
 
-
-.inputs {
-    width: 50%;
+.label{
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        padding: 5px;
+        background-color: #002639;
+        color: #DADCE0;
+        font-size: 16px;
+        transition: 0.5s;
+        z-index: 0;
 }
+
 .border{
     border: 2px solid;
     border-radius: 12px;
     padding: 5px
 }
+
 .red{
     color: red;
     font-size: small;
     font-style: italic;
 }
-.sidebar{
-    display:none;
-    visibility = hidden;
-}
-@@media (max-width:600px){
-    .border
-    {
-        border:0px solid !important
+
+    @@media (max-width:600px) {
+        .border
+        {
+            border:0px solid !important
+        }
     }
-}
+
 </style>

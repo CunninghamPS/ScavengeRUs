@@ -1,5 +1,326 @@
-﻿<h3>UserAccount</h3>
+﻿@page "/profile"
+@inject NavigationManager UriHelper
+@using ScavengeRUs.Models;
+@using ScavengeRUs.Data;
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 
+<div class="container-xl">
+    <!-- Account page navigation-->
+    
+    <div class="row">
+            <!-- Profile picture card-->
+            <div class="firstCard">
+                    <img class="img-account-profile rounded-circle" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                    <!-- Profile picture help block-->
+                    <span class="accountName">First Last</span>
+                    <span class="displayname">Display Name</span>
+                    <!-- Profile picture upload button-->
+                    <!-- <button class="btn btn-primary" type="button">Select new image</button> -->
+           </div>
+        </div>
+        <div class="statsCard">
+                <div class="card-body text-center">
+                    <div class="stat" style="border-right: .5px solid white;">
+                        <i class="fa-solid fa-trophy fa-2xl" style="font-size: 36px; color:white"></i>
+                        <div class="statText">
+                            <span style="font-weight:bold; font-size: 18px; color:white;">7</span>
+                            <span style="font-weight:lighter; font-size: 12px; color:white;">Career Wins</span>
+                        </div>
+                    </div>
+                    <div class="stat" style="border-left: .5px solid white;">
+                        <i class="fa-solid fa-award fa-2xl" style="font-size: 36px; color:white"></i>
+                        <div class="statText">
+                            <span style="font-weight:bold; font-size: 18px; color:white;">28</span>
+                            <span style="font-weight:lighter; font-size: 12px; color:white;">Prizes Won</span>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <nav class="nav nav-borders">
+            <a class="nav-link active ms-0" href="/profile" >Profile</a>
+            <a class="nav-link" href="/security" >Security</a>
+        </nav>
+            <!-- Account details card-->
+            <EditForm Model="@Account" OnValidSubmit="HandleValidSubmit">
+    <center>
+        <div>
+            <br /> <br /> <br /> 
+        </div>
+        <div class="border signUpWrapper"> 
+            <br />
+            <fieldset>
+                <br />
+                <span style="font-size:36px; font-weight:bold; color: white;">Account Details</span>
+                <br />
+                <div>
+                    <DataAnnotationsValidator/>
+                    <ValidationSummary/>
+                    <div class="signUpForm">
+                        <div class="inputContainer">
+                            <input type="text" class="input" id="FirstName" placeholder="a" required style=@inputStyle @onclick="ClearFormat" 
+                                oninvalid="this.setCustomValidity('First name is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.FirstName" />
+                            <label for="FirstName" class = "label">First Name:</label>
+                        </div>
+                        <div class="inputContainer">
+                            <input type="text" class="input" id="LastName" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
+                                oninvalid="this.setCustomValidity('Last name is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.LastName" />
+                            <label for ="LastName" class = "label">Last Name:</label>
+                        </div>
+                        <div class="inputContainer">
+                            <input type="text" class="input" id="EmailAddress" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
+                                oninvalid="this.setCustomValidity('Email is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.Email"  />
+                            <label for="EmailAddress" class = "label">Email:</label>
+                        </div>
+                        <div class="inputContainer">
+                            <input type="text" class="input" id="PhoneNumber" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
+                                oninvalid="this.setCustomValidity('Phone number is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.PhoneNumber"  />
+                            <label for="PhoneNumber" class = "label">Phone Number:</label>
+                        </div>
+
+                        <div class="inputContainer">
+                            <input type="text" class="input" id="DOB" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
+                                oninvalid="this.setCustomValidity('Date of birth is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.DOB"  />
+                            <label for="DOB" class = "label">Date of Birth:</label>
+                        </div>
+                        <div class="inputContainer">
+                            <input type="text" class="input" id="Username" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
+                                oninvalid="this.setCustomValidity('Username is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.UserName" />
+                            <label for="Username" class = "label">Username:</label>
+                        </div>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+                <br />
+                <button class="btn btn-primary" @onclick="HandleValidSubmit"> Save Changes</button>
+                <br />
+                <br />
+            </fieldset>
+        </div>
+    </center>
+</EditForm>
+</div>
 @code {
+    private Account Account = new Account();
+    private string inputStyle = "";
+    private void HandleValidSubmit()
+    {
+        
+    }    
+
+    private bool IsVisible { get; set; } = false;
+    private bool SubmitBtnDisabled { get; set; } = true;
+    private string ErrorMessage { get; set; } = "";
+
+    private void ClearFormat()
+    {
+        inputStyle = "";
+    }
+}
+
+<style>
+    body{
+        display: flex;
+        height: 100%;
+        padding-bottom: 150px;
+}
+
+.accountName{
+    font-size: 24px; 
+    font-weight: bold; 
+    color: white; 
+    margin: 0 auto;
+}
+.img-account-profile {
+    margin:0 auto;
+    height: 6rem;
+    margin-top:20px;
+}
+
+.rounded-circle {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    border-radius: 50% !important;
+    justify-content:center;
+    align-content:center;
+}
+
+.firstCard{
+    margin:0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+    background-color: rgb(27, 45, 59);
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+    z-index: 1;
+    width: 100%;
+    height: 225px;
+}
+
+.displayname{
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+    font-size: 12px;
+    padding-top: 10px;
+}
+
+
+.nav{
+    align-items: center;
+    display:flex;
+    text-align: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+
+
+.card {
+    box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+}
+
+.vertical-line{
+      width: .5px; /* Line width */
+      background-color: white; /* Line color */
+      height: 100%; /* Override in-line if you want specific height. */
+      display: table-cell;
+}
+
+.statsCard{
+    top:-50px;
+    margin:0 auto;
+    position:relative;
+    display:flex;
+    flex-direction: row;
+    box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+    background-color:  rgba(79,172,254,1);
+    border-radius: 20px;
+    z-index: 2;
+    width: 90%;
+    height: 100px;
+}
+
+.stat{
+    display:table-cell;
+    padding: 15px;
+}
+
+.statText{
+    padding-top: 10px;
+}
+.card-body{
+    display:table;
+}
+.card .card-header {
+    font-weight: 500;
+}
+.card-header:first-child {
+    border-radius: 0.35rem 0.35rem 0 0;
+}
+.card-header {
+    padding: 1rem 1.35rem;
+    margin-bottom: 0;
+    background-color: rgba(33, 40, 50, 0.03);
+    border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+}
+.form-control, .dataTable-input {
+    display: flex;
+    width: 100%;
+    padding: 0.875rem 1.125rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1;
+    color: #69707a;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #c5ccd6;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.35rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.nav-borders .nav-link.active {
+    color: rgba(79,172,254,1);
+    border-bottom-color: rgba(79,172,254,1);
+}
+.nav-borders .nav-link {
+    color: #69707a;
+    border-bottom-width: 0.125rem;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.border{
+    border: 2px solid;
+    border-radius: 12px;
+    padding: 5px;
 
 }
+
+.input:user-invalid{
+    border: 1px solid red;
+}
+
+.validation-message{
+    color: rgba(79,172,254,1);
+    padding: 10px;
+}
+    .signUpForm{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .label{
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        padding: 5px;
+        background-color: #002639;
+        color: #DADCE0;
+        font-size: 16px;
+        transition: 0.5s;
+        z-index: 0;
+    }
+
+    .red {
+        color: red;
+        font-size: small;
+        font-style: italic;
+    }
+
+    .form-control {
+        width: 120%;
+    }
+
+    .signUpWrapper {
+        max-width: 90%;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 10px;
+        border-radius: 8px;
+        
+    }
+
+        @@media (max-width:600px) {
+        .border
+        {
+            border:0px solid !important
+        }
+    }
+</style>
