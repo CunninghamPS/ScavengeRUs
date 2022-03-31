@@ -15,7 +15,7 @@
         <div class="border signUpWrapper"> 
             <br />
             <div class="col-12">
-                <h3 style = "color:#3998E8; font-weight: bold">ScavengeRUs SignUp</h3>
+                <h3 style = "color:rgba(79,172,254,1); font-weight: bold">ScavengeRUs Sign Up</h3>
             </div>
             <fieldset>
                 <br />
@@ -23,62 +23,47 @@
                 <div>
                     <DataAnnotationsValidator/>
                     <ValidationSummary/>
-                    <div class="row">
-                        <div class="col-5">
-                            <label for="FirstName"><span style="color: red">*</span>First Name:</label>
+                    <div class="signUpForm">
+                        <div class="inputContainer">
+                            <input type="text" class="input" id="FirstName" placeholder="a" required style=@inputStyle @onclick="ClearFormat" 
+                                oninvalid="this.setCustomValidity('First name is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.FirstName" />
+                            <label for="FirstName" class = "label">First Name:</label>
                         </div>
-                        <div class="col-5">
-                            <input type="text" class="form-control" id="FirstName" @bind-value="Account.FirstName" />
+                        <div class="inputContainer">
+                            <input type="text" class="input" id="LastName" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
+                                oninvalid="this.setCustomValidity('Last name is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.LastName" />
+                            <label for ="LastName" class = "label">Last Name:</label>
                         </div>
-                        <br />
-                        <br />
-                        <div class="col-5">
-                            <label for ="LastName"><span style="color: red">*</span>Last Name:</label>
+                        <div class="inputContainer">
+                            <input type="text" class="input" id="EmailAddress" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
+                                oninvalid="this.setCustomValidity('Email is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.Email"  />
+                            <label for="EmailAddress" class = "label">Email:</label>
                         </div>
-                        <div class="col-5">
-                            <input type="text" class="form-control" id="LastName" @bind-value="Account.LastName" />
+                        <div class="inputContainer">
+                            <input type="text" class="input" id="PhoneNumber" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
+                                oninvalid="this.setCustomValidity('Phone number is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.PhoneNumber"  />
+                            <label for="PhoneNumber" class = "label">Phone Number:</label>
                         </div>
-                        <br />
-                        <br />
-                        <div class="col-5">
-                            <label for="EmailAddress"><span style="color: red">*</span>Email:</label>
-                        </div>
-                        <div class="col-5">
-                            <input type="text" class="form-control" id="EmailAddress" @bind-value="Account.Email"  />
-                        </div>
-                        <br />
-                        <br />
-                        <div class="col-5">
-                            <label for="PhoneNumber"><span style="color: red">*</span>Phone Number:</label>
-                        </div>
-                        <div class="col-5">
-                            <input type="text" class="form-control" id="PhoneNumber" @bind-value="Account.PhoneNumber"  />
-                        </div>
-                        <br />
-                        <br />
-                        <div class="col-5">
-                            <label for="DOB"><span style="color: red">*</span>Date of Birth:</label>
-                        </div>
-                        <div class="col-5">
-                            <input type="text" class="form-control" id="DOB" @bind-value="Account.DOB"  />
+
+                        <div class="inputContainer">
+                            <input type="text" class="input" id="DOB" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
+                                oninvalid="this.setCustomValidity('Date of birth is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.DOB"  />
+                            <label for="DOB" class = "label">Date of Birth:</label>
                         </div>
                         <br />
                         <br />
                         <br />
-                        <br />
-                        <div class="col-5">
-                            <label for="Username"><span style="color: red">*</span>Username:</label>
-                        </div>
-                        <div class="col-5">
-                            <input type="text" class="form-control" id="Username" @bind-value="Account.UserName" />
+                        <div class="inputContainer">
+                            <input type="text" class="input" id="Username" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
+                                oninvalid="this.setCustomValidity('Username is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.UserName" />
+                            <label for="Username" class = "label">Username:</label>
                         </div>
                         <br />
                         <br />
-                        <div class="col-5">
-                            <label for="Password"><span style="color: red">*</span>Password:</label>
-                        </div>
-                        <div class="col-5">
-                            <input type="text" class="form-control" id="Password" @bind-value="Account.Password" />
+                        <div class="inputContainer">
+                            <input type="text" class="input" id="Password" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
+                                oninvalid="this.setCustomValidity('Password is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.Password" />
+                            <label for="Password" class = "label">Password:</label>
                         </div>
                         <br />
                         <br />
@@ -165,10 +150,17 @@
 
 @code {
     private Account Account = new Account();
-
+    private string inputStyle = "";
     private void HandleValidSubmit()
     {
-        DBTest.newAccount(Account.Email, Account.DOB, Account.FirstName, Account.LastName, Account.PhoneNumber, Account.UserName, Account.Password);
+        try
+        {
+            DBTest.newAccount(Account.Email, Account.DOB, Account.FirstName, Account.LastName, Account.PhoneNumber, Account.UserName, Account.Password);
+        }
+        catch(Exception)
+        {
+            inputStyle = "border: .5px solid red";
+        }
         Console.WriteLine("Valid Submit");
     }
     void Navigate()
@@ -196,26 +188,47 @@
         this.IsVisible = false;
         SubmitBtnDisabled = false;
     }
+
+    private void ClearFormat()
+    {
+        inputStyle = "";
+    }
 }
 
 <style>
-    .page {
-        position: relative;
+
+    .border{
+    border: 2px solid;
+    border-radius: 12px;
+    padding: 5px
+}
+
+.input:user-invalid{
+    border: 1px solid red;
+}
+
+.validation-message{
+    color: rgba(79,172,254,1);
+    padding: 10px;
+}
+    .signUpForm{
         display: flex;
         flex-direction: column;
-        font-family: roboto, sans-serif;
-        font-weight: 500;
-        font-style: normal;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
     }
 
-    .inputs {
-        margin-left: 20px;
-    }
-
-    .border {
-        border: 2px solid;
-        border-radius: 12px;
-        padding: 5px
+    .label{
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        padding: 5px;
+        background-color: #002639;
+        color: #DADCE0;
+        font-size: 16px;
+        transition: 0.5s;
+        z-index: 0;
     }
 
     .red {
@@ -230,18 +243,24 @@
 
     .signUpWrapper {
         max-width: 600px;
-    }
+        box-sizing: border-box;
+        margin: 0;
+        padding: 10px;
+        border-radius: 8px;    }
 
     .sidebar{
     display:none;
-    visibility : hidden;
+    visibility = hidden;
 }
 
-     @@media (max-width:600px) {
+        @@media (max-width:600px) {
         .border
         {
             border:0px solid !important
         }
     }
 </style>
+
+
+
 

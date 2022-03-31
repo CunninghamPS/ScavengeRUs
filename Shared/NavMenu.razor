@@ -35,7 +35,7 @@
 	}
 </a>
 
-<a href="/QR">
+<a href="/QRCodeScanner">
 	<div class="addQR">
 	    <i class="fa-solid fa-camera fa-xl"></i>
 	</div>
@@ -51,7 +51,8 @@
 	}
 </a>
 <a href="/loginScreen" >
-	@if((navManager.ToBaseRelativePath(navManager.Uri)).Equals("loginScreen"))
+	@if((navManager.ToBaseRelativePath(navManager.Uri)).Equals("profile") || (navManager.ToBaseRelativePath(navManager.Uri)).Equals("loginScreen") ||
+		(navManager.ToBaseRelativePath(navManager.Uri)).Equals("security"))
 	{
 		<i class="fa-solid fa-user fa-xl tabbar-active"></i>
 	}
