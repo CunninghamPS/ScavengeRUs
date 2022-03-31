@@ -1,4 +1,6 @@
-﻿@page "/EmailSMSTesting"
+﻿@page "/logout/{secretKey}"
+@page "/logout"
+@inherits LogoutBase
 @inject NavigationManager NavigationManager
 @using ScavengeRUs.Data;
 
@@ -8,36 +10,35 @@
     <center> 
         <div>
             <div class="col-12">
-                <h3 style = "color:#3998E8; font-weight: bold">Email/SMS Testing</h3>
+                <h3 style = "color:#3998E8; font-weight: bold">Logout</h3>
             </div>
             <br /> <br /> <br /> 
         </div>
         <div class="border logInWrapper"> 
                 <div>
-                    <input type="submit" class="btn btn-primary" @onclick="loginTest" value="CREATE TABLE" />
-                </div>
-                <div>
-                    <input type="submit" class="btn btn-primary" @onclick="dbTest" value="SEND" />
+                    <input type="submit" class="btn btn-primary" @onclick="logout" value="LOGOUT" />
                 </div>
         </div>
     </center>
 
 
 @code {
-
     protected override Task OnInitializedAsync()
     {
         return base.OnInitializedAsync();
     }
 
-    private void dbTest()
+    private void logout()
     {
-        EmailSMSTest.sendAll();
-    }
-
-    private void loginTest()
-    {
-        DBTest.createGameURLs();
+        if (secretKey != null)
+        {
+            DBTest.logout(secretKey);
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            DBTest.addUsersToGame();
+        }
     }
 }
 

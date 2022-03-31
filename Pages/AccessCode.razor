@@ -1,0 +1,55 @@
+﻿@page "/accessCode/{urlID}"
+@inherits AccessCodeBase
+@using ScavengeRUs.Data
+@inject NavigationManager NavigationManager
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+    <center> 
+        <div>
+            <div class="col-12">
+                <h3 style = "color:#3998E8; font-weight: bold">Email/SMS Testing</h3>
+            </div>
+            <br /> <br /> <br /> 
+        </div>
+        <div class="inputField">
+                <input class="form-control inputs" @bind="@accessCode" placeholder="Access Code" />
+        </div>
+        <div class="border logInWrapper"> 
+                <div>
+                    <input type="submit" class="btn btn-primary" @onclick="enterGame" value="Submit" />
+                </div>
+        </div>
+    </center>
+
+
+@code {
+    private string accessCode;
+    private string secretKey;
+    private void enterGame()
+    {
+        if (DBTest.hasAccess(accessCode, urlID))
+        {
+            Console.WriteLine("Success");
+            secretKey = DBTest.login(accessCode);
+            navigateToMain(secretKey);
+        }
+        else
+        {
+            Console.WriteLine("failed");
+        }
+    }
+
+    private async Task<bool> navigateToMain(string addOn)
+    {
+        NavigationManager.NavigateTo("/map/" + addOn);
+        return await Task.FromResult(true);
+    }
+
+    private async Task<bool> gamePage()
+    {
+        NavigationManager.NavigateTo("/");
+        return await Task.FromResult(true);
+    }
+}

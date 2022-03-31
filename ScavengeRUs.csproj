@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Azure.Communication.Sms" Version="1.0.0" />
     <PackageReference Include="MailKit" Version="3.1.1" />
-    <Folder Include="Data\" />
+    <PackageReference Include="MlkPwgen" Version="0.3.0" />
   </ItemGroup>
 
   <ItemGroup>
