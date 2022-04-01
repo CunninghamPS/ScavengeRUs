@@ -264,11 +264,6 @@ ul li {
     padding-right: 32px !important;
 }
 
-.map {
-    height: 600px;
-    width: 100%;
-    
-}
 
 .inputContainer {
     position: relative;
@@ -617,8 +612,9 @@ html.with-panel .framework7-root > .view .tab {
     text-align: center;
     display: table;
     width: 100%;
-    background-color: #002639;
+    background-color: rgba(27, 45, 59, .8);
     border-top: .5px solid grey;
+    backdrop-filter: blur(10px);
 }
 
 .toolbar a {
@@ -640,6 +636,9 @@ html.with-panel .framework7-root > .view .tab {
     padding-bottom: 2px !important;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
 
 .ios .toolbar.toolbar-bottom .toolbar-inner{
     color: slategrey;
@@ -655,6 +654,7 @@ html.with-panel .framework7-root > .view .tab {
 
 .toolbar-bottom .tabbar-label {
     font-size: 14px;
+    backdrop-filter: blur(10px);
 }
 
 .addQR {
@@ -1127,11 +1127,10 @@ html.with-panel .framework7-root > .view .tab {
 }
 
 .map {
+    position: absolute;
+    height: 100%;
     width: 100%;
-    height: 600px;
-    border-bottom-left-radius: 18px;
-    border-bottom-right-radius: 18px;
-    border-bottom: .5px solid grey;
+    margin-bottom: 100px;
 }
 
 .seller-info .content {

@@ -1,4 +1,5 @@
-﻿@page "/profile"
+﻿@page "/profile/{secretKey}"
+@inherits MapPageBase
 @inject NavigationManager UriHelper
 @using ScavengeRUs.Models;
 @using ScavengeRUs.Data;
@@ -40,14 +41,11 @@
         </div>
         <nav class="nav nav-borders">
             <a class="nav-link active ms-0" href="/profile" >Profile</a>
-            <a class="nav-link" href="/security" >Security</a>
+            <a class="nav-link ms-0" href="/security" >Security</a>
         </nav>
             <!-- Account details card-->
             <EditForm Model="@Account" OnValidSubmit="HandleValidSubmit">
     <center>
-        <div>
-            <br /> <br /> <br /> 
-        </div>
         <div class="border signUpWrapper"> 
             <br />
             <fieldset>
@@ -93,10 +91,7 @@
                         <br />
                     </div>
                 </div>
-                <br />
                 <button class="btn btn-primary" @onclick="HandleValidSubmit"> Save Changes</button>
-                <br />
-                <br />
             </fieldset>
         </div>
     </center>
@@ -126,6 +121,10 @@
         height: 100%;
         padding-bottom: 150px;
 }
+
+#profileButton{
+        color: rgba(79,172,254,1);
+    }
 
 .accountName{
     font-size: 24px; 

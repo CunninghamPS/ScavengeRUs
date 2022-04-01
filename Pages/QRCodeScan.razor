@@ -1,4 +1,7 @@
 ﻿@page "/QRCodeScanner"
+@page "/QRCodeScanner/{secretKey}"
+@inherits MapPageBase
+@using ScavengeRUs.Data
 @using BlazorBarcodeScanner.ZXing.JS
 
 <button class="btn btn-primary"

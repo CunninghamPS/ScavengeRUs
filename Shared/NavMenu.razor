@@ -1,5 +1,6 @@
-﻿@inject NavigationManager navManager
-
+﻿@using ScavengeRUs.Data
+@inject NavigationManager navManager
+@inherits MapPageBase
 <head>
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,56 +12,62 @@
     <link rel="stylesheet" href="NavBar/css/style.css">
 	
 </head>
-
-<a href="/" >
+@if(secretKey == null)
+{
+	<a href="/" >
 	@if((navManager.ToBaseRelativePath(navManager.Uri)).Equals(""))
 	{
-		<i class="fa-solid fa-map-location fa-xl tabbar-active"></i>
+		<i class="fa-solid fa-map-location fa-xl" id="mapButton"></i>
 	}
 	else
 	{
-		<i class="fa-solid fa-map-location fa-xl"></i>
+		<i class="fa-solid fa-map-location fa-xl" id="mapButton"></i>
 	}
-	
-</a>
+	</a>
 
-<a href="/games">
-	@if((navManager.ToBaseRelativePath(navManager.Uri)).Equals("games"))
-	{
-		<i class="fa-solid fa-gamepad fa-xl tabbar-active"></i>
-	}
-	else
-	{
-		<i class="fa-solid fa-gamepad fa-xl"></i>
-	}
-</a>
+	<a href="/games">
+		<i class="fa-solid fa-gamepad fa-xl" id="gamesButton"></i>
+	</a>
 
-<a href="/QRCodeScanner">
+	<a href="/QRCodeScanner">
+		<div class="addQR">
+	    <i class="fa-solid fa-camera fa-xl"></i>
+		</div>
+	</a>
+	<a href="/tasks" >
+		<i class="fa-solid fa-list-check fa-xl" id="tasksButton"></i>
+	</a>
+	<a href="/loginScreen" >
+		<i class="fa-solid fa-user fa-xl" id="profileButton"></i>
+	</a>
+}
+else
+{
+	<a href="/" >
+		<i class="fa-solid fa-map-location fa-xl" id="mapButton"></i>
+	</a>
+
+	<a href="/games">
+		<i class="fa-solid fa-gamepad fa-xl" id="gamesButton"></i>
+	</a>
+
+	<a href="/QRCodeScanner">
 	<div class="addQR">
 	    <i class="fa-solid fa-camera fa-xl"></i>
 	</div>
-</a>
-<a href="/tasks" >
-	@if((navManager.ToBaseRelativePath(navManager.Uri)).Equals("tasks"))
-	{
-		<i class="fa-solid fa-list-check fa-xl tabbar-active"></i>
-	}
-	else
-	{
-		<i class="fa-solid fa-list-check fa-xl"></i>
-	}
-</a>
-<a href="/loginScreen" >
-	@if((navManager.ToBaseRelativePath(navManager.Uri)).Equals("profile") || (navManager.ToBaseRelativePath(navManager.Uri)).Equals("loginScreen") ||
-		(navManager.ToBaseRelativePath(navManager.Uri)).Equals("security"))
-	{
-		<i class="fa-solid fa-user fa-xl tabbar-active"></i>
-	}
-	else
-	{
-		<i class="fa-solid fa-user fa-xl"></i>
-	}
-</a>
+	</a>
+	<a href="/tasks" >
+		<i class="fa-solid fa-list-check fa-xl" id="tasksButton"></i>
+	</a>
+
+	
+	<a href="/profile" >
+		<i class="fa-solid fa-user fa-xl" id="profileButton"></i>
+	</a>
+}
+	
+
+
 
 
 
