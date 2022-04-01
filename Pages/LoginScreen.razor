@@ -5,7 +5,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<EditForm Model="@user" OnValidSubmit="@ValidateUser">
+<EditForm Model="@user">
     <center> 
         <div>
             <br /> <br /> <br /> 
@@ -31,7 +31,7 @@
             </div>
                 <br />
                 <div>
-                    <input type="submit" class="btn btn-primary" value="Login" />
+                    <input type="submit" class="btn btn-primary" value="Login" @onclick="ValidateUser"/>
                 </div>
                 <div>
                     <br />
@@ -100,6 +100,9 @@
 
 
 <style>
+#profileButton{
+    color: rgba(79,172,254,1);
+}
 
 .logInForm{
     display: flex;
