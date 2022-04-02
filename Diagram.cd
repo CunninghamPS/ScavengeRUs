@@ -1,35 +1,158 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Razor Pages">
+    <Position X="6.988" Y="7.458" Height="0.291" Width="0.861" />
+  </Comment>
+  <Comment CommentText="Data Classes">
+    <Position X="1.627" Y="9.344" Height="0.291" Width="0.909" />
+  </Comment>
+  <Comment CommentText="Models">
+    <Position X="12.478" Y="5" Height="0.291" Width="0.7" />
+  </Comment>
   <Class Name="ScavengeRUs.Models.Account">
-    <Position X="2.5" Y="2.75" Width="1.75" />
+    <Position X="11.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAACCAAAAAAAAAAQAABAAAAAAACAQAAAAAAAAg=</HashCode>
       <FileName>Models\Account.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="System.Object" Collapsed="true">
-    <Position X="2.25" Y="1.5" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
   <Class Name="ScavengeRUs.Data.AccountModel">
-    <Position X="6.5" Y="2.25" Width="1.5" />
+    <Position X="0.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAACAAAAAAAAAAQAABAAAAAAACAQAAAAAAAAg=</HashCode>
       <FileName>Data\AccountModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ScavengeRUs.Data.DBTest">
-    <Position X="4.5" Y="2.75" Width="1.5" />
+    <Position X="2.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAEAgAACAAAAAAAIAAAAAAEAAAAAECAAA=</HashCode>
+      <HashCode>AAIBACABAAgAEAgAAAAIAAAABIAKBoAAEAAAAAkGEhA=</HashCode>
       <FileName>Data\DBTest.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ScavengeRUs.Data.EmailSMSTest">
-    <Position X="8.25" Y="2.5" Width="1.75" />
+    <Position X="0.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAAAAAIAAgAAAAAAACAAAAAAAAAEAAAAAAAAAA=</HashCode>
       <FileName>Data\EmailSMSTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScavengeRUs.Data.AccessCodeBase">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\AccessCodeBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScavengeRUs.Data.LogoutBase">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Data\LogoutBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScavengeRUs.Data.MapPageBase">
+    <Position X="2.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Data\MapPageBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScavengeRUs.Data.UserLoginInfo">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAgAAAIAAEAAAAAAAAAAAIACIAAAAA=</HashCode>
+      <FileName>Data\UserLoginInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScavengeRUs.Models.Game">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScavengeRUs.Models.Task">
+    <Position X="13" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Task.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScavengeRUs.Models.User">
+    <Position X="11.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScavengeRUs.Pages.AccessCode">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAACIAAAAAAAAAAAAAAAAAAAAAAAAIIAAAAAAAA=</HashCode>
+      <FileName>Pages\AccessCode.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScavengeRUs.Pages.EmailSMSTesting">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAAAAACAAAAAQAAAAA=</HashCode>
+      <FileName>Pages\EmailSMSTesting.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScavengeRUs.Pages.LoginScreen">
+    <Position X="8.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEACAABACAIAAAAAAAAAAAAAAAACCIAAAAAAAQA=</HashCode>
+      <FileName>Pages\LoginScreen.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScavengeRUs.Pages.Logout">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <InheritanceLine Type="ScavengeRUs.Data.LogoutBase" FixedFromPoint="true">
+      <Path>
+        <Point X="3.75" Y="1.312" />
+        <Point X="5" Y="1.312" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Logout.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScavengeRUs.Pages.MainMapPage">
+    <Position X="5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\MainMapPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScavengeRUs.Pages.QRCodeScan">
+    <Position X="5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABEAAAAAAACAAAABAEAAAAAAAAAQAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Pages\QRCodeScan.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScavengeRUs.Pages.SignUpScreen">
+    <Position X="6.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAEAACAJAEAAAAABAAAAACAAAAAAAAAAQIACAAEA=</HashCode>
+      <FileName>Pages\SignUpScreen.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScavengeRUs.Pages.TaskListPage">
+    <Position X="5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\TaskListPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScavengeRUs.Pages.UserAccount">
+    <Position X="8.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAEAAAABAEAAAAAAAAAAAAAAAAAAAAAAAIACAAEA=</HashCode>
+      <FileName>Pages\UserAccount.razor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
