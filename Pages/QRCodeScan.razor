@@ -4,36 +4,40 @@
 @using ScavengeRUs.Data
 @using BlazorBarcodeScanner.ZXing.JS
 
-<button class="btn btn-primary"
+<div style="text-align: center; width: 100%">
+    <button class="btn btn-primary"
         type="button"
+        style="max-width: 200px; margin-top: 50px"
         @onclick="(() => ShowScanBarcode = !ShowScanBarcode)">Scan QR Code Toggle
-</button>
-<input type="text" class="form-control" style="min-width: 100px;"
-       @bind-value="BarCode"
-       placeholder="Code" />
+    </button>
+    <input type="text" class="form-control" style="min-width: 100px; max-width: 500px; margin: auto; margin-top: 30px"
+           @bind-value="BarCode"
+           placeholder="Code" />
+</div>
+
 @if (ShowScanBarcode)
 {
-
-     <BlazorBarcodeScanner.ZXing.JS.BarcodeReader @ref="_reader"
-        Title=""
-        StartCameraAutomatically="true"
-        ShowStart="false"
-        ShowReset="false"
-        ShowToggleTorch="false"
-        ShowVideoDeviceList="false"
-        VideoWidth="500"
-        VideoHeight="500"
-        OnBarcodeReceived="QRCodeString"
-        ShowResult="false"
-     />
-
+    <div class="QRCodeScanner">
+        <BlazorBarcodeScanner.ZXing.JS.BarcodeReader @ref="_reader"
+            Title=""
+            StartCameraAutomatically="true"
+            ShowStart="false"
+            ShowReset="false"
+            ShowToggleTorch="false"
+            ShowVideoDeviceList="false"
+            VideoWidth="500"
+            VideoHeight="500"
+            OnBarcodeReceived="QRCodeString"
+            ShowResult="false"
+         />
+    </div>
 }
 <br />
 
 @code {
     private BarcodeReader _reader;
 
-    bool ShowScanBarcode { get; set; } = false;
+    bool ShowScanBarcode { get; set; } = true;
 
     public string? BarCode { get; set; }
 
@@ -57,3 +61,14 @@
 
     bool ShowCodes;
 }
+
+<style>
+    .QRCodeScanner {
+        text-align: center; 
+        width: 100%;
+    }
+
+
+
+
+</style>
