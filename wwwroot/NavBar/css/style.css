@@ -628,6 +628,22 @@ html.with-panel .framework7-root > .view .tab {
     color: white;
 }
 
+#mapButton {
+    color:white;
+}
+
+#gamesButton {
+    color:white;
+}
+
+#tasksButton {
+    color:white;
+}
+
+#profileButton {
+    color:white;
+}
+
 .tabbar-active {
     color: rgba(79,172,254,1);
 }
