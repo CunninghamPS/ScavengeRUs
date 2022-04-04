@@ -12,58 +12,56 @@
     <link rel="stylesheet" href="NavBar/css/style.css">
 	
 </head>
-@if(secretKey == null)
-{
-	<a href="/" >
-	@if((navManager.ToBaseRelativePath(navManager.Uri)).Equals(""))
+
+<!--Map Page-->
+<a @onclick="@(() => navigateTo("map"))">
+	<i class="fa-solid fa-map-location fa-xl" id="mapButton" ></i>
+</a>
+
+<!--Game Page-->
+<a @onclick="@(() => navigateTo("games"))">
+	<i class="fa-solid fa-gamepad fa-xl" id="gamesButton" ></i>
+</a>
+
+<!--QR Scanner-->
+<a @onclick="@(() => navigateTo("QRCodeScanner"))">
+<div class="addQR">
+    <i class="fa-solid fa-camera fa-xl" ></i>
+</div>
+</a>
+<!--Task Page-->
+<a @onclick="@(() => navigateTo("tasks"))">
+	<i class="fa-solid fa-list-check fa-xl" id="tasksButton" ></i>
+</a>
+
+<!--Login Screen-->
+<a @onclick="@(() => navigateTo("loginScreen"))">
+	<i class="fa-solid fa-user fa-xl" id="profileButton" ></i>
+</a>
+
+
+
+@code{
+	string[] paths = { "tasks", "loginScreen", "QRCodeScanner", "games", "", "map", "signUpScreen"};
+
+	public async Task<bool> navigateTo(string dest)
 	{
-		<i class="fa-solid fa-map-location fa-xl" id="mapButton"></i>
+		string url = navManager.Uri;
+		int length = navManager.Uri.Split('/').Length;
+		string addon = navManager.Uri.Split('/')[length - 1];
+		if(paths.Contains(addon))
+		{
+			if(dest.Equals("map"))
+				dest = "";
+			navManager.NavigateTo("/" + dest);
+		}
+		else
+			navManager.NavigateTo("/" + dest +"/" + addon);
+		return await Task.FromResult(true);
 	}
-	else
-	{
-		<i class="fa-solid fa-map-location fa-xl" id="mapButton"></i>
-	}
-	</a>
-
-	<a href="/games">
-		<i class="fa-solid fa-gamepad fa-xl" id="gamesButton"></i>
-	</a>
-
-	<a href="/QRCodeScanner">
-		<div class="addQR">
-	    <i class="fa-solid fa-camera fa-xl"></i>
-		</div>
-	</a>
-	<a href="/tasks" >
-		<i class="fa-solid fa-list-check fa-xl" id="tasksButton"></i>
-	</a>
-	<a href="/loginScreen" >
-		<i class="fa-solid fa-user fa-xl" id="profileButton"></i>
-	</a>
-}
-else
-{
-	<a href="/" >
-		<i class="fa-solid fa-map-location fa-xl" id="mapButton"></i>
-	</a>
-
-	<a href="/games">
-		<i class="fa-solid fa-gamepad fa-xl" id="gamesButton"></i>
-	</a>
-
-	<a href="/QRCodeScanner">
-	<div class="addQR">
-	    <i class="fa-solid fa-camera fa-xl"></i>
-	</div>
-	</a>
-	<a href="/tasks" >
-		<i class="fa-solid fa-list-check fa-xl" id="tasksButton"></i>
-	</a>
 
 	
-	<a href="/profile" >
-		<i class="fa-solid fa-user fa-xl" id="profileButton"></i>
-	</a>
+
 }
 	
 

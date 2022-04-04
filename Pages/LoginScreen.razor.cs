@@ -7,7 +7,7 @@ namespace ScavengeRUs.Pages
         private Models.Account user;
         private string feedback = "";
         private string inputStyle = "";
-        private string secretKey;
+        private string addon;
 
         protected override Task OnInitializedAsync()
         {
@@ -21,8 +21,8 @@ namespace ScavengeRUs.Pages
             Console.WriteLine(user.Email);
             if (DBTest.validateUser(user.Email, user.Password))
             {
-                secretKey = DBTest.login(user.Email, user.Password);
-                await navigateToMain(secretKey);
+                addon = DBTest.login(user.Email, user.Password);
+                await navigateToMain(addon);
             }
             else
             {
@@ -48,6 +48,19 @@ namespace ScavengeRUs.Pages
         private void ClearFormat()
         {
             inputStyle = "";
+        }
+
+        private void logout()
+        {
+            if (secretKey != null)
+            {
+                DBTest.logout(secretKey);
+                NavigationManager.NavigateTo("/");
+            }
+            else
+            {
+                DBTest.addUsersToGame();
+            }
         }
 
     }
