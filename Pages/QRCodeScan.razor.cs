@@ -4,20 +4,14 @@ namespace ScavengeRUs.Pages
 {
     public partial class QRCodeScan
     {
-        private BarcodeReader _reader;
+        private BarcodeReader? _reader;
 
         bool ShowScanBarcode { get; set; } = true;
 
         public string? BarCode { get; set; }
+        public string? BarCodeTyped { get; set; }
 
-        private string message;
-
-        private Task OnError(string message)
-        {
-            this.message = message;
-            StateHasChanged();
-            return Task.CompletedTask;
-        }
+        public bool barCodeBox { get; set; } = false;
 
         private async void QRCodeString(BarcodeReceivedEventArgs args)
         {
@@ -28,7 +22,19 @@ namespace ScavengeRUs.Pages
             });
         }
 
-        bool ShowCodes;
+        private void RunBarCodeTyped()
+        {
+            // Change to reflect actual barcode scanning
+            Console.Write("Bar Code Typed: " + BarCodeTyped + "\n\n");
+            Console.Write("Bar Code Scanned: " + BarCode);
+            // If valid Qr code disable the qr code manual box
+            barCodeBox = false;
+        }
+
+        private void barCodeToggle()
+        {
+            barCodeBox = !barCodeBox;
+        }
 
     }
 }
