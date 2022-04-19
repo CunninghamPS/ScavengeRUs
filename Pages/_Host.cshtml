@@ -60,7 +60,7 @@
           
           autoUpdate();
          map.setCenter(pos);
-         playerMarker.setMap(null);
+         
         },
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
@@ -103,7 +103,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
       navigator.geolocation.getCurrentPosition(function(position) {  
        var newPoint = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-    var playerMarker =new google.maps.Marker({
+    var marker =new google.maps.Marker({
             position: newPoint,
             icon: blueCheck,
             map,
@@ -114,10 +114,10 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     // Center the map on the new position
     map.setCenter(newPoint);
   }); 
-
   // Call the autoUpdate() function every 5 seconds
   setTimeout(autoUpdate, 5000);
-  return playerMarker;
+  marker.setMap(null);
+  return marker;
 }
  </script>
 
