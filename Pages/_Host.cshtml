@@ -16,56 +16,6 @@
 <script src="_content/BlazorBarcodeScanner.ZXing.JS/zxingjs.index.min.js"></script>
 <script src="_content/BlazorBarcodeScanner.ZXing.JS/BlazorBarcodeScanner.js"></script>
 
-<!--  not used ATM initial Map stuff
-<script>
-    function initialize() {
-        var latlng = new google.maps.LatLng(36.3024, -82.3699);
-        var options = {
-            zoom: 14, center: latlng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById
-            ("map"), options);
-    }   
-
-</script>
--->
-<!-- this should update user location constantly
-<script>
-       function getUserLocation(map) {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    var point = new google.maps.LatLng(position.coords.latitude,
-                        position.coords.longitude);
-
-                    if (typeof getUserLocation.user_marker == 'undefined') {
-                        getUserLocation.user_marker = new google.maps.Marker({
-                            position:point,
-                            map:gmap,
-                            icon:'person.png'
-                        });
-                        getUserLocation.user_marker_window = new google.maps.InfoWindow({
-                            content:'You'
-                        });
-
-                        google.maps.event.addListener(getUserLocation.user_marker, 'click', function () {
-                            getUserLocation.user_marker_window.open(map, getUserLocation.user_marker);
-                        });
-                    }
-                    getUserLocation.user_marker.setPosition(point);
-                });
-            }
-        }
-
-        if (navigator.geolocation) {
-            getUserLocation(gmap);
-            setInterval(function(){
-                getUserLocation(gmap);
-            }, 5000);
-        }
-</script>
--->
-
 
 <!--Used in main ATM-->
  <script>
@@ -107,12 +57,10 @@
             lng: position.coords.longitude,
           };
 
-       
-
           
           autoUpdate();
          map.setCenter(pos);
-         marker.setMap(null);
+         playerMarker.setMap(null);
         },
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
@@ -155,7 +103,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
       navigator.geolocation.getCurrentPosition(function(position) {  
        var newPoint = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-    new google.maps.Marker({
+    var playerMarker =new google.maps.Marker({
             position: newPoint,
             icon: blueCheck,
             map,
@@ -169,6 +117,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
   // Call the autoUpdate() function every 5 seconds
   setTimeout(autoUpdate, 5000);
+  return playerMarker;
 }
  </script>
 
