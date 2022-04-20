@@ -27,7 +27,7 @@
 <div style="margin-left: 35%; width: 30%; align-content: center">
     <button @onclick="barCodeToggle" style="@(barCodeBox ? "display: none" : "display: block"); width: 200px;">Input QR Code</button>
     <input type="text" class="form-control" style="@(barCodeBox ? "display: block" : "display: none"); min-width: 100px; max-width: 500px; margin: auto; margin-top: 30px"
-                @bind-value="BarCodeTyped"
+                @bind-value="BarCode"
                 placeholder="Type QR Code Here..." />
     <button class="btn btn-primary"
             type="button"

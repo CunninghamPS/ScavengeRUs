@@ -8,9 +8,8 @@ namespace ScavengeRUs.Pages
 
         bool ShowScanBarcode { get; set; } = true;
 
+        // barcode syntax -> "Game Number": 01 "Task Number": 15 -> 0115 barcode decoded syntax
         public string? BarCode { get; set; }
-        public string? BarCodeTyped { get; set; }
-
         public bool barCodeBox { get; set; } = false;
 
         private async void QRCodeString(BarcodeReceivedEventArgs args)
@@ -18,6 +17,7 @@ namespace ScavengeRUs.Pages
             await InvokeAsync(() =>
             {
                 BarCode = args.BarcodeText;
+                RunBarCodeTyped();
                 StateHasChanged();
             });
         }
@@ -25,8 +25,7 @@ namespace ScavengeRUs.Pages
         private void RunBarCodeTyped()
         {
             // Change to reflect actual barcode scanning
-            Console.Write("Bar Code Typed: " + BarCodeTyped + "\n\n");
-            Console.Write("Bar Code Scanned: " + BarCode);
+            Console.WriteLine("Bar Code Scanned/Typed: " + BarCode);
             // If valid Qr code disable the qr code manual box
             barCodeBox = false;
         }
