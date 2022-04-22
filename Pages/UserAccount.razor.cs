@@ -5,11 +5,16 @@ namespace ScavengeRUs.Pages
 {
     public partial class UserAccount
     {
-        private Account Account = new Account();
         private string inputStyle = "";
+        private Models.Account user;
         private void HandleValidSubmit()
         {
 
+        }
+
+        protected override System.Threading.Tasks.Task OnInitializedAsync()
+        {
+            return base.OnInitializedAsync();
         }
 
         private bool IsVisible { get; set; } = false;

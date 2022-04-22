@@ -44,7 +44,7 @@
             <a class="nav-link ms-0" href="/security" >Security</a>
         </nav>
             <!-- Account details card-->
-            <EditForm Model="@Account" OnValidSubmit="HandleValidSubmit">
+            <EditForm Model="@user" OnValidSubmit="HandleValidSubmit">
     <center>
         <div class="border signUpWrapper"> 
             <br />
@@ -58,34 +58,29 @@
                     <div class="signUpForm">
                         <div class="inputContainer">
                             <input type="text" class="input" id="FirstName" placeholder="a" required style=@inputStyle @onclick="ClearFormat" 
-                                oninvalid="this.setCustomValidity('First name is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.FirstName" />
+                                oninvalid="this.setCustomValidity('First name is required')" onvalid="this.setCustomValidity('')" @bind-value="user.FirstName" />
                             <label for="FirstName" class = "label">First Name:</label>
                         </div>
                         <div class="inputContainer">
                             <input type="text" class="input" id="LastName" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
-                                oninvalid="this.setCustomValidity('Last name is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.LastName" />
+                                oninvalid="this.setCustomValidity('Last name is required')" onvalid="this.setCustomValidity('')" @bind-value="user.LastName" />
                             <label for ="LastName" class = "label">Last Name:</label>
                         </div>
                         <div class="inputContainer">
                             <input type="text" class="input" id="EmailAddress" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
-                                oninvalid="this.setCustomValidity('Email is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.Email"  />
+                                oninvalid="this.setCustomValidity('Email is required')" onvalid="this.setCustomValidity('')" @bind-value="user.Email"  />
                             <label for="EmailAddress" class = "label">Email:</label>
                         </div>
                         <div class="inputContainer">
                             <input type="text" class="input" id="PhoneNumber" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
-                                oninvalid="this.setCustomValidity('Phone number is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.PhoneNumber"  />
+                                oninvalid="this.setCustomValidity('Phone number is required')" onvalid="this.setCustomValidity('')" @bind-value="user.PhoneNumber"  />
                             <label for="PhoneNumber" class = "label">Phone Number:</label>
                         </div>
 
                         <div class="inputContainer">
-                            <input type="text" class="input" id="DOB" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
-                                oninvalid="this.setCustomValidity('Date of birth is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.DOB"  />
-                            <label for="DOB" class = "label">Date of Birth:</label>
-                        </div>
-                        <div class="inputContainer">
-                            <input type="text" class="input" id="Username" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
-                                oninvalid="this.setCustomValidity('Username is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.UserName" />
-                            <label for="Username" class = "label">Username:</label>
+                            <input type="text" class="input" id="DisplayName" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
+                                oninvalid="this.setCustomValidity('Username is required')" onvalid="this.setCustomValidity('')" @bind-value="user.UserName" />
+                            <label for="Username" class = "label">Display Name:</label>
                         </div>
                         <br />
                         <br />
@@ -99,6 +94,9 @@
 </div>
 @code {
     
+
+
+
 }
 
 <style>

@@ -45,19 +45,17 @@
                             <label for="PhoneNumber" class = "label">Phone Number:</label>
                         </div>
 
-                        <div class="inputContainer">
+                       <!-- <div class="inputContainer">
                             <input type="text" class="input" id="DOB" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
                                 oninvalid="this.setCustomValidity('Date of birth is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.DOB"  />
                             <label for="DOB" class = "label">Date of Birth:</label>
-                        </div>
+                        </div> -->
                         <br />
-                        <br />
-                        <br />
-                        <div class="inputContainer">
+                        <!--<div class="inputContainer">
                             <input type="text" class="input" id="Username" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
                                 oninvalid="this.setCustomValidity('Username is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.UserName" />
                             <label for="Username" class = "label">Username:</label>
-                        </div>
+                        </div> -->
                         <br />
                         <br />
                         <div class="inputContainer">
@@ -210,7 +208,7 @@
 
     .sidebar{
     display:none;
-    visibility = hidden;
+    visibility:hidden;
 }
 
         @@media (max-width:600px) {

@@ -33,6 +33,7 @@ namespace ScavengeRUs.Pages
         private void barCodeToggle()
         {
             barCodeBox = !barCodeBox;
+            ShowScanBarcode = !ShowScanBarcode;
         }
 
     }

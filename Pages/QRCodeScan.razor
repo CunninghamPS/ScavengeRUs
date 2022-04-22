@@ -3,50 +3,79 @@
 @inherits MapPageBase
 @using ScavengeRUs.Data
 @using BlazorBarcodeScanner.ZXing.JS
+@inject IJSRuntime JsRuntime
 
 
-
-@if (ShowScanBarcode)
-{
-    <div class="QRCodeScanner">
-        <BlazorBarcodeScanner.ZXing.JS.BarcodeReader @ref="_reader"
-            Title=""
-            StartCameraAutomatically="true"
-            ShowStart="false"
-            ShowReset="false"
-            ShowToggleTorch="false"
-            ShowVideoDeviceList="false"
-            VideoWidth="500"
-            VideoHeight="500"
-            OnBarcodeReceived="QRCodeString"
-            ShowResult="false"
-         />
-    </div>
-}
-<br />
-<div style="margin-left: 35%; width: 30%; align-content: center">
-    <button @onclick="barCodeToggle" style="@(barCodeBox ? "display: none" : "display: block"); width: 200px;">Input QR Code</button>
+<div class="QRPage">
+    @if (ShowScanBarcode)
+    {
+        <div class="QRCodeScanner">
+            <BlazorBarcodeScanner.ZXing.JS.BarcodeReader @ref="_reader"
+                Title=""
+                StartCameraAutomatically="true"
+                ShowStart="false"
+                ShowReset="false"
+                ShowToggleTorch="false"
+                ShowVideoDeviceList="false"
+                VideoWidth=@Width
+                VideoHeight=@Height
+                OnBarcodeReceived="QRCodeString"
+                ShowResult="false"
+             />
+        </div>
+    }
+    <br />
+    <button class="btn btn-primary QRButton" @onclick="barCodeToggle" style="@(barCodeBox ? "display: none" : "display: flex");">Input QR Code Manually</button>
     <input type="text" class="form-control" style="@(barCodeBox ? "display: block" : "display: none"); min-width: 100px; max-width: 500px; margin: auto; margin-top: 30px"
                 @bind-value="BarCode"
                 placeholder="Type QR Code Here..." />
-    <button class="btn btn-primary"
+    <button class="btn btn-primary QRButton "
             type="button"
-            style="@(barCodeBox ? "display: block" : "display: none"); max-width: 200px; margin-top: 50px"
-            @onclick="RunBarCodeTyped">Input
-        </button>
+            style="@(barCodeBox ? "display: block" : "display: none"); max-width: 200px; margin-top: 50px; font-size: 16px;"
+            @onclick="RunBarCodeTyped">Submit
+    </button>
+        
 </div>
 
 @code {
-    
+    public int Height { get; set; }
+    public int Width { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var dimension = await JsRuntime.InvokeAsync<WindowDimension>("getWindowDimensions");
+        Height = dimension.Height - 60;
+        Width = dimension.Width;
+        Console.WriteLine("\n\n" + Height + " " + Width);
+    }
+
+    public class WindowDimension
+    {
+        public int Width { get; set; }
+        public int Height { get; set; }
+    }
 }
 
 <style>
+    .QRPage{
+        display: flex;
+        justify-content: center;
+    }
+
     .QRCodeScanner {
         text-align: center; 
         width: 100%;
+        height:100%;
+        z-index: -1;
+        position: absolute;
     }
 
-
-
-
+    .QRButton{
+        font-size: 12px;
+        position: absolute;
+        top: 40px;
+        margin:0 auto;
+        padding: 10px;
+        width: 150px;
+    }
 </style>
