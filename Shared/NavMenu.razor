@@ -53,6 +53,8 @@
 		{
 			if(dest.Equals("map"))
 				dest = "";
+			if (secretKey != null && dest.Equals("loginScreen"))
+				dest = "profile";
 			navManager.NavigateTo("/" + dest);
 		}
 		else

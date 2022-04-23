@@ -171,6 +171,16 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   setTimeout(autoUpdate, 5000);
 }
  </script>
+ <component type="typeof(App)" render-mode="ServerPrerendered" />
 
-<component type="typeof(App)" render-mode="ServerPrerendered" />
+ <script> 
+    window.getWindowDimensions = function () {
+        return {
+            width: window.innerWidth,
+            height: window.innerHeight
+        };
+    };
+ </script>
+
+
 

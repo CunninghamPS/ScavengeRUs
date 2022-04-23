@@ -1,4 +1,5 @@
-﻿@page "/profile/{secretKey}"
+﻿@page "/profile"
+@page "/profile/{secretKey}"
 @inherits MapPageBase
 @inject NavigationManager UriHelper
 @using ScavengeRUs.Models;
@@ -15,8 +16,8 @@
             <div class="firstCard">
                     <img class="img-account-profile rounded-circle" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
                     <!-- Profile picture help block-->
-                    <span class="accountName">First Last</span>
-                    <span class="displayname">Display Name</span>
+                    <span class="accountName">@Account.FirstName @Account.LastName</span>
+                    <span class="displayname">@Account.UserName</span>
                     <!-- Profile picture upload button-->
                     <!-- <button class="btn btn-primary" type="button">Select new image</button> -->
            </div>
@@ -78,20 +79,15 @@
                         </div>
 
                         <div class="inputContainer">
-                            <input type="text" class="input" id="DOB" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
-                                oninvalid="this.setCustomValidity('Date of birth is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.DOB"  />
-                            <label for="DOB" class = "label">Date of Birth:</label>
-                        </div>
-                        <div class="inputContainer">
-                            <input type="text" class="input" id="Username" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
+                            <input type="text" class="input" id="DisplayName" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
                                 oninvalid="this.setCustomValidity('Username is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.UserName" />
-                            <label for="Username" class = "label">Username:</label>
+                            <label for="Username" class = "label">Display Name:</label>
                         </div>
-                        <br />
                         <br />
                     </div>
                 </div>
                 <button class="btn btn-primary" @onclick="HandleValidSubmit"> Save Changes</button>
+                <br />
             </fieldset>
         </div>
     </center>
@@ -99,13 +95,20 @@
 </div>
 @code {
     
+
+
+
 }
 
 <style>
-    body{
+.body{
         display: flex;
         height: 100%;
-        padding-bottom: 150px;
+        padding-bottom: 100px;
+}
+
+.container-xl{
+    overflow: auto;
 }
 
 #profileButton{
@@ -122,6 +125,11 @@
     margin:0 auto;
     height: 6rem;
     margin-top:20px;
+}
+
+.btn-primary{
+    margin-bottom: 20px;
+    width: 50%;
 }
 
 .rounded-circle {

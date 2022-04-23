@@ -173,7 +173,7 @@ namespace ScavengeRUs.Data
 
             accessCode = existingCodes[tempCode];
 
-            addUserToGame(accessCode)
+            addUserToGame(accessCode);
 
             using (var conn = new SqlConnection(connectionString))
             {
@@ -735,7 +735,7 @@ namespace ScavengeRUs.Data
 
                     using (var reader = command.ExecuteReader())
                     {
-                        reader.Read()
+                        reader.Read();
                         result = reader.GetString(0);
                     }
                 }
@@ -750,7 +750,7 @@ namespace ScavengeRUs.Data
         {
             bool exists;
             string task_name;
-            string accessCode = getAccessFromGuid(guid)
+            string accessCode = getAccessFromGuid(guid);
             using (var conn = new SqlConnection(connectionString))
             {
                 using (var command = conn.CreateCommand())
@@ -764,14 +764,16 @@ namespace ScavengeRUs.Data
 
                     using (var reader = command.ExecuteReader())
                     {
-                        reader.Read()
+                        reader.Read();
     
 
-                    if (reader.HasRows)
-                        exists = true;
-                        task_name = reader.GetString(1);
-                    else
-                        exists = false;
+                        if (reader.HasRows)
+                        {
+                            exists = true;
+                            task_name = reader.GetString(1);
+                        }
+                        else
+                            exists = false;
 
                     }
                 }
