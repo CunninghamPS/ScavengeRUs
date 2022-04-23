@@ -1,5 +1,9 @@
 ﻿@page "/security"
-
+@page "/security/{secretKey}"
+@inherits MapPageBase
+@inject NavigationManager NavigationManager
+@using ScavengeRUs.Models;
+@using ScavengeRUs.Data;
 <div class="container-xl">
         <!-- Account page navigation-->
         <div class="row">
@@ -32,111 +36,160 @@
                 </div>
         </div>
         <nav class="nav nav-borders" style="margin: 0 auto; text-align: center;">
-            <a class="nav-link ms-0" href="/profile" >Profile</a>
-            <a class="nav-link active ms-0" href="/security" >Security</a>
+            <a @onclick="@(() => navigateTo("profile"))"> <p class="nav-link ms-0" >Profile </p> </a>
+            <a @onclick="@(() => navigateTo("security"))"> <p class="nav-link active ms-0"  >Security </p> </a>
         </nav>
-        <div class="row">
-            <div class="col-lg-8">
-                <!-- Change password card-->
-                <div class="card mb-4">
-                    <div class="card-header">Change Password</div>
-                    <div class="card-body">
-                        <form>
-                            <!-- Form Group (current password)-->
-                            <div class="mb-3">
-                                <label class="small mb-1" for="currentPassword">Current Password</label>
-                                <input class="form-control" id="currentPassword" type="password" placeholder="Enter current password">
-                            </div>
-                            <!-- Form Group (new password)-->
-                            <div class="mb-3">
-                                <label class="small mb-1" for="newPassword">New Password</label>
-                                <input class="form-control" id="newPassword" type="password" placeholder="Enter new password">
-                            </div>
-                            <!-- Form Group (confirm password)-->
-                            <div class="mb-3">
-                                <label class="small mb-1" for="confirmPassword">Confirm Password</label>
-                                <input class="form-control" id="confirmPassword" type="password" placeholder="Confirm new password">
-                            </div>
-                            <button class="btn btn-primary" type="button">Save</button>
-                        </form>
+        <EditForm Model="@Account" OnValidSubmit="HandleValidSubmit">
+    <center>
+        <div class="border signUpWrapper"> 
+            <br />
+            <fieldset>
+                <br />
+                <DataAnnotationsValidator/>
+                    <ValidationSummary/>
+                    <div class="signUpForm">
+                        <div class="inputContainer">
+                            <input type="text" class="input" id="Password" placeholder="a" required style=@inputStyle @onclick="ClearFormat" 
+                                oninvalid="this.setCustomValidity('Passwords do not match')" onvalid="this.setCustomValidity('')" @bind-value="Pass1" />
+                            <label for="Password" class = "label">Password:</label>
+                        </div>
+                        <div class="inputContainer">
+                            <input type="text" class="input" id="Password" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
+                                oninvalid="this.setCustomValidity('Passwords do not match')" onvalid="this.setCustomValidity('')" @bind-value="Pass2" />
+                            <label for ="Password" class = "label">Confirm Password:</label>
+                        </div>
+                        <br />
                     </div>
-                </div>
-                <!-- Security preferences card-->
-                <div class="card mb-4">
-                    <div class="card-header">Security Preferences</div>
-                    <div class="card-body">
-                        <!-- Account privacy optinos-->
-                        <h5 class="mb-1">Account Privacy</h5>
-                        <p class="small text-muted">By setting your account to private, your profile information and posts will not be visible to users outside of your user groups.</p>
-                        <form>
-                            <div class="form-check">
-                                <input class="form-check-input" id="radioPrivacy1" type="radio" name="radioPrivacy" checked="">
-                                <label class="form-check-label" for="radioPrivacy1">Public (posts are available to all users)</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" id="radioPrivacy2" type="radio" name="radioPrivacy">
-                                <label class="form-check-label" for="radioPrivacy2">Private (posts are available to only users in your groups)</label>
-                            </div>
-                        </form>
-                        <hr class="my-4">
-                        <!-- Data sharing options-->
-                        <h5 class="mb-1">Data Sharing</h5>
-                        <p class="small text-muted">Sharing usage data can help us to improve our products and better serve our users as they navigation through our application. When you agree to share usage data with us, crash reports and usage analytics will be automatically sent to our development team for investigation.</p>
-                        <form>
-                            <div class="form-check">
-                                <input class="form-check-input" id="radioUsage1" type="radio" name="radioUsage" checked="">
-                                <label class="form-check-label" for="radioUsage1">Yes, share data and crash reports with app developers</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" id="radioUsage2" type="radio" name="radioUsage">
-                                <label class="form-check-label" for="radioUsage2">No, limit my data sharing with app developers</label>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <!-- Two factor authentication card-->
-                <div class="card mb-4">
-                    <div class="card-header">Two-Factor Authentication</div>
-                    <div class="card-body">
-                        <p>Add another level of security to your account by enabling two-factor authentication. We will send you a text message to verify your login attempts on unrecognized devices and browsers.</p>
-                        <form>
-                            <div class="form-check">
-                                <input class="form-check-input" id="twoFactorOn" type="radio" name="twoFactor" checked="">
-                                <label class="form-check-label" for="twoFactorOn">On</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" id="twoFactorOff" type="radio" name="twoFactor">
-                                <label class="form-check-label" for="twoFactorOff">Off</label>
-                            </div>
-                            <div class="mt-3">
-                                <label class="small mb-1" for="twoFactorSMS">SMS Number</label>
-                                <input class="form-control" id="twoFactorSMS" type="tel" placeholder="Enter a phone number" value="555-123-4567">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- Delete account card-->
-                <div class="card mb-4">
-                    <div class="card-header">Delete Account</div>
-                    <div class="card-body">
-                        <p>Deleting your account is a permanent action and cannot be undone. If you are sure you want to delete your account, select the button below.</p>
-                        <button class="btn btn-danger-soft text-danger" type="button">I understand, delete my account</button>
-                    </div>
-                </div>
-            </div>
+                <button class="btn btn-primary" @onclick="HandleValidSubmit"> Change Password</button>
+                <br />
+            </fieldset>
         </div>
+    </center>
+</EditForm>
+<br />
+<br />
+<br />
+<EditForm Model="@Account" OnValidSubmit="HandleValidSubmit">
+    <center>
+        <div class="border signUpWrapper"> 
+            <br />
+            <fieldset>
+                <span style="font-size:24px; font-weight:bold; color: red;">Delete Account</span>
+                <br />
+                <div>
+                    <DataAnnotationsValidator/>
+                    <ValidationSummary/>
+                    <div class="signUpForm">
+                        <p>Deleting your account is a permanent action and cannot be undone. If you are sure you want to delete your account, select the button below.</p>
+                        <br />
+                    </div>
+                </div>
+                <button class="btn btn-primary" @onclick="confirmDelete">Delete</button>
+                <br />
+                <label for="CheckAvailibility"></label>
+                <br />
+                <button class="btn btn-primary" @onclick="deleteUser" disabled="@SubmitBtnDisabled"> Confirm</button>
+                <br />
+            </fieldset>
+        </div>
+    </center>
+</EditForm>
 </div>
+
+<SfDialog Width="400px" Height="200px" IsModal="true" ResizeHandles="@dialogResizeDirections" AllowDragging="true" EnableResize="false" ShowCloseIcon="false" @bind-Visible="@IsVisible">
+    <DialogTemplates>
+        <Header>Terms and Conditions</Header>
+        <Content>
+            <p style="text-align:center">
+                ARE YOU SURE?
+            </p>
+        </Content>
+    </DialogTemplates>
+    <DialogButtons>
+        <DialogButton Content="Yes" IsPrimary="true" OnClick="@OnSubmit" />
+    </DialogButtons>
+</SfDialog>
+
 @code {
+
+    private string Pass1, Pass2;
+    private string inputStyle = "";
+    private Account Account = new Account();
+    private bool IsVisible { get; set; } = false;
+    private bool SubmitBtnDisabled { get; set; } = true;
+    private ResizeDirection[] dialogResizeDirections { get; set; } = new ResizeDirection[] { ResizeDirection.All };
+
+    private void HandleValidSubmit()
+    {
+        try
+        {
+            if(!Pass1.Equals(Pass2))
+            {
+                throw new Exception();
+            }
+            Account.Password = Pass1;
+            DBTest.updateUserPassword(secretKey, Account.Password);
+        }
+        catch (Exception)
+        {
+            inputStyle = "border: .5px solid red";
+        }
+        Console.WriteLine("Valid Submit");
+    }
+
+    private void ClearFormat()
+    {
+        inputStyle = "";
+    }
+
+    private void deleteUser()
+    {
+        
+    }
+
+    void confirmDelete()
+    {
+        OpenDialog();
+    }
+
+    private void OpenDialog()
+    {
+        this.IsVisible = true;
+    }
+
+    private void OnSubmit()
+    {
+        this.IsVisible = false;
+        SubmitBtnDisabled = false;
+    }
+
+     public async Task<bool> navigateTo(string dest)
+        {
+            string[] paths = { "profile", "security" };
+            string url = NavigationManager.Uri;
+            int length = NavigationManager.Uri.Split('/').Length;
+            string addon = NavigationManager.Uri.Split('/')[length - 1];
+            if (paths.Contains(addon))
+            {
+                NavigationManager.NavigateTo("/" + dest);
+            }
+            else
+                NavigationManager.NavigateTo("/" + dest + "/" + addon);
+            return await System.Threading.Tasks.Task.FromResult(true);
+        }
 
 }
 
 <style>
-    body{
+.body{
         display: flex;
+        height: 100%;
+        padding-bottom: 100px;
 }
 
+.container-xl{
+    overflow: auto;
+}
 .accountName{
     font-size: 24px; 
     font-weight: bold; 
@@ -188,7 +241,10 @@
     margin: 0 auto;
 }
 
-
+.btn-primary{
+    margin-bottom: 20px;
+    width: 50%;
+}
 
 .card {
     box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);

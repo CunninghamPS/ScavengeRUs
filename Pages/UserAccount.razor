@@ -1,7 +1,7 @@
 ﻿@page "/profile"
 @page "/profile/{secretKey}"
 @inherits MapPageBase
-@inject NavigationManager UriHelper
+@inject NavigationManager NavigationManager
 @using ScavengeRUs.Models;
 @using ScavengeRUs.Data;
 <head>
@@ -41,8 +41,8 @@
                 </div>
         </div>
         <nav class="nav nav-borders">
-            <a class="nav-link active ms-0" href="/profile" >Profile</a>
-            <a class="nav-link ms-0" href="/security" >Security</a>
+            <a @onclick="@(() => navigateTo("profile"))"> <p class="nav-link active ms-0" >Profile </p> </a>
+            <a @onclick="@(() => navigateTo("security"))"> <p class="nav-link ms-0"  >Security </p> </a>
         </nav>
             <!-- Account details card-->
             <EditForm Model="@Account" OnValidSubmit="HandleValidSubmit">
@@ -58,29 +58,24 @@
                     <ValidationSummary/>
                     <div class="signUpForm">
                         <div class="inputContainer">
-                            <input type="text" class="input" id="FirstName" placeholder="a" required style=@inputStyle @onclick="ClearFormat" 
-                                oninvalid="this.setCustomValidity('First name is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.FirstName" />
+                            <input type="text" class="input" id="FirstName" placeholder="a" style=@inputStyle @onclick="ClearFormat" @bind-value="Account.FirstName" />
                             <label for="FirstName" class = "label">First Name:</label>
                         </div>
                         <div class="inputContainer">
-                            <input type="text" class="input" id="LastName" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
-                                oninvalid="this.setCustomValidity('Last name is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.LastName" />
+                            <input type="text" class="input" id="LastName" placeholder="a" style=@inputStyle @onclick="ClearFormat" @bind-value="Account.LastName" />
                             <label for ="LastName" class = "label">Last Name:</label>
                         </div>
                         <div class="inputContainer">
-                            <input type="text" class="input" id="EmailAddress" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
-                                oninvalid="this.setCustomValidity('Email is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.Email"  />
+                            <input type="text" class="input" id="EmailAddress" placeholder="a" style=@inputStyle @onclick="ClearFormat" @bind-value="Account.Email"  />
                             <label for="EmailAddress" class = "label">Email:</label>
                         </div>
                         <div class="inputContainer">
-                            <input type="text" class="input" id="PhoneNumber" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
-                                oninvalid="this.setCustomValidity('Phone number is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.PhoneNumber"  />
+                            <input type="text" class="input" id="PhoneNumber" placeholder="a" style=@inputStyle @onclick="ClearFormat" @bind-value="Account.PhoneNumber"  />
                             <label for="PhoneNumber" class = "label">Phone Number:</label>
                         </div>
 
                         <div class="inputContainer">
-                            <input type="text" class="input" id="DisplayName" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
-                                oninvalid="this.setCustomValidity('Username is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.UserName" />
+                            <input type="text" class="input" id="DisplayName" placeholder="a" style=@inputStyle @onclick="ClearFormat" @bind-value="Account.UserName" />
                             <label for="Username" class = "label">Display Name:</label>
                         </div>
                         <br />
@@ -93,10 +88,23 @@
     </center>
 </EditForm>
 </div>
+<div>
+    <center> 
+            <div>
+                <div class="col-12">
+                    <span style="font-size:24px; font-weight:bold; color:#3998E8;">Account Details</span>
+                </div>
+                <br /> <br /> <br /> 
+            </div>
+            <div class="border logInWrapper"> 
+                    <div>
+                        <input type="submit" class="btn btn-primary" @onclick="logout" value="LOGOUT" />
+                    </div>
+            </div>
+    </center>
+</div>
+
 @code {
-    
-
-
 
 }
 
