@@ -27,7 +27,7 @@ namespace ScavengeRUs.Pages
         {
             // Change to reflect actual barcode scanning
             Console.WriteLine("Bar Code Scanned/Typed: " + BarCode);
-            bool success = DBTest.validateQR(BarCode, secretKey)
+            bool success = DBTest.validateQR(BarCode, secretKey);
             // If valid Qr code disable the qr code manual box
             barCodeBox = false;
         }
