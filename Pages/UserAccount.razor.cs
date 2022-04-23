@@ -6,7 +6,7 @@ namespace ScavengeRUs.Pages
     public partial class UserAccount
     {
         private string inputStyle = "";
-        private Models.Account user;
+        private Account Account = new Account();
         private void HandleValidSubmit()
         {
 

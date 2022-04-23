@@ -1,4 +1,5 @@
-﻿@page "/profile/{secretKey}"
+﻿@page "/profile"
+@page "/profile/{secretKey}"
 @inherits MapPageBase
 @inject NavigationManager UriHelper
 @using ScavengeRUs.Models;
@@ -44,7 +45,7 @@
             <a class="nav-link ms-0" href="/security" >Security</a>
         </nav>
             <!-- Account details card-->
-            <EditForm Model="@user" OnValidSubmit="HandleValidSubmit">
+            <EditForm Model="@Account" OnValidSubmit="HandleValidSubmit">
     <center>
         <div class="border signUpWrapper"> 
             <br />
@@ -58,35 +59,35 @@
                     <div class="signUpForm">
                         <div class="inputContainer">
                             <input type="text" class="input" id="FirstName" placeholder="a" required style=@inputStyle @onclick="ClearFormat" 
-                                oninvalid="this.setCustomValidity('First name is required')" onvalid="this.setCustomValidity('')" @bind-value="user.FirstName" />
+                                oninvalid="this.setCustomValidity('First name is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.FirstName" />
                             <label for="FirstName" class = "label">First Name:</label>
                         </div>
                         <div class="inputContainer">
                             <input type="text" class="input" id="LastName" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
-                                oninvalid="this.setCustomValidity('Last name is required')" onvalid="this.setCustomValidity('')" @bind-value="user.LastName" />
+                                oninvalid="this.setCustomValidity('Last name is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.LastName" />
                             <label for ="LastName" class = "label">Last Name:</label>
                         </div>
                         <div class="inputContainer">
                             <input type="text" class="input" id="EmailAddress" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
-                                oninvalid="this.setCustomValidity('Email is required')" onvalid="this.setCustomValidity('')" @bind-value="user.Email"  />
+                                oninvalid="this.setCustomValidity('Email is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.Email"  />
                             <label for="EmailAddress" class = "label">Email:</label>
                         </div>
                         <div class="inputContainer">
                             <input type="text" class="input" id="PhoneNumber" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
-                                oninvalid="this.setCustomValidity('Phone number is required')" onvalid="this.setCustomValidity('')" @bind-value="user.PhoneNumber"  />
+                                oninvalid="this.setCustomValidity('Phone number is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.PhoneNumber"  />
                             <label for="PhoneNumber" class = "label">Phone Number:</label>
                         </div>
 
                         <div class="inputContainer">
                             <input type="text" class="input" id="DisplayName" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
-                                oninvalid="this.setCustomValidity('Username is required')" onvalid="this.setCustomValidity('')" @bind-value="user.UserName" />
+                                oninvalid="this.setCustomValidity('Username is required')" onvalid="this.setCustomValidity('')" @bind-value="Account.UserName" />
                             <label for="Username" class = "label">Display Name:</label>
                         </div>
-                        <br />
                         <br />
                     </div>
                 </div>
                 <button class="btn btn-primary" @onclick="HandleValidSubmit"> Save Changes</button>
+                <br />
             </fieldset>
         </div>
     </center>
@@ -100,10 +101,14 @@
 }
 
 <style>
-    body{
+.body{
         display: flex;
         height: 100%;
-        padding-bottom: 150px;
+        padding-bottom: 100px;
+}
+
+.container-xl{
+    overflow: auto;
 }
 
 #profileButton{
@@ -120,6 +125,11 @@
     margin:0 auto;
     height: 6rem;
     margin-top:20px;
+}
+
+.btn-primary{
+    margin-bottom: 20px;
+    width: 50%;
 }
 
 .rounded-circle {
