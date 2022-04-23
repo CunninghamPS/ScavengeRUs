@@ -173,6 +173,8 @@ namespace ScavengeRUs.Data
 
             accessCode = existingCodes[tempCode];
 
+            addUserToGame(accessCode)
+
             using (var conn = new SqlConnection(connectionString))
             {
                 using (var command = conn.CreateCommand())
@@ -620,6 +622,35 @@ namespace ScavengeRUs.Data
             return result;
         }
 
+        public static void addUserToGame(string accessCode)
+        {
+            string locations = getLocations();
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+
+                    command.CommandText = @"INSERT INTO game VALUES(@accessCode" + locations + ");";
+
+                    command.Parameters.AddWithValue("@accessCode", accessCode);
+                    command.Parameters.AddWithValue("@false", 0);
+
+
+                    conn.Open();
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        conn.Close();
+                    }
+                }
+            }
+        }
+
         public static void addUsersToGame()
         {
             List<string> users = getUsers();
@@ -652,6 +683,122 @@ namespace ScavengeRUs.Data
                     }
                 }
             }
+        }
+
+        //for sam
+        public static List<string> getUserInfo(string guid)
+        {
+            List<string> result = new List<string>();
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+
+                    command.CommandText = @"SELECT * FROM account WHERE guid=@guid;";
+
+                    command.Parameters.AddWithValue("@guid", guid);
+
+                    conn.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            result.Add(reader.GetString(0)); // access code
+                            result.Add(reader.GetString(1)); // email
+                            result.Add(reader.GetString(2)); // DOB
+                            result.Add(reader.GetString(3)); // first name
+                            result.Add(reader.GetString(4)); // last name
+                            result.Add(reader.GetString(5)); // phone num
+                            result.Add(reader.GetString(6)); // username
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static string getAccessFromGuid(string guid)
+        {
+            string result;
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+
+                    command.CommandText = @"SELECT accessCode FROM account WHERE guid=@guid;";
+
+                    command.Parameters.AddWithValue("@guid", guid);
+
+                    conn.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        reader.Read()
+                        result = reader.GetString(0);
+                    }
+                }
+                conn.Close();
+            }
+
+            return result;
+            
+        }
+
+        public static bool validateQR(string QR, string guid)
+        {
+            bool exists;
+            string task_name;
+            string accessCode = getAccessFromGuid(guid)
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+
+                    command.CommandText = @"SELECT * FROM tasks WHERE qrCode=@qrCode;";
+
+                    command.Parameters.AddWithValue("@qrCode", QR);
+
+                    conn.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        reader.Read()
+    
+
+                    if (reader.HasRows)
+                        exists = true;
+                        task_name = reader.GetString(1);
+                    else
+                        exists = false;
+
+                    }
+                }
+                if (exists)
+                {
+                    using (var command = conn.CreateCommand())
+                    {
+
+                        command.CommandText = @"UPDATE game SET @taskname=1 WHERE accessCode=@accessCode";
+
+                        command.Parameters.AddWithValue("@accessCode", accessCode);
+
+                        try
+                        {
+                            command.ExecuteNonQuery();
+                        }
+                        catch (SqlException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            conn.Close();
+                        }
+
+                    }
+                }
+            }
+
+            return exists;
         }
     }
 }
