@@ -25,13 +25,20 @@ namespace ScavengeRUs.Pages
 
         protected override System.Threading.Tasks.Task OnInitializedAsync()
         {
-            List<string> values = DBTest.getUserInfo(secretKey);
-            Account.Email = values[1];
-            Account.DOB = values[2];
-            Account.FirstName = values[3];
-            Account.LastName = values[4];
-            Account.PhoneNumber = values[5];
-            Account.UserName = values[6];
+            try
+            {
+                List<string> values = DBTest.getUserInfo(secretKey);
+                Account.Email = values[1];
+                Account.DOB = values[2];
+                Account.FirstName = values[3];
+                Account.LastName = values[4];
+                Account.PhoneNumber = values[5];
+                Account.UserName = values[6];
+            }
+            catch(Exception)
+            {
+                Console.WriteLine("Error Getting Logged In User Info");
+            }
             return base.OnInitializedAsync();
         }
 

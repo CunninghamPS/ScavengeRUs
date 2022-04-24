@@ -10,9 +10,12 @@ namespace ScavengeRUs.Pages
         private string inputStyle = "";
         private void HandleValidSubmit()
         {
+            Random random = new Random();
+            Account.UserName = random.Next(111111,999999).ToString();
             try
-            {
+            {   
                 DBTest.newAccount(Account.Email, Account.DOB, Account.FirstName, Account.LastName, Account.PhoneNumber, Account.UserName, Account.Password);
+                Navigate();
             }
             catch (Exception)
             {

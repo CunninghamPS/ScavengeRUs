@@ -7,66 +7,54 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-@if (secretKey == null)
-{
-    <EditForm Model="@user">
-        <center> 
-            <div>
-                <br /> <br /> <br /> 
-            </div>
-            <div class="border logInForm"> 
-                <br />
-                <div class="col-12">
-                    <h3 style = "color:rgba(79,172,254,1); font-weight: bold">ScavengeRUs Login</h3>
-                </div>
-                <div>
-                    <br />
-                    <h5 class="red">@feedback</h5>
-                    <br />
-                </div>
-                <div class="inputContainer">
-                    <input type="text" class="input" id="Email" placeholder="Email Address" style=@inputStyle @bind="@user.Email" @onclick="ClearFormat"/>
-                    <label for="Email" class="label">Email:</label>
-                </div>
-                <br />
-                <div class="inputContainer">
-                    <input type="password" class="input" id="Password" placeholder="Password" style=@inputStyle @bind="@user.Password" @onclick="ClearFormat"/>
-                    <label for="Password" class="label">Password:</label>
-                </div>
-                <br />
-                <div>
-                    <input type="submit" class="btn btn-primary" value="Login" @onclick="ValidateUser"/>
-                </div>
-                <div>
-                    <br />
-                    <p>OR</p>
-                    <br />
-                    <div>
-                        <button name="signupButton" class="btn btn-primary" @onclick="SignUp">SignUp</button>
-                        <br /> <br />
-                    </div>
-                </div>
-            </div>
-        </center>
 
-    </EditForm>
-}
-else
+@if(secretKey != null)
 {
+    NavigationManager.NavigateTo("/profile/" + secretKey);
+}
+
+<EditForm Model="@user">
     <center> 
         <div>
-            <div class="col-12">
-                <h3 style = "color:#3998E8; font-weight: bold">Logout</h3>
-            </div>
             <br /> <br /> <br /> 
         </div>
-        <div class="border logInWrapper"> 
+        <div class="border logInForm"> 
+            <br />
+            <div class="col-12">
+                <h3 style = "color:rgba(79,172,254,1); font-weight: bold">ScavengeRUs Login</h3>
+            </div>
+            <div>
+                <br />
+                <h5 class="red">@feedback</h5>
+                <br />
+            </div>
+            <div class="inputContainer">
+                <input type="text" class="input" id="Email" placeholder="Email Address" style=@inputStyle @bind="@user.Email" @onclick="ClearFormat"/>
+                <label for="Email" class="label">Email:</label>
+            </div>
+            <br />
+            <div class="inputContainer">
+                <input type="password" class="input" id="Password" placeholder="Password" style=@inputStyle @bind="@user.Password" @onclick="ClearFormat"/>
+                <label for="Password" class="label">Password:</label>
+            </div>
+            <br />
+            <div>
+                <input type="submit" class="btn btn-primary" value="Login" @onclick="ValidateUser"/>
+            </div>
+            <div>
+                <br />
+                <p>OR</p>
+                <br />
                 <div>
-                    <input type="submit" class="btn btn-primary" @onclick="logout" value="LOGOUT" />
+                    <button name="signupButton" class="btn btn-primary" @onclick="SignUp">SignUp</button>
+                    <br /> <br />
                 </div>
+            </div>
         </div>
     </center>
-}
+
+</EditForm>
+
 
 @code {
     
