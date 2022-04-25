@@ -32,6 +32,51 @@ namespace ScavengeRUs.Data
 
         }
 
+        public static void sendCongratsEmail(string guid)
+        {
+            string gameOver = "Congrats on completing the game!";
+            string email = DBTest.getEmail(guid);
+
+            MailboxAddress sender = new MailboxAddress("ScavengeRUs Team", "game.scavengerus@gmail.com");
+
+            string emailAddress = "game.scavengerus@gmail.com";
+            string password = "ScavengeRUs2022Tier1";
+
+            //creates a new message object
+            MimeMessage message = new MimeMessage();
+            //adds an account to send the message from
+            message.From.Add(sender);
+            //adds a recipient to the message
+            message.To.Add(MailboxAddress.Parse(email));
+            //adds a subject to the message
+            message.Subject = "ScavengeRUs Access Code";
+            //adds a message body in plain text
+            message.Body = new TextPart("plain")
+            {
+                Text = gameOver
+            };
+
+            SmtpClient client = new SmtpClient();
+
+            //tries to connect to the email account and send the message
+            try
+            {
+                client.Connect("smtp.gmail.com", 465, true);
+                client.Authenticate(emailAddress, password);
+                client.Send(message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                client.Disconnect(true);
+
+                client.Dispose();
+            }
+        }
+
         public static void sendURLEmail(string urldID, string email)
         {
             string URL = "https://scavengerus.com/AccessCode/" + urldID;

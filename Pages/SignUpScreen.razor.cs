@@ -8,6 +8,8 @@ namespace ScavengeRUs.Pages
     {
         private Account Account = new Account();
         private string inputStyle = "";
+        private bool password = false;
+
         private void HandleValidSubmit()
         {
             Random random = new Random();
