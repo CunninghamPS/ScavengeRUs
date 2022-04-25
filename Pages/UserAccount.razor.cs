@@ -6,6 +6,7 @@ namespace ScavengeRUs.Pages
     public partial class UserAccount
     {
         private string inputStyle = "";
+        private string stringOnSubmit = "";
         private Account Account = new Account();
         private bool IsVisible { get; set; } = false;
         private bool SubmitBtnDisabled { get; set; } = true;
@@ -21,10 +22,12 @@ namespace ScavengeRUs.Pages
                 inputStyle = "border: .5px solid red";
             }
             Console.WriteLine("Valid Submit");
+            stringOnSubmit = "Changes Saved!";
         }
 
         protected override System.Threading.Tasks.Task OnInitializedAsync()
         {
+            stringOnSubmit = "";
             try
             {
                 List<string> values = DBTest.getUserInfo(secretKey);

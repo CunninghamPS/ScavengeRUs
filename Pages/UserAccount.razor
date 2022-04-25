@@ -44,7 +44,6 @@
             <a @onclick="@(() => navigateTo("security"))"> <p class="nav-link ms-0"  >Security </p> </a>
         </nav>
             <!-- Account details card-->
-            <EditForm Model="@Account" OnValidSubmit="HandleValidSubmit">
     <center>
         <div class="border signUpWrapper"> 
             <br />
@@ -53,8 +52,6 @@
                 <span style="font-size:36px; font-weight:bold; color: white;">Account Details</span>
                 <br />
                 <div>
-                    <DataAnnotationsValidator/>
-                    <ValidationSummary/>
                     <div class="signUpForm">
                         <div class="inputContainer">
                             <input type="text" class="input" id="FirstName" placeholder="a" style=@inputStyle @onclick="ClearFormat" @bind-value="Account.FirstName" />
@@ -82,10 +79,11 @@
                 </div>
                 <button class="btn btn-primary" @onclick="HandleValidSubmit"> Save Changes</button>
                 <br />
+                <span style="font-size:18px; font-weight:bold; color: rgba(79,172,254,1);">@stringOnSubmit</span>
+                @if(!stringOnSubmit.Equals("")){<br /><br />}
             </fieldset>
         </div>
     </center>
-</EditForm>
     <div>
         <center> 
                 <div>

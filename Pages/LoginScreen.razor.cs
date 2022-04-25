@@ -8,6 +8,10 @@ namespace ScavengeRUs.Pages
         private string feedback = "";
         private string inputStyle = "";
         private string addon;
+        private bool emailValid = false;
+        private bool passwordValid = false;
+
+
 
         protected override Task OnInitializedAsync()
         {
@@ -19,7 +23,7 @@ namespace ScavengeRUs.Pages
             user.Email = user.Email.ToLower();
 
             Console.WriteLine(user.Email);
-            if (DBTest.validateUser(user.Email, user.Password))
+            if (DBTest.validateUser(user.Email, user.Password) && !user.Email.Equals("") && !user.Password.Equals(""))
             {
                 addon = DBTest.login(user.Email, user.Password);
                 await navigateToMain(addon);

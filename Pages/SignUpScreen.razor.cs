@@ -6,7 +6,7 @@ namespace ScavengeRUs.Pages
 {
     public partial class SignUpScreen
     {
-        private Account Account = new Account();
+        private Models.Account Account = new Account();
         private string inputStyle = "";
         private void HandleValidSubmit()
         {
@@ -14,7 +14,14 @@ namespace ScavengeRUs.Pages
             Account.UserName = random.Next(111111,999999).ToString();
             try
             {   
-                DBTest.newAccount(Account.Email, Account.DOB, Account.FirstName, Account.LastName, Account.PhoneNumber, Account.UserName, Account.Password);
+                if(Account.Email.Equals("") || Account.Password.Equals("") || Account.FirstName.Equals("") || Account.LastName.Equals("") || Account.PhoneNumber.Equals(""))
+                {
+                    throw new Exception();
+                }
+                else
+                {
+                    DBTest.newAccount(Account.Email, Account.DOB, Account.FirstName, Account.LastName, Account.PhoneNumber, Account.UserName, Account.Password);
+                }
                 Navigate();
             }
             catch (Exception)

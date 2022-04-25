@@ -3,6 +3,7 @@
 @inject NavigationManager NavigationManager
 @using ScavengeRUs.Models;
 @using ScavengeRUs.Data;
+@using System.Text.RegularExpressions;
 <div class="container-xl">
         <!-- Account page navigation-->
         <div class="row">
@@ -38,22 +39,24 @@
             <a @onclick="@(() => navigateTo("profile"))"> <p class="nav-link ms-0" >Profile </p> </a>
             <a @onclick="@(() => navigateTo("security"))"> <p class="nav-link active ms-0"  >Security </p> </a>
         </nav>
-        <EditForm Model="@Account" OnValidSubmit="HandleValidSubmit">
     <center>
         <div class="border signUpWrapper"> 
             <br />
             <fieldset>
+            <div>
                 <br />
-                <DataAnnotationsValidator/>
-                    <ValidationSummary/>
+                <h5 class="red">@feedback</h5>
+                <br />
+            </div>
+                <br />
                     <div class="signUpForm">
                         <div class="inputContainer">
-                            <input type="text" class="input" id="Password" placeholder="a" required style=@inputStyle @onclick="ClearFormat" 
+                            <input type="password" class="input" id="Password" placeholder="a" required style=@inputStyle @onclick="ClearFormat" 
                                 oninvalid="this.setCustomValidity('Passwords do not match')" onvalid="this.setCustomValidity('')" @bind-value="Pass1" />
                             <label for="Password" class = "label">Password:</label>
                         </div>
                         <div class="inputContainer">
-                            <input type="text" class="input" id="Password" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
+                            <input type="password" class="input" id="Password" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
                                 oninvalid="this.setCustomValidity('Passwords do not match')" onvalid="this.setCustomValidity('')" @bind-value="Pass2" />
                             <label for ="Password" class = "label">Confirm Password:</label>
                         </div>
@@ -64,11 +67,9 @@
             </fieldset>
         </div>
     </center>
-</EditForm>
 <br />
 <br />
 <br />
-<EditForm Model="@Account" OnValidSubmit="HandleValidSubmit">
     <center>
         <div class="border signUpWrapper"> 
             <br />
@@ -76,8 +77,6 @@
                 <span style="font-size:24px; font-weight:bold; color: red;">Delete Account</span>
                 <br />
                 <div>
-                    <DataAnnotationsValidator/>
-                    <ValidationSummary/>
                     <div class="signUpForm">
                         <p>Deleting your account is a permanent action and cannot be undone. If you are sure you want to delete your account, select the button below.</p>
                         <br />
@@ -92,7 +91,6 @@
             </fieldset>
         </div>
     </center>
-</EditForm>
 </div>
 
 <SfDialog Width="400px" Height="200px" IsModal="true" ResizeHandles="@dialogResizeDirections" AllowDragging="true" EnableResize="false" ShowCloseIcon="false" @bind-Visible="@IsVisible">
@@ -111,8 +109,9 @@
 
 @code {
 
-    private string Pass1, Pass2;
+    private string Pass1 = "", Pass2 = "";
     private string inputStyle = "";
+    private string feedback = "";
     private Account Account = new Account();
     private bool IsVisible { get; set; } = false;
     private bool SubmitBtnDisabled { get; set; } = true;
@@ -137,17 +136,32 @@
 
     private void HandleValidSubmit()
     {
+        Regex rgx = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$");
         try
         {
-            if(!Pass1.Equals(Pass2))
-            {
+            if (Pass1.Equals("") || Pass2.Equals(""))
                 throw new Exception();
+
+            if(!Pass1.Equals(Pass2))
+                throw new Exception();
+            else
+            {
+                if(rgx.IsMatch(Pass1))
+                {
+                    Account.Password = Pass1;
+                    DBTest.updateUserPassword(secretKey, Account.Password);
+                }
+                else
+                {
+                    feedback = "Password must be 8 characters long with at least 1 uppercase and 1 lowercase letter, 1 number and 1 special character.";
+                    inputStyle = "border: .5px solid red";
+                }
             }
-            Account.Password = Pass1;
-            DBTest.updateUserPassword(secretKey, Account.Password);
+            
         }
         catch (Exception)
         {
+            feedback = "Passwords must match";
             inputStyle = "border: .5px solid red";
         }
         Console.WriteLine("Valid Submit");
@@ -311,6 +325,12 @@
     z-index: 2;
     width: 90%;
     height: 100px;
+}
+
+.red{
+    color: red;
+    font-size: small;
+    font-style: italic;
 }
 
 .stat{
