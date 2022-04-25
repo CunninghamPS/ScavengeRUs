@@ -496,6 +496,67 @@ namespace ScavengeRUs.Data
                 }
             }
         }
+
+        public static void updateUser(string guid, string firstName, string lastName, string username, string email, string phoneNum)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+                    //accessCode, email, dob, firstName, lastName, phoneNum, username, pass
+
+                    command.CommandText = @"UPDATE account SET firstName=@firstName, lastName=@lastName, phoneNum=@phoneNum, username=@username, email=@email  WHERE guid=@guid;";
+
+                    command.Parameters.AddWithValue("@guid", guid);
+                    command.Parameters.AddWithValue("@firstName", firstName);
+                    command.Parameters.AddWithValue("@lastName", lastName);
+                    command.Parameters.AddWithValue("@phoneNum", phoneNum);
+                    command.Parameters.AddWithValue("@username", username);
+                    command.Parameters.AddWithValue("@email", email);
+
+                    conn.Open();
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        conn.Close();
+                    }
+                }
+            }
+        }
+
+        public static void updateUserPassword(string guid, string pass)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+                    //accessCode, email, dob, firstName, lastName, phoneNum, username, pass
+
+                    command.CommandText = @"UPDATE account SET pass=@pass WHERE guid=@guid;";
+
+                    command.Parameters.AddWithValue("@guid", guid);
+                    command.Parameters.AddWithValue("@pass", pass);
+
+                    conn.Open();
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        conn.Close();
+                    }
+                }
+            }
+        }
+
         public static List<string> getTasks()
         {
             List<string> tasks = new List<string>();
@@ -717,6 +778,32 @@ namespace ScavengeRUs.Data
             }
 
             return result;
+        }
+
+        public static void deleteUserFromDB(string guid)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+                    command.CommandText = @"DELETE FROM account WHERE guid=@guid;";
+
+                    command.Parameters.AddWithValue("@guid", guid);
+
+                    conn.Open();
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        conn.Close();
+                    }
+                }
+
+            }
         }
 
         public static string getAccessFromGuid(string guid)

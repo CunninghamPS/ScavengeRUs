@@ -11,7 +11,6 @@
         [StringLength(100, ErrorMessage = "*Last name cannot exceed 100 characters")]
         public string LastName { get; set; } = string.Empty;
 
-        [Required]
         [RegularExpression(@"^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$", ErrorMessage="*Date of Birth must be in MM/DD/YYYY\n")]
         [StringLength(100, ErrorMessage = "*Date of Birth must be in MM/DD/YYYY")]
         public string DOB { get; set; } = string.Empty;
@@ -25,8 +24,6 @@
         [Required]
         [Phone(ErrorMessage="*Please enter a valid phone number.")]
         public string PhoneNumber { get; set; } = string.Empty;
-
-        [Required]
 
         public string UserName { get; set; } = string.Empty;
 
