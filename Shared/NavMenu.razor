@@ -60,7 +60,12 @@
 			navManager.NavigateTo("/" + dest);
 		}
 		else
-			navManager.NavigateTo("/" + dest +"/" + addon);
+		{
+			if(addon.Equals("signUpScreen") || addon.Equals("loginScreen"))
+				navManager.NavigateTo("/" + dest);
+			else
+				navManager.NavigateTo("/" + dest +"/" + addon);
+		}
 		return await Task.FromResult(true);
 	}
 

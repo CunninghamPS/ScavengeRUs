@@ -29,12 +29,14 @@
                 <br />
             </div>
             <div class="inputContainer">
-                <input type="text" class="input" id="Email" placeholder="Email Address" style=@inputStyle @bind="@user.Email" @onclick="ClearFormat"/>
+                <input type="text" class="input" id="Email" placeholder="Email Address" style=@inputStyle 
+                    oninvalid="this.setCustomValidity('Email is required')" onvalid="this.setCustomValidity('')"@bind="@user.Email" @onclick="ClearFormat"/>
                 <label for="Email" class="label">Email:</label>
             </div>
             <br />
             <div class="inputContainer">
-                <input type="password" class="input" id="Password" placeholder="Password" style=@inputStyle @bind="@user.Password" @onclick="ClearFormat"/>
+                <input type="password" class="input" id="Password" placeholder="Password" style=@inputStyle 
+                    oninvalid="this.setCustomValidity('Password is required')" onvalid="this.setCustomValidity('')" @bind="@user.Password" @onclick="ClearFormat"/>
                 <label for="Password" class="label">Password:</label>
             </div>
             <br />

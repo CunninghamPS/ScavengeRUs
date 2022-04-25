@@ -3,6 +3,7 @@
 @inject NavigationManager NavigationManager
 @using ScavengeRUs.Models;
 @using ScavengeRUs.Data;
+@using System.Text.RegularExpressions;
 <div class="container-xl">
         <!-- Account page navigation-->
         <div class="row">
@@ -38,22 +39,24 @@
             <a @onclick="@(() => navigateTo("profile"))"> <p class="nav-link ms-0" >Profile </p> </a>
             <a @onclick="@(() => navigateTo("security"))"> <p class="nav-link active ms-0"  >Security </p> </a>
         </nav>
-        <EditForm Model="@Account" OnValidSubmit="HandleValidSubmit">
     <center>
         <div class="border signUpWrapper"> 
             <br />
             <fieldset>
+            <div>
                 <br />
-                <DataAnnotationsValidator/>
-                    <ValidationSummary/>
+                <h5 class="red">@feedback</h5>
+                <br />
+            </div>
+                <br />
                     <div class="signUpForm">
                         <div class="inputContainer">
-                            <input type="text" class="input" id="Password" placeholder="a" required style=@inputStyle @onclick="ClearFormat" 
+                            <input type="password" class="input" id="Password" placeholder="a" required style=@inputStyle @onclick="ClearFormat" 
                                 oninvalid="this.setCustomValidity('Passwords do not match')" onvalid="this.setCustomValidity('')" @bind-value="Pass1" />
                             <label for="Password" class = "label">Password:</label>
                         </div>
                         <div class="inputContainer">
-                            <input type="text" class="input" id="Password" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
+                            <input type="password" class="input" id="Password" placeholder="a" required style=@inputStyle @onclick="ClearFormat"
                                 oninvalid="this.setCustomValidity('Passwords do not match')" onvalid="this.setCustomValidity('')" @bind-value="Pass2" />
                             <label for ="Password" class = "label">Confirm Password:</label>
                         </div>
@@ -61,14 +64,14 @@
                     </div>
                 <button class="btn btn-primary" @onclick="HandleValidSubmit"> Change Password</button>
                 <br />
+                <span style="font-size:18px; font-weight:bold; color: rgba(79,172,254,1);">@stringOnSubmit</span>
+                @if(!stringOnSubmit.Equals("")){<br /><br />}
             </fieldset>
         </div>
     </center>
-</EditForm>
 <br />
 <br />
 <br />
-<EditForm Model="@Account" OnValidSubmit="HandleValidSubmit">
     <center>
         <div class="border signUpWrapper"> 
             <br />
@@ -76,8 +79,6 @@
                 <span style="font-size:24px; font-weight:bold; color: red;">Delete Account</span>
                 <br />
                 <div>
-                    <DataAnnotationsValidator/>
-                    <ValidationSummary/>
                     <div class="signUpForm">
                         <p>Deleting your account is a permanent action and cannot be undone. If you are sure you want to delete your account, select the button below.</p>
                         <br />
@@ -92,15 +93,14 @@
             </fieldset>
         </div>
     </center>
-</EditForm>
 </div>
 
 <SfDialog Width="400px" Height="200px" IsModal="true" ResizeHandles="@dialogResizeDirections" AllowDragging="true" EnableResize="false" ShowCloseIcon="false" @bind-Visible="@IsVisible">
     <DialogTemplates>
-        <Header>Terms and Conditions</Header>
+        <Header>Delete User Account</Header>
         <Content>
             <p style="text-align:center">
-                ARE YOU SURE?
+                Are you sure you would like to delete your account? Remember, this action cannot be undone.
             </p>
         </Content>
     </DialogTemplates>
@@ -110,109 +110,6 @@
 </SfDialog>
 
 @code {
-
-    private string Pass1, Pass2;
-    private string inputStyle = "";
-    private Account Account = new Account();
-    private bool IsVisible { get; set; } = false;
-    private bool SubmitBtnDisabled { get; set; } = true;
-    private ResizeDirection[] dialogResizeDirections { get; set; } = new ResizeDirection[] { ResizeDirection.All };
-
-
-    protected override System.Threading.Tasks.Task OnInitializedAsync()
-    {
-        try
-        {
-            List<string> values = DBTest.getUserInfo(secretKey);
-            Account.FirstName = values[3];
-            Account.LastName = values[4];
-            Account.UserName = values[6];
-        }
-        catch(Exception)
-        {
-            Console.WriteLine("Error Getting Logged In User Info");
-        }
-        return base.OnInitializedAsync();
-    }
-
-    private void HandleValidSubmit()
-    {
-        try
-        {
-            if(!Pass1.Equals(Pass2))
-            {
-                throw new Exception();
-            }
-            Account.Password = Pass1;
-            DBTest.updateUserPassword(secretKey, Account.Password);
-        }
-        catch (Exception)
-        {
-            inputStyle = "border: .5px solid red";
-        }
-        Console.WriteLine("Valid Submit");
-    }
-
-    private void ClearFormat()
-    {
-        inputStyle = "";
-    }
-
-    private void deleteUser()
-    {
-        try
-        {
-            DBTest.deleteUserFromDB(secretKey);
-            logout();
-        }
-        catch(Exception)
-        {
-            Console.WriteLine("Cannot delete user");
-        }
-    }
-    private void logout()
-    {
-        if (secretKey != null)
-        {
-            DBTest.logout(secretKey);
-            NavigationManager.NavigateTo("/");
-        }
-        else
-        {
-            DBTest.addUsersToGame();
-        }
-    }
-
-    void confirmDelete()
-    {
-        OpenDialog();
-    }
-
-    private void OpenDialog()
-    {
-        this.IsVisible = true;
-    }
-
-    private void OnSubmit()
-    {
-        this.IsVisible = false;
-        SubmitBtnDisabled = false;
-    }
-
-     public async Task<bool> navigateTo(string dest)
-        {
-            string[] paths = { "profile", "security" };
-            string url = NavigationManager.Uri;
-            int length = NavigationManager.Uri.Split('/').Length;
-            string addon = NavigationManager.Uri.Split('/')[length - 1];
-            if (paths.Contains(addon))
-            {
-                NavigationManager.NavigateTo("/" + dest);
-            }
-            else
-                NavigationManager.NavigateTo("/" + dest + "/" + addon);
-            return await System.Threading.Tasks.Task.FromResult(true);
-        }
 
 }
 
@@ -311,6 +208,12 @@
     z-index: 2;
     width: 90%;
     height: 100px;
+}
+
+.red{
+    color: red;
+    font-size: small;
+    font-style: italic;
 }
 
 .stat{
