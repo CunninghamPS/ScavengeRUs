@@ -25,9 +25,21 @@ namespace ScavengeRUs.Pages
 
         private void RunBarCodeTyped()
         {
+            bool gameComplete = true;
             // Change to reflect actual barcode scanning
             Console.WriteLine("Bar Code Scanned/Typed: " + BarCode);
             bool success = DBTest.validateQR(BarCode, secretKey);
+            List<bool> status = DBTest.getUserTasks(secretKey);
+            foreach(bool task in status)
+                if (!task)
+                    gameComplete = false;
+
+            if(gameComplete)
+            {
+                //special message here
+                EmailSMSTest.sendCongratsEmail(secretKey);
+            }
+            
             // If valid Qr code disable the qr code manual box
             barCodeBox = false;
         }
