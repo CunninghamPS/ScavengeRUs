@@ -836,8 +836,9 @@ namespace ScavengeRUs.Data
         public static bool validateQR(string QR, string guid)
         {
             bool exists;
-            string task_name;
+            string task_name = "";
             string accessCode = getAccessFromGuid(guid);
+            Console.WriteLine(accessCode);
             using (var conn = new SqlConnection(connectionString))
             {
                 using (var command = conn.CreateCommand())
@@ -857,7 +858,8 @@ namespace ScavengeRUs.Data
                         if (reader.HasRows)
                         {
                             exists = true;
-                            task_name = reader.GetString(1);
+                            task_name = "\"" + reader.GetString(1) + "\"";
+                            Console.WriteLine(task_name);
                         }
                         else
                             exists = false;
@@ -866,10 +868,12 @@ namespace ScavengeRUs.Data
                 }
                 if (exists)
                 {
+                    Console.WriteLine("here");
                     using (var command = conn.CreateCommand())
                     {
 
-                        command.CommandText = @"UPDATE game SET @taskname=1 WHERE accessCode=@accessCode";
+                        command.CommandText = @"UPDATE game SET " + task_name + "=1 WHERE accessCode=@accessCode;";
+                        Console.WriteLine("UPDATE game SET " + task_name + "=1 WHERE accessCode=" + accessCode);
 
                         command.Parameters.AddWithValue("@accessCode", accessCode);
 
@@ -888,6 +892,34 @@ namespace ScavengeRUs.Data
             }
 
             return exists;
+        }
+
+        public static string getEmail(string guid)
+        {
+            string accessCode = getAccessFromGuid(guid);
+
+            string result;
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var command = conn.CreateCommand())
+                {
+
+                    command.CommandText = @"SELECT email FROM account WHERE guid=@guid;";
+
+                    command.Parameters.AddWithValue("@guid", guid);
+
+                    conn.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        reader.Read();
+                        result = reader.GetString(0);
+                    }
+                }
+                conn.Close();
+            }
+
+            return result;
         }
     }
 }
