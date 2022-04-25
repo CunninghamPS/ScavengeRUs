@@ -91,6 +91,7 @@ namespace ScavengeRUs.Pages
                     emailStyle = "";
                     phoneStyle = "";
                     DBTest.updateUser(secretKey, Account.FirstName, Account.LastName, Account.UserName, Account.Email, Account.PhoneNumber);
+                    stringOnSubmit = "Changes Saved!";
                 }
             }
             catch (Exception)
@@ -98,7 +99,6 @@ namespace ScavengeRUs.Pages
                 Console.WriteLine("Invalid Update");
             }
             Console.WriteLine("Valid Update");
-            stringOnSubmit = "Changes Saved!";
         }
 
         protected override System.Threading.Tasks.Task OnInitializedAsync()
