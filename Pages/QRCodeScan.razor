@@ -6,6 +6,19 @@
 @inject IJSRuntime JsRuntime
 
 
+<SfDialog Width="180px" Height="170px" IsModal="true" AllowDragging="true" EnableResize="false" ShowCloseIcon="false" @bind-Visible="@IsVisible">
+    <DialogTemplates>
+        <Header>Error</Header>
+        <Content>
+            <p>Invalid QR Code! Try again.</p>
+        </Content>
+    </DialogTemplates>
+    <DialogButtons>
+        <DialogButton Content="Close" CssClass="errorModalBtn" IsPrimary="true" OnClick="@Close" />
+    </DialogButtons>
+</SfDialog>
+
+
 <div class="QRPage">
     @if (ShowScanBarcode)
     {
@@ -81,5 +94,9 @@
         margin:0 auto;
         padding: 10px;
         width: 150px;
+    }
+
+    .errorModalBtn {
+        width: 50px;
     }
 </style>
