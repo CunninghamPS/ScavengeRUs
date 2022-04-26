@@ -3,21 +3,20 @@
 @inherits MapPageBase
 @using ScavengeRUs.Data
 @using Syncfusion.Blazor.Maps
+@inject NavigationManager NavigationManager
+
+
 @inject IJSRuntime JSRuntime
 
-<div id="map" class="map" name="map" @bind=map>
-
-
+<div id="map" class="map" name="map">
+    
 </div>
-<div>
-  <!--  <button name="signupButton" class="btn btn-primary" @onclick="updateLocation">SignUp</button> -->
-</div>
+
 
 <br />
 
-@code{
-    
-}
+@code{} 
+
 
 <style>
 #mapButton{

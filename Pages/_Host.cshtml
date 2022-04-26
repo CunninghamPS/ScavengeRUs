@@ -21,12 +21,14 @@
 
 <!--Used in main ATM-->
  <script>
-     function initMap(secretKey) {
+     function initMap(secretKey,taskList) {
+         //var tasks = arrayfromargs(taskList);
               var locations = [
-      ['Culp Center', 36.3015766, -82.3678105,1],
-      ['Shared Library', 36.3027633, -82.3658339,2],
-      ['clock tower', 36.3035363, -82.3678372,3],
-      ['Millennium Center', 36.3058654, -82.3714292,4],
+      ["Nick's Hall", 36.3023702, -82.3681942,1],
+      ['Culp Center', 36.301729,-82.3669928,2],
+      ['Millennium Center', 36.3058654, -82.3714292,3],
+      ['Wilson-wallace', 36.3008801, -82.3707756,4],
+      ['Parking Garage', 36.30301,-82.3729681,5],
     ];
    
     //creates class =for marker
@@ -60,10 +62,13 @@
     }
     else
     {
-         for (i = 0; i < locations.length; i++) {  
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-        map: map
+        for (i = 0; i < locations.length; i++) {  
+            //if(tasks[i]==false){
+                marker = new google.maps.Marker({
+                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                map: map
+            //}
+               
       });
       
       google.maps.event.addListener(marker, 'click', (function(marker, i) {

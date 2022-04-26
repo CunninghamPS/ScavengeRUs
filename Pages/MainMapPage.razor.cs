@@ -1,4 +1,5 @@
 ﻿using Microsoft.JSInterop;
+using ScavengeRUs.Data;
 
 namespace ScavengeRUs.Pages
 {
@@ -6,15 +7,30 @@ namespace ScavengeRUs.Pages
     {
         string map;
 
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                await JSRuntime.InvokeVoidAsync("initMap", secretKey);
+                if (secretKey == null)
+                {
 
-                StateHasChanged();
+                }
+
+                else
+                {
+                    List<bool> taskCheck = DBTest.getUserTasks(secretKey);
+                    await JSRuntime.InvokeVoidAsync("initMap", secretKey, taskCheck);
+
+                    StateHasChanged();
+                }
+                {
+
+
+
+                }
             }
-        }
 
+        }
     }
 }
