@@ -10,7 +10,7 @@ namespace ScavengeRUs.Pages
         {
             if (firstRender)
             {
-                await JSRuntime.InvokeVoidAsync("initMap", null);
+                await JSRuntime.InvokeVoidAsync("initMap", secretKey);
 
                 StateHasChanged();
             }

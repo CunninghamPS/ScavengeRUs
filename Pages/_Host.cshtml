@@ -6,6 +6,8 @@
 }
 
 
+
+
     <environment include="Development">
         <link href="_content/Syncfusion.Blazor.Themes/bootstrap4.css" rel="stylesheet"/>
     </environment>
@@ -19,7 +21,7 @@
 
 <!--Used in main ATM-->
  <script>
-     function initMap() {
+     function initMap(secretKey) {
               var locations = [
       ['Culp Center', 36.3015766, -82.3678105,1],
       ['Shared Library', 36.3027633, -82.3658339,2],
@@ -52,8 +54,13 @@
   infoWindow = new google.maps.InfoWindow();
   //task marker creation
    var marker, i;
-    
-    for (i = 0; i < locations.length; i++) {  
+    if (secretKey == null)
+    {
+
+    }
+    else
+    {
+         for (i = 0; i < locations.length; i++) {  
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][1], locations[i][2]),
         map: map
@@ -67,6 +74,8 @@
       })(marker, i));
       //end task marker creation
     }
+    }
+   
 
   const locationButton = document.createElement("button");
   locationButton.textContent = "Update Location";
