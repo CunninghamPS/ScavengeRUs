@@ -22,7 +22,7 @@
 <!--Used in main ATM-->
  <script>
      function initMap(secretKey,taskList) {
-         //var tasks = arrayfromargs(taskList);
+        
               var locations = [
       ["Nick's Hall", 36.3023702, -82.3681942,1],
       ['Culp Center', 36.301729,-82.3669928,2],
@@ -30,6 +30,7 @@
       ['Wilson-wallace', 36.3008801, -82.3707756,4],
       ['Parking Garage', 36.30301,-82.3729681,5],
     ];
+   // var taskArray=taskList.split(",");
    
     //creates class =for marker
          const blueCheck = {
@@ -43,7 +44,7 @@
           anchor: new google.maps.Point(15, 30),
         };
 
-  map = new google.maps.Map(document.getElementById("map"), {
+    map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 36.3024, lng: -82.3699},                                         //starting Lat and Lng
     zoom: 14,
     streetViewControl: false,
@@ -62,26 +63,30 @@
     }
     else
     {
-        for (i = 0; i < locations.length; i++) {  
-            //if(tasks[i]==false){
+        for (i = 0; i < locations.length; i++) 
+        {  
+            console.log(taskList.charAt(i));
+            
+            if(taskList.charAt(i)==0){
                 marker = new google.maps.Marker({
                 position: new google.maps.LatLng(locations[i][1], locations[i][2]),
                 map: map
-            //}
-               
-      });
-      
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function() {
-          infoWindow.setContent(locations[i][0]);
-          infoWindow.open(map, marker);
-        }
-      })(marker, i));
-      //end task marker creation
-    }
-    }
-   
+                });
+            
 
+                google.maps.event.addListener(marker, 'click', (function(marker, i) 
+                {
+                    return function() 
+                {
+                infoWindow.setContent(locations[i][0]);
+                infoWindow.open(map, marker);
+                }
+                })(marker, i));
+            }
+      //end task marker creation
+      }
+    }
+ 
   const locationButton = document.createElement("button");
   locationButton.textContent = "Update Location";
   locationButton.classList.add("custom-map-control-button");
@@ -96,10 +101,8 @@
             lng: position.coords.longitude,
           };
 
-          
-          autoUpdate();
+         autoUpdate();
          map.setCenter(pos);
-         
         },
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
@@ -122,8 +125,6 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   );
   infoWindow.open(map);
 }
-
-
  </script>
 
  <script>
@@ -148,8 +149,6 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
             map,
             title: "user",
          });
-   
-
     // Center the map on the new position
     map.setCenter(newPoint);
   }); 
@@ -159,8 +158,5 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   return marker;
 }
  </script>
-
-
-
 <component type="typeof(App)" render-mode="ServerPrerendered" />
 

@@ -12,23 +12,34 @@ namespace ScavengeRUs.Pages
         {
             if (firstRender)
             {
-                if (secretKey == null)
-                {
-
-                }
-
-                else
+                if (secretKey != null)
                 {
                     List<bool> taskCheck = DBTest.getUserTasks(secretKey);
-                    await JSRuntime.InvokeVoidAsync("initMap", secretKey, taskCheck);
+                    Console.WriteLine(taskCheck);
+                    string taskString = "";
+                    foreach (var task in taskCheck)
+                    {
+
+                        if (task == true)
+                        {
+                            taskString += ("1");
+                        }
+                        else if (task == false)
+                        {
+                            taskString += ("0");
+                        }
+                    }
+                    //Console.WriteLine(taskString);
+                    //taskString=taskString.Remove(taskString.Length - 1);
+
+                    //Console.WriteLine(taskString);
+                    await JSRuntime.InvokeVoidAsync("initMap", secretKey, taskString);
 
                     StateHasChanged();
                 }
-                {
 
-
-
-                }
+               
+                
             }
 
         }
