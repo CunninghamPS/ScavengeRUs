@@ -53,6 +53,7 @@ namespace ScavengeRUs.Pages
 
                     EmailSMSTest.sendCongratsEmail(secretKey);
                 }
+                navManager.NavigateTo("/map/" + secretKey);
             }
             
             // If valid Qr code disable the qr code manual box
