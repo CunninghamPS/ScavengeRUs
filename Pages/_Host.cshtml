@@ -158,5 +158,16 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   return marker;
 }
  </script>
+
+ <script> 
+    window.getWindowDimensions = function () {
+        return {
+            width: window.innerWidth,
+            height: window.innerHeight
+        };
+    };
+ </script>
+
+
 <component type="typeof(App)" render-mode="ServerPrerendered" />
 

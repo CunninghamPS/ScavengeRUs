@@ -50,6 +50,7 @@ namespace ScavengeRUs.Pages
                 if (gameComplete)
                 {
                     //special message here
+
                     EmailSMSTest.sendCongratsEmail(secretKey);
                 }
             }
