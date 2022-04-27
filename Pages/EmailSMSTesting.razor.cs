@@ -11,7 +11,7 @@ namespace ScavengeRUs.Pages
 
         private void dbTest()
         {
-            EmailSMSTest.sendAll();
+            EmailSMSTest.sendAccessCodeText("test", "2766082298");
         }
 
         private void loginTest()
