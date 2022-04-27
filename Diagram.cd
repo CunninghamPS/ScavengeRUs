@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Comment CommentText="Razor Pages">
-    <Position X="6.988" Y="7.458" Height="0.291" Width="0.861" />
+    <Position X="8.806" Y="7.086" Height="0.291" Width="0.861" />
   </Comment>
   <Comment CommentText="Data Classes">
-    <Position X="1.627" Y="9.344" Height="0.291" Width="0.909" />
+    <Position X="0.98" Y="9.84" Height="0.291" Width="0.909" />
   </Comment>
   <Comment CommentText="Models">
-    <Position X="12.478" Y="5" Height="0.291" Width="0.7" />
+    <Position X="14.307" Y="3.953" Height="0.291" Width="0.7" />
   </Comment>
   <Class Name="ScavengeRUs.Models.Account">
-    <Position X="11.25" Y="0.5" Width="1.5" />
+    <Position X="12.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAACCAAAAAAAAAAQAABAAAAAAACAQAAAAAAAAg=</HashCode>
       <FileName>Models\Account.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ScavengeRUs.Data.AccountModel">
-    <Position X="0.5" Y="6.75" Width="1.5" />
+    <Position X="0.5" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAACAAAAAAAAAAQAABAAAAAAACAQAAAAAAAAg=</HashCode>
       <FileName>Data\AccountModel.cs</FileName>
@@ -26,14 +26,14 @@
   <Class Name="ScavengeRUs.Data.DBTest">
     <Position X="2.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIBACABAAgAEAgAAAAIAAAABIAKBoAAEAAAAAkGEhA=</HashCode>
+      <HashCode>AAIBAiABAQgAEggAAAAIAAAABJAKBoAAEAgQAAkGEhA=</HashCode>
       <FileName>Data\DBTest.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ScavengeRUs.Data.EmailSMSTest">
     <Position X="0.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAAAAIAAgAAAAAAACAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <HashCode>AAAACAAAAAAIAAgAAAAAAACAAAAAAAAAEAAAAEAAAAA=</HashCode>
       <FileName>Data\EmailSMSTest.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -66,21 +66,21 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ScavengeRUs.Models.Game">
-    <Position X="13" Y="0.5" Width="1.5" />
+    <Position X="14.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAIAAAAAAA=</HashCode>
       <FileName>Models\Game.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ScavengeRUs.Models.Task">
-    <Position X="13" Y="2.25" Width="1.5" />
+    <Position X="14.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Task.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ScavengeRUs.Models.User">
-    <Position X="11.25" Y="3.25" Width="1.5" />
+    <Position X="12.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAEAAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Models\User.cs</FileName>
@@ -103,7 +103,7 @@
   <Class Name="ScavengeRUs.Pages.LoginScreen">
     <Position X="8.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAEACAABACAIAAAAAAAAAAAAAAAACCIAAAAAAAQA=</HashCode>
+      <HashCode>AAAAAEACAABACAIBAAAAAAAAQAACAAACCBAAAAAAAQA=</HashCode>
       <FileName>Pages\LoginScreen.razor.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -121,7 +121,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ScavengeRUs.Pages.MainMapPage">
-    <Position X="5" Y="7" Width="1.5" />
+    <Position X="5" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Pages\MainMapPage.razor.cs</FileName>
@@ -130,14 +130,14 @@
   <Class Name="ScavengeRUs.Pages.QRCodeScan">
     <Position X="5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABEAAAAAAACAAAABAEAAAAAAAAAQAAAAAAAAAAAAACA=</HashCode>
+      <HashCode>ABEAAAAAAAAAEAABIEAAAAAAAABAQAAAAAAAAACAAAA=</HashCode>
       <FileName>Pages\QRCodeScan.razor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ScavengeRUs.Pages.SignUpScreen">
     <Position X="6.75" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAEAACAJAEAAAAABAAAAACAAAAAAAAAAQIACAAEA=</HashCode>
+      <HashCode>QQIggEAAKAIAEAAAAABBAAQACAAAAALAAAAQIADCAEA=</HashCode>
       <FileName>Pages\SignUpScreen.razor.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -149,9 +149,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ScavengeRUs.Pages.UserAccount">
-    <Position X="8.5" Y="6" Width="1.5" />
+    <Position X="10.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAEAAAABAEAAAAAAAAAAAAAAAAAAAAAAAIACAAEA=</HashCode>
+      <HashCode>QQIggEAAIAAAEAAAAIABAAQAgAACAALCAAAAIAiCBEA=</HashCode>
       <FileName>Pages\UserAccount.razor.cs</FileName>
     </TypeIdentifier>
   </Class>
