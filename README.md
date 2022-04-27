@@ -5,3 +5,5 @@
 ## must make an account on https://developers.google.com/maps and get an API key
 ##insert the key in line 17 in the _Host.cshtml file 
 ##you will also have to make another map ID, I would use the colors to make everthing match
+
+#Must add a syncfusion key in the Program.cs classd on line 16 after the syncfusion license key comment
