@@ -32,8 +32,17 @@ namespace ScavengeRUs.Data
 
         }
 
+        public static void send(string email, string phone, string accessCode)
+        {
+            string urlID = DBTest.getURL(accessCode);
+
+            sendAccessCodeText(accessCode, phone);
+            sendURLEmail(urlID, email);
+        }
+
         public static void sendCongratsEmail(string guid)
         {
+            Console.WriteLine("sent");
             string gameOver = "Congrats on completing the game!";
             string email = DBTest.getEmail(guid);
 
@@ -49,7 +58,7 @@ namespace ScavengeRUs.Data
             //adds a recipient to the message
             message.To.Add(MailboxAddress.Parse(email));
             //adds a subject to the message
-            message.Subject = "ScavengeRUs Access Code";
+            message.Subject = "ScavengeRUs Game Completion";
             //adds a message body in plain text
             message.Body = new TextPart("plain")
             {
@@ -124,6 +133,7 @@ namespace ScavengeRUs.Data
 
         public static void sendAccessCodeText(string accessCode, string phoneNum)
         {
+            Console.WriteLine("test");
             SmsClient smsClient = new SmsClient(connectionString);
 
             SmsSendResult sendResult = smsClient.Send(
@@ -131,6 +141,8 @@ namespace ScavengeRUs.Data
                 to: "+1" + phoneNum,
                 message: "Thank you for playing ScavengeRUs: Your access code is " + accessCode
             );
+
+            Console.WriteLine($"Sms id: {sendResult.Successful}");
         }
 
 

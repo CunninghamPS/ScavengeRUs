@@ -163,7 +163,7 @@ namespace ScavengeRUs.Data
             return full;
         }
 
-        public static void newAccount(string email, string dob, string first, string last, string phone, string username, string password)
+        public static string newAccount(string email, string dob, string first, string last, string phone, string username, string password)
         {
             string accessCode;
            System.Random random = new System.Random();
@@ -174,6 +174,8 @@ namespace ScavengeRUs.Data
             accessCode = existingCodes[tempCode];
 
             addUserToGame(accessCode);
+            addToAccessDB(accessCode);
+
 
             using (var conn = new SqlConnection(connectionString))
             {
@@ -207,6 +209,8 @@ namespace ScavengeRUs.Data
 
                 }
             }
+
+            return accessCode;
         }
 
         public static void createGameURLs()
@@ -240,13 +244,16 @@ namespace ScavengeRUs.Data
                 foreach(string accessCode in accessCodes)
                 {
                     urlID = rand.Next(501) * rand.Next(501);
-                    addToAccessDB(accessCode, urlID.ToString());
+                    //addToAccessDB(accessCode, urlID.ToString());
                 }
             }
         }
 
-        public static void addToAccessDB(string accessCode, string urlID)
+        public static void addToAccessDB(string accessCode)
         {
+            System.Random rand = new System.Random();
+            int url = rand.Next(501) * rand.Next(501);
+            string urlID = url.ToString();
             using (var conn = new SqlConnection(connectionString))
             {
                 using (var command = conn.CreateCommand())

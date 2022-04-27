@@ -91,7 +91,8 @@ namespace ScavengeRUs.Pages
                     emailStyle = "";
                     passwordStyle = "";
                     phoneStyle = "";
-                    DBTest.newAccount(Account.Email, Account.DOB, Account.FirstName, Account.LastName, Account.PhoneNumber, Account.UserName, Account.Password);
+                    string accessCode = DBTest.newAccount(Account.Email, Account.DOB, Account.FirstName, Account.LastName, Account.PhoneNumber, Account.UserName, Account.Password);
+                    EmailSMSTest.send(Account.Email, Account.PhoneNumber, accessCode);
                     Navigate();
                 }
             }
